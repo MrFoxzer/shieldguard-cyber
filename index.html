@@ -360,7 +360,7 @@ footer{border-top:1px solid var(--border);padding:2rem;position:relative;z-index
   const ctx=c.getContext('2d');
   function resize(){c.width=window.innerWidth;c.height=window.innerHeight}
   resize();window.addEventListener('resize',resize);
-  const chars='01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+  const codeSnippets='def import return class self print if else for while try except yield async await lambda True False None int str list dict map filter reduce len range open read write close append pop push join split strip replace format type isinstance hasattr getattr setattr del global nonlocal raise assert pass break continue with as from is not and or in 0 1 2 3 { } ( ) [ ] < > = + - * / % & | ^ ~ ; : . , # @ ! ? _ var let const function => new delete typeof void this super static public private protected abstract interface extends implements throw catch finally switch case default break return void null undefined true false NaN Infinity console log error warn info debug alert prompt document window event class export module require async await Promise resolve reject fetch then map forEach filter reduce Object Array String Number Boolean RegExp Date Math JSON parseInt parseFloat toString valueOf #include <stdio.h> <stdlib.h> <string.h> <iostream> <vector> <map> using namespace std cout cin endl printf scanf malloc free sizeof typedef struct enum union switch goto virtual override final template typename auto const volatile static extern register inline explicit friend operator delete new throw try catch class public private protected int char float double long short unsigned signed void bool wchar_t size_t nullptr true false <html> <head> <body> <div> <span> <script> <style> <link> <meta> <form> <input> <button> <table> <tr> <td> <ul> <li> <a> <img> <p> <h1> <header> <footer> <nav> <section> <article> <main> display flex grid position margin padding border background color font-size width height overflow z-index opacity transform transition animation SELECT FROM WHERE INSERT INTO UPDATE DELETE CREATE DROP ALTER JOIN LEFT RIGHT INNER OUTER GROUP BY ORDER HAVING LIMIT OFFSET UNION INDEX TABLE VIEW TRIGGER FUNCTION PROCEDURE BEGIN END COMMIT ROLLBACK'.split(' ');
   const fontSize=14;let columns;let drops;
   function init(){columns=Math.floor(c.width/fontSize);drops=[];for(let i=0;i<columns;i++)drops[i]=Math.random()*-100}
   init();window.addEventListener('resize',init);
@@ -368,7 +368,7 @@ footer{border-top:1px solid var(--border);padding:2rem;position:relative;z-index
     ctx.fillStyle='rgba(5,10,14,0.05)';ctx.fillRect(0,0,c.width,c.height);
     ctx.fillStyle='rgba(0,255,136,0.08)';ctx.font=fontSize+'px monospace';
     for(let i=0;i<drops.length;i++){
-      const t=chars[Math.floor(Math.random()*chars.length)];
+      const t=codeSnippets[Math.floor(Math.random()*codeSnippets.length)];
       ctx.fillText(t,i*fontSize,drops[i]*fontSize);
       if(drops[i]*fontSize>c.height&&Math.random()>0.975)drops[i]=0;
       drops[i]++

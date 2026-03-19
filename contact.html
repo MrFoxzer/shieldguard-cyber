@@ -249,7 +249,7 @@ footer{border-top:1px solid var(--border);padding:2rem;position:relative;z-index
   const c=document.getElementById('matrixCanvas');const ctx=c.getContext('2d');
   function resize(){c.width=window.innerWidth;c.height=window.innerHeight}
   resize();window.addEventListener('resize',resize);
-  const chars='01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+  const codeSnippets='def import return class self print if else for while try except yield async await lambda True False None int str list dict map filter reduce len range var let const function new delete typeof void this super static public private console log error document window class export module require async await Promise fetch then forEach Object Array String Number Boolean #include <stdio.h> <iostream> <vector> using namespace std cout cin endl printf scanf malloc free sizeof typedef struct enum int char float double void bool <html> <head> <body> <div> <script> <style> display flex grid position margin padding border background color font-size width height SELECT FROM WHERE INSERT INTO UPDATE DELETE CREATE JOIN GROUP ORDER BY'.split(' ');
   const fontSize=14;let columns;let drops;
   function init(){columns=Math.floor(c.width/fontSize);drops=[];for(let i=0;i<columns;i++)drops[i]=Math.random()*-100}
   init();window.addEventListener('resize',init);
@@ -257,7 +257,7 @@ footer{border-top:1px solid var(--border);padding:2rem;position:relative;z-index
     ctx.fillStyle='rgba(5,10,14,0.05)';ctx.fillRect(0,0,c.width,c.height);
     ctx.fillStyle='rgba(0,255,136,0.08)';ctx.font=fontSize+'px monospace';
     for(let i=0;i<drops.length;i++){
-      const t=chars[Math.floor(Math.random()*chars.length)];
+      const t=codeSnippets[Math.floor(Math.random()*codeSnippets.length)];
       ctx.fillText(t,i*fontSize,drops[i]*fontSize);
       if(drops[i]*fontSize>c.height&&Math.random()>0.975)drops[i]=0;
       drops[i]++
