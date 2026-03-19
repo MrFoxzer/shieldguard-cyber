@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Services — ShieldGuard Enterprise Cybersecurity</title>
-<meta name="description" content="ShieldGuard cybersecurity services: Threat Detection, Zero Trust, SOC Monitoring, Cloud Security, Incident Response, and Penetration Testing.">
+<meta name="description" content="ShieldGuard cybersecurity services: Threat Detection, Zero Trust, SOC Monitoring, Cloud Security, Identity & Access, Incident Response.">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
@@ -13,8 +13,10 @@
 html{scroll-behavior:smooth;font-size:16px}
 body{font-family:'Rajdhani',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.6}
 body::after{content:'';position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px)}
+#matrixCanvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}
 .cyber-grid{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(0,255,136,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,136,0.02) 1px,transparent 1px);background-size:40px 40px}
-nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:1rem 2rem;background:rgba(5,10,14,0.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:1rem 2rem;transition:all 0.4s;background:rgba(5,10,14,0.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
 .nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
 .nav-logo{display:flex;align-items:center;gap:0.75rem;text-decoration:none}
 .nav-logo img{max-height:40px;width:auto}
@@ -27,6 +29,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:1rem 2rem;backgroun
 .mobile-menu{display:none;position:fixed;top:60px;left:0;right:0;background:rgba(5,10,14,0.98);border-bottom:1px solid var(--border);padding:2rem;z-index:999}
 .mobile-menu.active{display:block}
 .mobile-menu a{display:block;color:var(--text-dim);text-decoration:none;font-size:1rem;padding:0.75rem 0;border-bottom:1px solid var(--border2);text-transform:uppercase;letter-spacing:1px}
+
 section{position:relative;z-index:1}
 .section-pad{padding:6rem 2rem}
 .container{max-width:1200px;margin:0 auto}
@@ -34,14 +37,25 @@ section{position:relative;z-index:1}
 .section-label::before{content:'//';color:var(--green-dim)}
 .section-title{font-family:'Orbitron';font-size:2.2rem;font-weight:700;color:var(--text-bright);text-transform:uppercase;letter-spacing:1px;margin-bottom:1rem}
 .section-sub{font-size:1rem;color:var(--text-dim);max-width:600px;line-height:1.8}
-.text-center{text-align:center}.text-center .section-sub{margin:0 auto}.text-center .section-label{justify-content:center}
+.text-center{text-align:center}
+.text-center .section-sub{margin:0 auto}
+.text-center .section-label{justify-content:center}
 .btn-cyber{padding:0.9rem 2.5rem;border:1px solid var(--green);background:transparent;color:var(--green);font-family:'Rajdhani';font-weight:700;font-size:1rem;letter-spacing:2px;text-transform:uppercase;cursor:pointer;position:relative;transition:all 0.3s;text-decoration:none;display:inline-flex;align-items:center;gap:0.75rem}
 .btn-cyber::before{content:'';position:absolute;top:-1px;left:-1px;right:-1px;bottom:-1px;background:var(--green);opacity:0;transition:opacity 0.3s;z-index:-1}
 .btn-cyber:hover{color:var(--bg);box-shadow:var(--glow)}.btn-cyber:hover::before{opacity:1}
+
+.glitch-hover{position:relative;display:inline-block}
+.glitch-hover:hover{animation:glitch 0.3s linear}
+@keyframes glitch{0%{transform:translate(0)}20%{transform:translate(-2px,2px)}40%{transform:translate(2px,-2px)}60%{transform:translate(-1px,-1px)}80%{transform:translate(1px,1px)}100%{transform:translate(0)}}
+.glitch-hover:hover::before,.glitch-hover:hover::after{content:attr(data-text);position:absolute;top:0;left:0;width:100%;height:100%}
+.glitch-hover:hover::before{color:var(--cyan);z-index:-1;animation:glitchClip 0.3s linear;clip-path:polygon(0 0,100% 0,100% 35%,0 35%)}
+.glitch-hover:hover::after{color:var(--red);z-index:-1;animation:glitchClip2 0.3s linear;clip-path:polygon(0 65%,100% 65%,100% 100%,0 100%)}
+@keyframes glitchClip{0%{transform:translate(0)}25%{transform:translate(3px,-1px)}50%{transform:translate(-2px,1px)}75%{transform:translate(1px,2px)}100%{transform:translate(0)}}
+@keyframes glitchClip2{0%{transform:translate(0)}25%{transform:translate(-3px,1px)}50%{transform:translate(2px,-1px)}75%{transform:translate(-1px,-2px)}100%{transform:translate(0)}}
+
 .fade-up{opacity:0;transform:translateY(30px);transition:all 0.7s cubic-bezier(0.16,1,0.3,1)}
 .fade-up.visible{opacity:1;transform:translateY(0)}
 
-/* PAGE HERO */
 .page-hero{padding:8rem 2rem 4rem;position:relative;z-index:1;border-bottom:1px solid var(--border)}
 .page-hero .container{max-width:1200px;margin:0 auto}
 .page-hero .hero-top-label{font-family:'JetBrains Mono';font-size:0.75rem;color:var(--green);letter-spacing:2px;text-transform:uppercase;margin-bottom:1.5rem;display:flex;align-items:center;gap:0.75rem}
@@ -50,57 +64,61 @@ section{position:relative;z-index:1}
 .page-hero h1 .green{color:var(--green);text-shadow:0 0 30px rgba(0,255,136,0.3)}
 .page-hero p{font-size:1.1rem;color:var(--text-dim);max-width:600px;line-height:1.8}
 
-/* SERVICE DETAIL CARDS */
-.service-detail{margin-top:2rem;border:1px solid var(--border);background:var(--bg2);overflow:hidden;transition:all 0.4s}
-.service-detail:hover{border-color:rgba(0,255,136,0.3);box-shadow:var(--glow)}
-.service-detail-header{display:flex;align-items:center;justify-content:space-between;padding:2rem 2.5rem;border-bottom:1px solid var(--border);background:rgba(0,255,136,0.02)}
-.sd-left{display:flex;align-items:center;gap:1.5rem}
-.sd-num{font-family:'Orbitron';font-size:2.5rem;font-weight:800;color:rgba(0,255,136,0.15)}
-.sd-icon{width:50px;height:50px;border:1px solid var(--green);display:flex;align-items:center;justify-content:center;color:var(--green);font-size:1.3rem}
-.sd-title{font-family:'Orbitron';font-size:1.2rem;font-weight:700;color:var(--text-bright);text-transform:uppercase;letter-spacing:1px}
-.sd-subtitle{font-family:'JetBrains Mono';font-size:0.7rem;color:var(--green);letter-spacing:1px;margin-top:0.25rem}
+/* THREAT LEVEL INDICATOR */
+.threat-level{display:flex;align-items:center;gap:0.5rem;margin-top:2rem}
+.threat-level-label{font-family:'JetBrains Mono';font-size:0.7rem;color:var(--text-dim);letter-spacing:1px;text-transform:uppercase}
+.threat-bars{display:flex;gap:3px}
+.threat-bar{width:20px;height:8px;background:var(--border);position:relative;overflow:hidden}
+.threat-bar.active{background:var(--green);animation:barPulse 1.5s infinite}
+.threat-bar.active.amber{background:var(--amber)}
+.threat-bar.active.red{background:var(--red)}
+@keyframes barPulse{0%,100%{opacity:1}50%{opacity:0.5}}
 
-/* Threat Level Indicator */
-.threat-level{display:flex;align-items:center;gap:0.5rem}
-.threat-level-label{font-family:'JetBrains Mono';font-size:0.65rem;color:var(--text-dim);letter-spacing:1px;text-transform:uppercase}
-.threat-bars{display:flex;gap:3px;align-items:flex-end}
-.threat-bar{width:6px;background:var(--green);border-radius:1px;animation:barPulse 2s infinite}
-.threat-bar:nth-child(1){height:8px;animation-delay:0s}
-.threat-bar:nth-child(2){height:14px;animation-delay:0.1s}
-.threat-bar:nth-child(3){height:20px;animation-delay:0.2s}
-.threat-bar:nth-child(4){height:16px;animation-delay:0.3s}
-.threat-bar:nth-child(5){height:24px;animation-delay:0.4s}
-.threat-bar.amber{background:var(--amber)}
-.threat-bar.red{background:var(--red)}
-@keyframes barPulse{0%,100%{opacity:1}50%{opacity:0.4}}
+/* SERVICES GRID */
+.services-detail-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-top:3rem}
+.service-detail-card{background:var(--bg2);border:1px solid var(--border);padding:0;overflow:hidden;transition:all 0.4s;position:relative}
+.service-detail-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:0;background:var(--green);transition:height 0.5s}
+.service-detail-card:hover::before{height:100%}
+.service-detail-card:hover{border-color:rgba(0,255,136,0.3);box-shadow:var(--glow)}
+.service-card-header{padding:2rem 2rem 0;display:flex;align-items:flex-start;justify-content:space-between}
+.service-card-num{font-family:'Orbitron';font-size:3rem;font-weight:900;color:rgba(0,255,136,0.06);line-height:1}
+.service-card-icon{width:50px;height:50px;border:1px solid var(--green);display:flex;align-items:center;justify-content:center;color:var(--green);font-size:1.2rem;transition:all 0.3s}
+.service-detail-card:hover .service-card-icon{background:var(--green);color:var(--bg)}
+.service-card-body{padding:1.5rem 2rem 2rem}
+.service-card-body h3{font-family:'Orbitron';font-size:1rem;font-weight:700;color:var(--text-bright);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.75rem}
+.service-card-body p{font-size:0.9rem;color:var(--text-dim);line-height:1.7;margin-bottom:1.25rem}
+.service-features{list-style:none;padding:0}
+.service-features li{font-family:'JetBrains Mono';font-size:0.75rem;color:var(--text-dim);padding:0.35rem 0;display:flex;align-items:center;gap:0.5rem}
+.service-features li::before{content:'>';color:var(--green);font-weight:700}
+.service-card-footer{border-top:1px solid var(--border);padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.service-card-footer .threat-level-mini{display:flex;align-items:center;gap:0.5rem}
+.service-card-footer .threat-level-mini span{font-family:'JetBrains Mono';font-size:0.65rem;color:var(--text-dim);letter-spacing:1px}
+.threat-dots{display:flex;gap:3px}
+.threat-dot{width:8px;height:8px;border-radius:50%;background:var(--border)}
+.threat-dot.active{animation:dotBlink 1.2s infinite}
+.threat-dot.g{background:var(--green)}
+.threat-dot.a{background:var(--amber)}
+.threat-dot.r{background:var(--red)}
+@keyframes dotBlink{0%,100%{opacity:1}50%{opacity:0.3}}
+.service-card-footer .sla{font-family:'JetBrains Mono';font-size:0.65rem;color:var(--green);letter-spacing:1px}
 
-.sd-body{display:grid;grid-template-columns:2fr 1fr;gap:2rem;padding:2.5rem}
-.sd-description p{color:var(--text-dim);line-height:1.8;margin-bottom:1.5rem}
-.sd-features{list-style:none;display:grid;gap:0.5rem}
-.sd-features li{font-size:0.9rem;color:var(--text);padding:0.4rem 0;display:flex;align-items:center;gap:0.75rem}
-.sd-features li::before{content:'[+]';font-family:'JetBrains Mono';font-size:0.7rem;color:var(--green)}
-.sd-terminal{background:var(--bg);border:1px solid var(--border);padding:1.5rem;font-family:'JetBrains Mono';font-size:0.75rem;position:relative}
-.sd-terminal::before{content:attr(data-label);position:absolute;top:-10px;left:1rem;background:var(--bg2);padding:0 0.5rem;font-size:0.6rem;color:var(--green);letter-spacing:2px}
-.sd-terminal .t-row{display:flex;justify-content:space-between;padding:0.4rem 0;border-bottom:1px solid var(--border2)}
-.sd-terminal .t-row:last-child{border:none}
-.sd-terminal .t-label{color:var(--text-dim)}
-.sd-terminal .t-val{color:var(--green);font-weight:600}
-.sd-terminal .t-val.cyan{color:var(--cyan)}
-.sd-terminal .t-val.amber{color:var(--amber)}
-.sd-terminal .t-val.red{color:var(--red)}
-
-/* PROCESS */
-.process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;margin-top:3rem;background:var(--border)}
-.process-step{background:var(--bg);padding:2.5rem 2rem;text-align:center;position:relative;transition:all 0.4s}
-.process-step:hover{background:var(--bg2)}
-.process-step::before{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--green);transition:width 0.4s}
-.process-step:hover::before{width:100%}
-.process-num{font-family:'Orbitron';font-size:2rem;font-weight:800;color:rgba(0,255,136,0.1);margin-bottom:1rem}
-.process-step i{font-size:1.5rem;color:var(--green);margin-bottom:1rem}
+/* HOW IT WORKS */
+.process-section{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.process-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:3rem;position:relative}
+.process-steps::before{content:'';position:absolute;top:35px;left:10%;right:10%;height:1px;background:var(--green);opacity:0.2}
+.process-step{text-align:center;padding:0 1.5rem;position:relative}
+.step-num{width:70px;height:70px;margin:0 auto 1.5rem;border:1px solid var(--green);display:flex;align-items:center;justify-content:center;font-family:'Orbitron';font-size:1.2rem;font-weight:700;color:var(--green);background:var(--bg2);position:relative;z-index:2;transition:all 0.3s}
+.process-step:hover .step-num{background:var(--green);color:var(--bg);box-shadow:var(--glow)}
 .process-step h4{font-family:'Orbitron';font-size:0.8rem;font-weight:600;color:var(--text-bright);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.5rem}
 .process-step p{font-size:0.85rem;color:var(--text-dim);line-height:1.6}
 
-/* FOOTER */
+/* TECH STACK */
+.tech-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:1rem;margin-top:3rem}
+.tech-item{background:var(--bg2);border:1px solid var(--border);padding:1.5rem;text-align:center;transition:all 0.3s}
+.tech-item:hover{border-color:var(--green);box-shadow:var(--glow)}
+.tech-item i{font-size:1.5rem;color:var(--green);margin-bottom:0.75rem;display:block}
+.tech-item span{display:block;font-family:'JetBrains Mono';font-size:0.65rem;color:var(--text-dim);letter-spacing:1px;text-transform:uppercase}
+
 footer{border-top:1px solid var(--border);padding:2rem;position:relative;z-index:1}
 .footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
 .footer-copy{font-family:'JetBrains Mono';font-size:0.75rem;color:var(--text-dim)}
@@ -110,19 +128,22 @@ footer{border-top:1px solid var(--border);padding:2rem;position:relative;z-index
 
 @media(max-width:900px){
   .page-hero h1{font-size:2rem}
-  .sd-body{grid-template-columns:1fr}
-  .process-grid{grid-template-columns:repeat(2,1fr)}
-  .sd-left{flex-wrap:wrap}
+  .services-detail-grid{grid-template-columns:1fr}
+  .process-steps{grid-template-columns:repeat(2,1fr);gap:2rem}
+  .process-steps::before{display:none}
+  .tech-grid{grid-template-columns:repeat(3,1fr)}
   .nav-links{display:none}.mobile-toggle{display:block}
 }
 @media(max-width:600px){
-  .process-grid{grid-template-columns:1fr}
-  .service-detail-header{flex-direction:column;gap:1rem;align-items:flex-start}
+  .process-steps{grid-template-columns:1fr}
+  .tech-grid{grid-template-columns:repeat(2,1fr)}
   .footer-inner{flex-direction:column;text-align:center}
 }
 </style>
 </head>
 <body>
+
+<canvas id="matrixCanvas"></canvas>
 <div class="cyber-grid"></div>
 
 <nav>
@@ -144,279 +165,187 @@ footer{border-top:1px solid var(--border);padding:2rem;position:relative;z-index
   <a href="about.html">About</a><a href="services.html">Services</a><a href="pricing.html">Pricing</a><a href="threat-intel.html">Threat Intel</a><a href="blog.html">Blog</a><a href="contact.html">Contact</a>
 </div>
 
+<!-- PAGE HERO -->
 <section class="page-hero">
   <div class="container">
     <div class="hero-top-label">Security Solutions // Service Catalog</div>
-    <h1>Full-Spectrum<br><span class="green">Cyber Defense</span></h1>
-    <p>Six integrated security services forming an impenetrable defense layer across your entire digital infrastructure.</p>
+    <h1 class="glitch-hover" data-text="FULL-SPECTRUM CYBER DEFENSE">Full-Spectrum<br>Cyber <span class="green">Defense</span></h1>
+    <p>Six integrated cybersecurity services designed to protect every layer of your digital infrastructure. AI-powered, human-verified, always operational.</p>
+    <div class="threat-level">
+      <span class="threat-level-label">Current Threat Level:</span>
+      <div class="threat-bars">
+        <div class="threat-bar active"></div>
+        <div class="threat-bar active"></div>
+        <div class="threat-bar active"></div>
+        <div class="threat-bar active amber"></div>
+        <div class="threat-bar active amber"></div>
+        <div class="threat-bar"></div>
+        <div class="threat-bar"></div>
+      </div>
+      <span class="threat-level-label" style="color:var(--amber)">ELEVATED</span>
+    </div>
   </div>
 </section>
 
-<!-- SERVICE 1: THREAT DETECTION -->
+<!-- SERVICES DETAIL -->
 <section class="section-pad">
   <div class="container">
-    <div class="service-detail fade-up">
-      <div class="service-detail-header">
-        <div class="sd-left">
-          <div class="sd-num">01</div>
-          <div class="sd-icon"><i class="fa-solid fa-eye"></i></div>
-          <div><div class="sd-title">AI Threat Detection</div><div class="sd-subtitle">Real-Time Behavioral Analysis</div></div>
-        </div>
-        <div class="threat-level">
-          <div class="threat-level-label">Detection Active</div>
-          <div class="threat-bars">
-            <div class="threat-bar"></div><div class="threat-bar"></div><div class="threat-bar"></div><div class="threat-bar"></div><div class="threat-bar"></div>
-          </div>
-        </div>
-      </div>
-      <div class="sd-body">
-        <div class="sd-description">
-          <p>Our AI-powered threat detection engine uses machine learning algorithms trained on billions of threat signatures to monitor your network in real-time. It identifies anomalous behavior, zero-day exploits, and advanced persistent threats before they can cause damage.</p>
-          <ul class="sd-features">
-            <li>Behavioral analysis across all endpoints</li>
-            <li>Zero-day exploit detection with ML models</li>
-            <li>Network traffic anomaly identification</li>
-            <li>Automated threat classification & scoring</li>
-            <li>Real-time alert correlation engine</li>
-            <li>Custom detection rule creation</li>
-          </ul>
-        </div>
-        <div class="sd-terminal" data-label="DETECTION_METRICS">
-          <div class="t-row"><span class="t-label">> Accuracy</span><span class="t-val">99.97%</span></div>
-          <div class="t-row"><span class="t-label">> Detection Time</span><span class="t-val">0.3ms</span></div>
-          <div class="t-row"><span class="t-label">> False Positive</span><span class="t-val cyan">0.02%</span></div>
-          <div class="t-row"><span class="t-label">> Signatures DB</span><span class="t-val">4.2B</span></div>
-          <div class="t-row"><span class="t-label">> ML Models</span><span class="t-val">47</span></div>
-          <div class="t-row"><span class="t-label">> Status</span><span class="t-val">ACTIVE</span></div>
-        </div>
-      </div>
+    <div class="text-center fade-up">
+      <div class="section-label">Service Catalog</div>
+      <h2 class="section-title glitch-hover" data-text="ENTERPRISE SECURITY SERVICES">Enterprise Security Services</h2>
+      <p class="section-sub">Each service is backed by our proprietary AI engine, 24/7 SOC analysts, and a guaranteed SLA.</p>
     </div>
 
-    <!-- SERVICE 2: ZERO TRUST -->
-    <div class="service-detail fade-up">
-      <div class="service-detail-header">
-        <div class="sd-left">
-          <div class="sd-num">02</div>
-          <div class="sd-icon"><i class="fa-solid fa-lock"></i></div>
-          <div><div class="sd-title">Zero Trust Architecture</div><div class="sd-subtitle">Never Trust, Always Verify</div></div>
+    <div class="services-detail-grid">
+      <div class="service-detail-card fade-up">
+        <div class="service-card-header"><div class="service-card-num">01</div><div class="service-card-icon"><i class="fa-solid fa-eye"></i></div></div>
+        <div class="service-card-body">
+          <h3>AI Threat Detection</h3>
+          <p>Real-time behavioral analysis powered by machine learning. Our AI engine processes billions of events daily, detecting anomalies and zero-day threats with 99.97% accuracy.</p>
+          <ul class="service-features">
+            <li>Network traffic deep packet inspection</li>
+            <li>Endpoint behavioral analysis</li>
+            <li>ML-based anomaly detection</li>
+            <li>Zero-day exploit identification</li>
+            <li>Automated threat correlation</li>
+          </ul>
         </div>
-        <div class="threat-level">
-          <div class="threat-level-label">Security Level</div>
-          <div class="threat-bars">
-            <div class="threat-bar"></div><div class="threat-bar"></div><div class="threat-bar"></div><div class="threat-bar"></div><div class="threat-bar"></div>
-          </div>
+        <div class="service-card-footer">
+          <div class="threat-level-mini"><span>Coverage</span><div class="threat-dots"><div class="threat-dot active g"></div><div class="threat-dot active g"></div><div class="threat-dot active g"></div><div class="threat-dot active g"></div><div class="threat-dot active g"></div></div></div>
+          <div class="sla">SLA: 99.99%</div>
         </div>
       </div>
-      <div class="sd-body">
-        <div class="sd-description">
-          <p>Our Zero Trust framework eliminates implicit trust from your infrastructure. Every user, device, and application must prove identity and authorization before accessing any resource. Micro-segmentation ensures breaches remain contained.</p>
-          <ul class="sd-features">
-            <li>Micro-segmentation across all networks</li>
+
+      <div class="service-detail-card fade-up">
+        <div class="service-card-header"><div class="service-card-num">02</div><div class="service-card-icon"><i class="fa-solid fa-lock"></i></div></div>
+        <div class="service-card-body">
+          <h3>Zero Trust Architecture</h3>
+          <p>Never trust, always verify. We design and implement zero-trust frameworks with micro-segmentation, continuous verification, and least-privilege access across your entire network.</p>
+          <ul class="service-features">
+            <li>Network micro-segmentation</li>
             <li>Continuous identity verification</li>
             <li>Least-privilege access enforcement</li>
-            <li>Device trust scoring & posture checks</li>
-            <li>Application-level access control</li>
-            <li>Encrypted traffic inspection</li>
+            <li>Software-defined perimeter</li>
+            <li>Device trust scoring</li>
           </ul>
         </div>
-        <div class="sd-terminal" data-label="ZERO_TRUST_STATUS">
-          <div class="t-row"><span class="t-label">> Segments</span><span class="t-val">12,408</span></div>
-          <div class="t-row"><span class="t-label">> Auth Checks/sec</span><span class="t-val">84K</span></div>
-          <div class="t-row"><span class="t-label">> Policy Rules</span><span class="t-val cyan">2.1M</span></div>
-          <div class="t-row"><span class="t-label">> Lateral Movement</span><span class="t-val">BLOCKED</span></div>
-          <div class="t-row"><span class="t-label">> Trust Score</span><span class="t-val amber">DYNAMIC</span></div>
-          <div class="t-row"><span class="t-label">> Framework</span><span class="t-val">NIST 800-207</span></div>
+        <div class="service-card-footer">
+          <div class="threat-level-mini"><span>Coverage</span><div class="threat-dots"><div class="threat-dot active g"></div><div class="threat-dot active g"></div><div class="threat-dot active g"></div><div class="threat-dot active g"></div><div class="threat-dot active a"></div></div></div>
+          <div class="sla">SLA: 99.95%</div>
         </div>
       </div>
-    </div>
 
-    <!-- SERVICE 3: SOC MONITORING -->
-    <div class="service-detail fade-up">
-      <div class="service-detail-header">
-        <div class="sd-left">
-          <div class="sd-num">03</div>
-          <div class="sd-icon"><i class="fa-solid fa-satellite-dish"></i></div>
-          <div><div class="sd-title">24/7 SOC Monitoring</div><div class="sd-subtitle">Human + AI Continuous Watch</div></div>
-        </div>
-        <div class="threat-level">
-          <div class="threat-level-label">SOC Status</div>
-          <div class="threat-bars">
-            <div class="threat-bar"></div><div class="threat-bar"></div><div class="threat-bar amber"></div><div class="threat-bar amber"></div><div class="threat-bar red"></div>
-          </div>
-        </div>
-      </div>
-      <div class="sd-body">
-        <div class="sd-description">
-          <p>Our global Security Operations Centers operate 24/7/365 with elite analysts backed by AI automation. We monitor your infrastructure, investigate alerts, hunt for threats, and coordinate incident response in real-time.</p>
-          <ul class="sd-features">
-            <li>24/7/365 human analyst coverage</li>
+      <div class="service-detail-card fade-up">
+        <div class="service-card-header"><div class="service-card-num">03</div><div class="service-card-icon"><i class="fa-solid fa-satellite-dish"></i></div></div>
+        <div class="service-card-body">
+          <h3>24/7 SOC Monitoring</h3>
+          <p>Our Security Operations Centers operate around the clock across 7 global locations. Human analysts backed by AI provide continuous monitoring, triage, and escalation.</p>
+          <ul class="service-features">
             <li>7 global SOC locations</li>
-            <li>SIEM log aggregation & correlation</li>
-            <li>Proactive threat hunting campaigns</li>
-            <li>Automated playbook execution</li>
-            <li>Executive-level reporting dashboards</li>
+            <li>24/7/365 human + AI monitoring</li>
+            <li>15-minute mean response time</li>
+            <li>Automated triage & escalation</li>
+            <li>Custom runbook development</li>
           </ul>
         </div>
-        <div class="sd-terminal" data-label="SOC_OPERATIONS">
-          <div class="t-row"><span class="t-label">> SOC Locations</span><span class="t-val">7</span></div>
-          <div class="t-row"><span class="t-label">> Analysts Online</span><span class="t-val">142</span></div>
-          <div class="t-row"><span class="t-label">> Events/day</span><span class="t-val cyan">2.8B</span></div>
-          <div class="t-row"><span class="t-label">> MTTR</span><span class="t-val">4.2min</span></div>
-          <div class="t-row"><span class="t-label">> Alert Queue</span><span class="t-val amber">23</span></div>
-          <div class="t-row"><span class="t-label">> Uptime</span><span class="t-val">99.999%</span></div>
+        <div class="service-card-footer">
+          <div class="threat-level-mini"><span>Coverage</span><div class="threat-dots"><div class="threat-dot active g"></div><div class="threat-dot active g"></div><div class="threat-dot active g"></div><div class="threat-dot active g"></div><div class="threat-dot active g"></div></div></div>
+          <div class="sla">SLA: 99.999%</div>
         </div>
       </div>
-    </div>
 
-    <!-- SERVICE 4: CLOUD SECURITY -->
-    <div class="service-detail fade-up">
-      <div class="service-detail-header">
-        <div class="sd-left">
-          <div class="sd-num">04</div>
-          <div class="sd-icon"><i class="fa-solid fa-cloud-arrow-up"></i></div>
-          <div><div class="sd-title">Cloud Security</div><div class="sd-subtitle">Multi-Cloud Protection Platform</div></div>
-        </div>
-        <div class="threat-level">
-          <div class="threat-level-label">Cloud Shield</div>
-          <div class="threat-bars">
-            <div class="threat-bar"></div><div class="threat-bar"></div><div class="threat-bar"></div><div class="threat-bar"></div><div class="threat-bar"></div>
-          </div>
-        </div>
-      </div>
-      <div class="sd-body">
-        <div class="sd-description">
-          <p>Comprehensive protection for your cloud infrastructure across AWS, Azure, and GCP. From configuration auditing to container runtime security, we protect your cloud workloads from development to production.</p>
-          <ul class="sd-features">
-            <li>CSPM - Cloud Security Posture Management</li>
-            <li>CWPP - Cloud Workload Protection</li>
+      <div class="service-detail-card fade-up">
+        <div class="service-card-header"><div class="service-card-num">04</div><div class="service-card-icon"><i class="fa-solid fa-cloud-arrow-up"></i></div></div>
+        <div class="service-card-body">
+          <h3>Cloud Security</h3>
+          <p>Secure your multi-cloud infrastructure across AWS, Azure, and GCP. From container security to serverless protection, we cover every cloud-native attack surface.</p>
+          <ul class="service-features">
+            <li>Cloud Security Posture Management</li>
             <li>Container & Kubernetes security</li>
+            <li>Serverless function protection</li>
             <li>Infrastructure-as-Code scanning</li>
-            <li>Cloud identity & entitlement management</li>
-            <li>Serverless function security</li>
+            <li>Cloud workload protection</li>
           </ul>
         </div>
-        <div class="sd-terminal" data-label="CLOUD_STATUS">
-          <div class="t-row"><span class="t-label">> AWS Accounts</span><span class="t-val">847</span></div>
-          <div class="t-row"><span class="t-label">> Azure Subs</span><span class="t-val">312</span></div>
-          <div class="t-row"><span class="t-label">> GCP Projects</span><span class="t-val cyan">198</span></div>
-          <div class="t-row"><span class="t-label">> Containers</span><span class="t-val">24K+</span></div>
-          <div class="t-row"><span class="t-label">> Misconfigs Found</span><span class="t-val red">0 ACTIVE</span></div>
-          <div class="t-row"><span class="t-label">> Coverage</span><span class="t-val">100%</span></div>
+        <div class="service-card-footer">
+          <div class="threat-level-mini"><span>Coverage</span><div class="threat-dots"><div class="threat-dot active g"></div><div class="threat-dot active g"></div><div class="threat-dot active g"></div><div class="threat-dot active a"></div><div class="threat-dot active a"></div></div></div>
+          <div class="sla">SLA: 99.95%</div>
         </div>
       </div>
-    </div>
 
-    <!-- SERVICE 5: INCIDENT RESPONSE -->
-    <div class="service-detail fade-up">
-      <div class="service-detail-header">
-        <div class="sd-left">
-          <div class="sd-num">05</div>
-          <div class="sd-icon"><i class="fa-solid fa-fire-extinguisher"></i></div>
-          <div><div class="sd-title">Incident Response</div><div class="sd-subtitle">Rapid Containment & Recovery</div></div>
-        </div>
-        <div class="threat-level">
-          <div class="threat-level-label">IR Ready</div>
-          <div class="threat-bars">
-            <div class="threat-bar red"></div><div class="threat-bar red"></div><div class="threat-bar amber"></div><div class="threat-bar"></div><div class="threat-bar"></div>
-          </div>
-        </div>
-      </div>
-      <div class="sd-body">
-        <div class="sd-description">
-          <p>When a breach occurs, every second counts. Our Incident Response team is on standby 24/7 to contain threats, eradicate malware, perform forensic analysis, and restore operations. We turn crisis into controlled recovery.</p>
-          <ul class="sd-features">
-            <li>15-minute response time guarantee</li>
-            <li>Digital forensics & evidence preservation</li>
-            <li>Malware analysis & reverse engineering</li>
-            <li>Breach notification & compliance support</li>
-            <li>Business continuity planning</li>
-            <li>Post-incident review & hardening</li>
+      <div class="service-detail-card fade-up">
+        <div class="service-card-header"><div class="service-card-num">05</div><div class="service-card-icon"><i class="fa-solid fa-user-shield"></i></div></div>
+        <div class="service-card-body">
+          <h3>Identity & Access Management</h3>
+          <p>Control who gets in and what they can access. Multi-factor authentication, single sign-on, privileged access management, and adaptive authentication policies.</p>
+          <ul class="service-features">
+            <li>Multi-factor authentication (MFA)</li>
+            <li>Single sign-on (SSO) integration</li>
+            <li>Privileged access management</li>
+            <li>Adaptive risk-based authentication</li>
+            <li>Identity governance & lifecycle</li>
           </ul>
         </div>
-        <div class="sd-terminal" data-label="IR_READINESS">
-          <div class="t-row"><span class="t-label">> Response Time</span><span class="t-val red">&lt;15min</span></div>
-          <div class="t-row"><span class="t-label">> IR Team Size</span><span class="t-val">48</span></div>
-          <div class="t-row"><span class="t-label">> Incidents/yr</span><span class="t-val amber">2,400+</span></div>
-          <div class="t-row"><span class="t-label">> Recovery Rate</span><span class="t-val">99.8%</span></div>
-          <div class="t-row"><span class="t-label">> Forensics Lab</span><span class="t-val cyan">3 LOCATIONS</span></div>
-          <div class="t-row"><span class="t-label">> Status</span><span class="t-val">STANDBY</span></div>
+        <div class="service-card-footer">
+          <div class="threat-level-mini"><span>Coverage</span><div class="threat-dots"><div class="threat-dot active g"></div><div class="threat-dot active g"></div><div class="threat-dot active g"></div><div class="threat-dot active g"></div><div class="threat-dot active a"></div></div></div>
+          <div class="sla">SLA: 99.99%</div>
         </div>
       </div>
-    </div>
 
-    <!-- SERVICE 6: PENETRATION TESTING -->
-    <div class="service-detail fade-up">
-      <div class="service-detail-header">
-        <div class="sd-left">
-          <div class="sd-num">06</div>
-          <div class="sd-icon"><i class="fa-solid fa-crosshairs"></i></div>
-          <div><div class="sd-title">Penetration Testing</div><div class="sd-subtitle">Offensive Security Operations</div></div>
-        </div>
-        <div class="threat-level">
-          <div class="threat-level-label">Attack Sim</div>
-          <div class="threat-bars">
-            <div class="threat-bar red"></div><div class="threat-bar red"></div><div class="threat-bar red"></div><div class="threat-bar amber"></div><div class="threat-bar amber"></div>
-          </div>
-        </div>
-      </div>
-      <div class="sd-body">
-        <div class="sd-description">
-          <p>Our red team simulates real-world attacks against your infrastructure to find vulnerabilities before adversaries do. From web application testing to social engineering, we expose every weakness in your defense.</p>
-          <ul class="sd-features">
-            <li>External & internal network penetration testing</li>
-            <li>Web & mobile application security testing</li>
-            <li>Social engineering & phishing simulations</li>
-            <li>Red team / blue team exercises</li>
-            <li>Physical security assessments</li>
-            <li>Detailed remediation roadmaps</li>
+      <div class="service-detail-card fade-up">
+        <div class="service-card-header"><div class="service-card-num">06</div><div class="service-card-icon"><i class="fa-solid fa-fire-extinguisher"></i></div></div>
+        <div class="service-card-body">
+          <h3>Incident Response</h3>
+          <p>When breaches happen, every second counts. Our elite IR team contains threats in minutes with full forensic analysis, root cause identification, and recovery support.</p>
+          <ul class="service-features">
+            <li>Rapid containment & eradication</li>
+            <li>Digital forensics & evidence</li>
+            <li>Root cause analysis</li>
+            <li>Breach notification support</li>
+            <li>Post-incident hardening</li>
           </ul>
         </div>
-        <div class="sd-terminal" data-label="PENTEST_STATS">
-          <div class="t-row"><span class="t-label">> Tests/year</span><span class="t-val">800+</span></div>
-          <div class="t-row"><span class="t-label">> Vulns Found</span><span class="t-val red">12,400+</span></div>
-          <div class="t-row"><span class="t-label">> Critical Vulns</span><span class="t-val red">847</span></div>
-          <div class="t-row"><span class="t-label">> Exploits Used</span><span class="t-val amber">3,200+</span></div>
-          <div class="t-row"><span class="t-label">> Success Rate</span><span class="t-val">94%</span></div>
-          <div class="t-row"><span class="t-label">> Methodology</span><span class="t-val cyan">OWASP/PTES</span></div>
+        <div class="service-card-footer">
+          <div class="threat-level-mini"><span>Response</span><div class="threat-dots"><div class="threat-dot active r"></div><div class="threat-dot active r"></div><div class="threat-dot active r"></div><div class="threat-dot active r"></div><div class="threat-dot active r"></div></div></div>
+          <div class="sla">SLA: &lt;15 MIN</div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- PROCESS -->
-<section class="section-pad" style="background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+<!-- HOW IT WORKS -->
+<section class="section-pad process-section">
   <div class="container">
     <div class="text-center fade-up">
-      <div class="section-label">Engagement Process</div>
-      <h2 class="section-title">How We Deploy</h2>
-      <p class="section-sub">Our proven four-phase methodology ensures rapid deployment with zero disruption to your operations.</p>
+      <div class="section-label">Methodology</div>
+      <h2 class="section-title glitch-hover" data-text="HOW WE PROTECT YOU">How We Protect You</h2>
+      <p class="section-sub">A proven four-phase approach to enterprise cybersecurity deployment.</p>
     </div>
-    <div class="process-grid fade-up">
-      <div class="process-step">
-        <div class="process-num">01</div>
-        <i class="fa-solid fa-magnifying-glass"></i>
-        <h4>Assess</h4>
-        <p>Deep-dive analysis of your current security posture, infrastructure, and risk profile.</p>
-      </div>
-      <div class="process-step">
-        <div class="process-num">02</div>
-        <i class="fa-solid fa-diagram-project"></i>
-        <h4>Design</h4>
-        <p>Custom security architecture designed for your specific threat landscape and business needs.</p>
-      </div>
-      <div class="process-step">
-        <div class="process-num">03</div>
-        <i class="fa-solid fa-rocket"></i>
-        <h4>Deploy</h4>
-        <p>Rapid implementation with minimal disruption. Full integration with your existing systems.</p>
-      </div>
-      <div class="process-step">
-        <div class="process-num">04</div>
-        <i class="fa-solid fa-shield-halved"></i>
-        <h4>Defend</h4>
-        <p>Ongoing monitoring, threat hunting, and continuous improvement of your security posture.</p>
-      </div>
+    <div class="process-steps fade-up">
+      <div class="process-step"><div class="step-num">01</div><h4>Assess</h4><p>Comprehensive security audit and vulnerability assessment of your entire infrastructure.</p></div>
+      <div class="process-step"><div class="step-num">02</div><h4>Architect</h4><p>Design a custom security architecture tailored to your threat profile and compliance needs.</p></div>
+      <div class="process-step"><div class="step-num">03</div><h4>Deploy</h4><p>Implement security controls, monitoring agents, and zero-trust policies across your network.</p></div>
+      <div class="process-step"><div class="step-num">04</div><h4>Defend</h4><p>Continuous monitoring, threat hunting, and incident response to keep your defenses active.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- TECH STACK -->
+<section class="section-pad">
+  <div class="container">
+    <div class="text-center fade-up">
+      <div class="section-label">Technology</div>
+      <h2 class="section-title glitch-hover" data-text="SECURITY TECH STACK">Security Tech Stack</h2>
+      <p class="section-sub">Industry-leading technologies integrated into our unified security platform.</p>
+    </div>
+    <div class="tech-grid fade-up">
+      <div class="tech-item"><i class="fa-solid fa-brain"></i><span>AI/ML Engine</span></div>
+      <div class="tech-item"><i class="fa-solid fa-network-wired"></i><span>SIEM</span></div>
+      <div class="tech-item"><i class="fa-solid fa-crosshairs"></i><span>EDR/XDR</span></div>
+      <div class="tech-item"><i class="fa-solid fa-cloud"></i><span>CASB</span></div>
+      <div class="tech-item"><i class="fa-solid fa-fingerprint"></i><span>IAM</span></div>
+      <div class="tech-item"><i class="fa-solid fa-shield-virus"></i><span>Firewall</span></div>
     </div>
   </div>
 </section>
@@ -425,9 +354,9 @@ footer{border-top:1px solid var(--border);padding:2rem;position:relative;z-index
 <section style="padding:6rem 2rem;text-align:center;position:relative;z-index:1">
   <div style="max-width:800px;margin:0 auto;border:1px solid var(--border);padding:4rem 3rem;position:relative" class="fade-up">
     <div style="position:absolute;top:-1px;left:20%;right:20%;height:1px;background:var(--green)"></div>
-    <h2 style="font-family:'Orbitron';font-size:2rem;font-weight:700;color:var(--text-bright);text-transform:uppercase;letter-spacing:1px;margin-bottom:1rem">Deploy Your Defense</h2>
-    <p style="font-size:1rem;color:var(--text-dim);margin-bottom:2rem;max-width:500px;margin-left:auto;margin-right:auto">Schedule a consultation and let our team design a custom security solution for your organization.</p>
-    <a href="contact.html" class="btn-cyber"><i class="fa-solid fa-shield-halved"></i> Request Consultation</a>
+    <h2 style="font-family:'Orbitron';font-size:2rem;font-weight:700;color:var(--text-bright);text-transform:uppercase;letter-spacing:1px;margin-bottom:1rem" class="glitch-hover" data-text="SECURE YOUR ORGANIZATION TODAY">Secure Your Organization Today</h2>
+    <p style="font-size:1rem;color:var(--text-dim);margin-bottom:2rem;max-width:500px;margin-left:auto;margin-right:auto">Get a free security assessment and discover your vulnerabilities before attackers do.</p>
+    <a href="contact.html" class="btn-cyber"><i class="fa-solid fa-shield-halved"></i> Request Free Audit</a>
   </div>
 </section>
 
@@ -441,6 +370,26 @@ footer{border-top:1px solid var(--border);padding:2rem;position:relative;z-index
 </footer>
 
 <script>
+(function(){
+  const c=document.getElementById('matrixCanvas');const ctx=c.getContext('2d');
+  function resize(){c.width=window.innerWidth;c.height=window.innerHeight}
+  resize();window.addEventListener('resize',resize);
+  const chars='01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+  const fontSize=14;let columns;let drops;
+  function init(){columns=Math.floor(c.width/fontSize);drops=[];for(let i=0;i<columns;i++)drops[i]=Math.random()*-100}
+  init();window.addEventListener('resize',init);
+  function draw(){
+    ctx.fillStyle='rgba(5,10,14,0.05)';ctx.fillRect(0,0,c.width,c.height);
+    ctx.fillStyle='rgba(0,255,136,0.08)';ctx.font=fontSize+'px monospace';
+    for(let i=0;i<drops.length;i++){
+      const t=chars[Math.floor(Math.random()*chars.length)];
+      ctx.fillText(t,i*fontSize,drops[i]*fontSize);
+      if(drops[i]*fontSize>c.height&&Math.random()>0.975)drops[i]=0;
+      drops[i]++
+    }
+  }
+  setInterval(draw,40);
+})();
 const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:0.1});
 document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
 </script>

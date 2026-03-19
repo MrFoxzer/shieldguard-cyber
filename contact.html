@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Contact — ShieldGuard Enterprise Cybersecurity</title>
-<meta name="description" content="Contact ShieldGuard for enterprise cybersecurity solutions, report security incidents, or request a free security audit.">
+<meta name="description" content="Contact ShieldGuard for security audits, incident response, and enterprise cybersecurity solutions.">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
@@ -13,8 +13,10 @@
 html{scroll-behavior:smooth;font-size:16px}
 body{font-family:'Rajdhani',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.6}
 body::after{content:'';position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px)}
+#matrixCanvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}
 .cyber-grid{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(0,255,136,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,136,0.02) 1px,transparent 1px);background-size:40px 40px}
-nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:1rem 2rem;background:rgba(5,10,14,0.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:1rem 2rem;transition:all 0.4s;background:rgba(5,10,14,0.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
 .nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
 .nav-logo{display:flex;align-items:center;gap:0.75rem;text-decoration:none}
 .nav-logo img{max-height:40px;width:auto}
@@ -27,6 +29,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:1rem 2rem;backgroun
 .mobile-menu{display:none;position:fixed;top:60px;left:0;right:0;background:rgba(5,10,14,0.98);border-bottom:1px solid var(--border);padding:2rem;z-index:999}
 .mobile-menu.active{display:block}
 .mobile-menu a{display:block;color:var(--text-dim);text-decoration:none;font-size:1rem;padding:0.75rem 0;border-bottom:1px solid var(--border2);text-transform:uppercase;letter-spacing:1px}
+
 section{position:relative;z-index:1}
 .section-pad{padding:6rem 2rem}
 .container{max-width:1200px;margin:0 auto}
@@ -34,10 +37,25 @@ section{position:relative;z-index:1}
 .section-label::before{content:'//';color:var(--green-dim)}
 .section-title{font-family:'Orbitron';font-size:2.2rem;font-weight:700;color:var(--text-bright);text-transform:uppercase;letter-spacing:1px;margin-bottom:1rem}
 .section-sub{font-size:1rem;color:var(--text-dim);max-width:600px;line-height:1.8}
-.text-center{text-align:center}.text-center .section-sub{margin:0 auto}.text-center .section-label{justify-content:center}
+.text-center{text-align:center}
+.text-center .section-sub{margin:0 auto}
+.text-center .section-label{justify-content:center}
 .btn-cyber{padding:0.9rem 2.5rem;border:1px solid var(--green);background:transparent;color:var(--green);font-family:'Rajdhani';font-weight:700;font-size:1rem;letter-spacing:2px;text-transform:uppercase;cursor:pointer;position:relative;transition:all 0.3s;text-decoration:none;display:inline-flex;align-items:center;gap:0.75rem}
 .btn-cyber::before{content:'';position:absolute;top:-1px;left:-1px;right:-1px;bottom:-1px;background:var(--green);opacity:0;transition:opacity 0.3s;z-index:-1}
 .btn-cyber:hover{color:var(--bg);box-shadow:var(--glow)}.btn-cyber:hover::before{opacity:1}
+.btn-red{border-color:var(--red);color:var(--red)}
+.btn-red::before{background:var(--red)}
+.btn-red:hover{box-shadow:0 0 20px rgba(255,51,85,0.3)}
+
+.glitch-hover{position:relative;display:inline-block}
+.glitch-hover:hover{animation:glitch 0.3s linear}
+@keyframes glitch{0%{transform:translate(0)}20%{transform:translate(-2px,2px)}40%{transform:translate(2px,-2px)}60%{transform:translate(-1px,-1px)}80%{transform:translate(1px,1px)}100%{transform:translate(0)}}
+.glitch-hover:hover::before,.glitch-hover:hover::after{content:attr(data-text);position:absolute;top:0;left:0;width:100%;height:100%}
+.glitch-hover:hover::before{color:var(--cyan);z-index:-1;animation:glitchClip 0.3s linear;clip-path:polygon(0 0,100% 0,100% 35%,0 35%)}
+.glitch-hover:hover::after{color:var(--red);z-index:-1;animation:glitchClip2 0.3s linear;clip-path:polygon(0 65%,100% 65%,100% 100%,0 100%)}
+@keyframes glitchClip{0%{transform:translate(0)}25%{transform:translate(3px,-1px)}50%{transform:translate(-2px,1px)}75%{transform:translate(1px,2px)}100%{transform:translate(0)}}
+@keyframes glitchClip2{0%{transform:translate(0)}25%{transform:translate(-3px,1px)}50%{transform:translate(2px,-1px)}75%{transform:translate(-1px,-2px)}100%{transform:translate(0)}}
+
 .fade-up{opacity:0;transform:translateY(30px);transition:all 0.7s cubic-bezier(0.16,1,0.3,1)}
 .fade-up.visible{opacity:1;transform:translateY(0)}
 
@@ -49,78 +67,58 @@ section{position:relative;z-index:1}
 .page-hero h1 .green{color:var(--green);text-shadow:0 0 30px rgba(0,255,136,0.3)}
 .page-hero p{font-size:1.1rem;color:var(--text-dim);max-width:600px;line-height:1.8}
 
-/* CONTACT GRID */
 .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-top:3rem}
-
-/* TERMINAL FORM */
-.terminal-form{background:var(--bg2);border:1px solid var(--border);overflow:hidden}
-.terminal-form-header{background:rgba(0,255,136,0.03);border-bottom:1px solid var(--border);padding:0.75rem 1.5rem;display:flex;align-items:center;gap:0.75rem;font-family:'JetBrains Mono';font-size:0.7rem;color:var(--green);letter-spacing:1px}
-.terminal-form-header .dots{display:flex;gap:6px}
-.terminal-form-header .dots span{width:8px;height:8px;border-radius:50%;border:1px solid var(--border)}
-.terminal-form-header .dots span:nth-child(1){background:var(--red);border-color:var(--red)}
-.terminal-form-header .dots span:nth-child(2){background:var(--amber);border-color:var(--amber)}
-.terminal-form-header .dots span:nth-child(3){background:var(--green);border-color:var(--green)}
-.terminal-form-body{padding:2rem}
+.contact-form{background:var(--bg2);border:1px solid var(--border);overflow:hidden}
+.form-header{background:rgba(0,255,136,0.03);border-bottom:1px solid var(--border);padding:1rem 1.5rem;display:flex;align-items:center;gap:0.75rem}
+.form-header span{font-family:'JetBrains Mono';font-size:0.7rem;color:var(--green);letter-spacing:2px}
+.form-header i{color:var(--green);animation:blink 1.5s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
+.form-body{padding:2rem 1.5rem}
 .form-group{margin-bottom:1.25rem}
-.form-group label{display:block;font-family:'JetBrains Mono';font-size:0.65rem;color:var(--green);letter-spacing:2px;text-transform:uppercase;margin-bottom:0.4rem}
-.form-group label::before{content:'> '}
-.form-group input,.form-group select,.form-group textarea{width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:'JetBrains Mono';font-size:0.85rem;padding:0.75rem 1rem;transition:border-color 0.3s;outline:none}
+.form-group label{display:block;font-family:'JetBrains Mono';font-size:0.7rem;color:var(--green);letter-spacing:1px;margin-bottom:0.5rem}
+.form-group label::before{content:'> ';color:var(--green-dim)}
+.form-group input,.form-group select,.form-group textarea{width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text-bright);font-family:'JetBrains Mono';font-size:0.85rem;padding:0.75rem 1rem;transition:all 0.3s;outline:none}
 .form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--green);box-shadow:0 0 10px rgba(0,255,136,0.1)}
-.form-group input::placeholder,.form-group textarea::placeholder{color:var(--text-dim);font-family:'JetBrains Mono'}
-.form-group select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2300ff88' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center}
+.form-group input::placeholder,.form-group textarea::placeholder{color:var(--text-dim);opacity:0.5}
+.form-group textarea{min-height:120px;resize:vertical}
+.form-group select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%2300ff88' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center}
 .form-group select option{background:var(--bg2);color:var(--text)}
-.form-group textarea{resize:vertical;min-height:120px;font-family:'JetBrains Mono'}
-.form-output{font-family:'JetBrains Mono';font-size:0.75rem;color:var(--text-dim);padding:1rem;background:var(--bg);border:1px solid var(--border);margin-top:1rem}
-.form-output .cursor{animation:cursorBlink 0.7s infinite;display:inline-block;width:8px;height:14px;background:var(--green);vertical-align:middle;margin-left:4px}
-@keyframes cursorBlink{0%,100%{opacity:1}50%{opacity:0}}
+.form-submit{width:100%;padding:1rem;border:1px solid var(--green);background:transparent;color:var(--green);font-family:'Orbitron';font-weight:700;font-size:0.9rem;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all 0.3s}
+.form-submit:hover{background:var(--green);color:var(--bg);box-shadow:var(--glow)}
+.form-footer{border-top:1px solid var(--border);padding:0.75rem 1.5rem;font-family:'JetBrains Mono';font-size:0.6rem;color:var(--text-dim);text-align:center;letter-spacing:1px}
 
-/* CONTACT INFO SIDE */
-.contact-info{display:grid;gap:1.5rem}
+.contact-info{display:flex;flex-direction:column;gap:1.5rem}
 .info-card{background:var(--bg2);border:1px solid var(--border);padding:1.5rem;transition:all 0.3s}
 .info-card:hover{border-color:rgba(0,255,136,0.3)}
 .info-card h4{font-family:'Orbitron';font-size:0.8rem;font-weight:600;color:var(--text-bright);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.75rem;display:flex;align-items:center;gap:0.75rem}
 .info-card h4 i{color:var(--green)}
-.info-card p{font-size:0.9rem;color:var(--text-dim);line-height:1.7}
-.info-card a{color:var(--green);text-decoration:none}
-.info-card a:hover{text-decoration:underline}
+.info-card p{font-family:'JetBrains Mono';font-size:0.8rem;color:var(--text-dim);line-height:1.8}
+.info-card a{color:var(--green);text-decoration:none;transition:color 0.3s}
+.info-card a:hover{color:var(--cyan)}
 
-/* INCIDENT REPORT */
-.incident-section{background:rgba(255,51,85,0.03);border-top:2px solid var(--red);border-bottom:2px solid var(--red)}
-.incident-box{background:var(--bg2);border:1px solid rgba(255,51,85,0.3);padding:0;overflow:hidden;margin-top:2rem}
-.incident-header{background:rgba(255,51,85,0.08);border-bottom:1px solid rgba(255,51,85,0.2);padding:1rem 1.5rem;display:flex;align-items:center;gap:1rem}
-.incident-header .alert-icon{color:var(--red);font-size:1.5rem;animation:alertPulse 1s infinite}
-@keyframes alertPulse{0%,100%{opacity:1}50%{opacity:0.5}}
-.incident-header h3{font-family:'Orbitron';font-size:1rem;font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:1px}
-.incident-header .priority{font-family:'JetBrains Mono';font-size:0.65rem;color:var(--red);border:1px solid var(--red);padding:0.2rem 0.6rem;letter-spacing:1px;margin-left:auto}
-.incident-body{padding:2rem}
-.incident-body p{color:var(--text-dim);margin-bottom:1.5rem;line-height:1.7}
-.incident-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
-.incident-form .form-group label{color:var(--red)}
-.incident-form .form-group label::before{content:'! '}
-.incident-form .form-group input,.incident-form .form-group textarea{border-color:rgba(255,51,85,0.2)}
-.incident-form .form-group input:focus,.incident-form .form-group textarea:focus{border-color:var(--red);box-shadow:0 0 10px rgba(255,51,85,0.1)}
-.btn-red{padding:0.9rem 2.5rem;border:1px solid var(--red);background:transparent;color:var(--red);font-family:'Rajdhani';font-weight:700;font-size:1rem;letter-spacing:2px;text-transform:uppercase;cursor:pointer;position:relative;transition:all 0.3s;display:inline-flex;align-items:center;gap:0.75rem;width:100%;justify-content:center}
-.btn-red:hover{background:var(--red);color:white;box-shadow:0 0 20px rgba(255,51,85,0.3)}
-.incident-info{padding:1.5rem;background:rgba(255,51,85,0.03);border:1px solid rgba(255,51,85,0.15)}
-.incident-info h4{font-family:'Orbitron';font-size:0.8rem;color:var(--red);text-transform:uppercase;letter-spacing:1px;margin-bottom:1rem}
-.incident-info .hotline{font-family:'Orbitron';font-size:1.5rem;color:var(--text-bright);font-weight:700;margin-bottom:0.5rem}
-.incident-info p{font-size:0.85rem;color:var(--text-dim);line-height:1.7}
-.incident-info .response-time{font-family:'JetBrains Mono';font-size:0.75rem;color:var(--red);margin-top:1rem;padding:0.5rem;border:1px dashed rgba(255,51,85,0.3);text-align:center}
+.incident-section{background:var(--bg2);border-top:1px solid rgba(255,51,85,0.2);border-bottom:1px solid rgba(255,51,85,0.2)}
+.incident-box{border:1px solid rgba(255,51,85,0.3);overflow:hidden;max-width:800px;margin:3rem auto 0;position:relative}
+.incident-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--red);animation:redPulse 2s infinite}
+@keyframes redPulse{0%,100%{opacity:1}50%{opacity:0.3}}
+.incident-header{background:rgba(255,51,85,0.05);border-bottom:1px solid rgba(255,51,85,0.2);padding:1rem 1.5rem;display:flex;align-items:center;gap:0.75rem}
+.incident-header i{color:var(--red);animation:blink 0.8s infinite}
+.incident-header span{font-family:'JetBrains Mono';font-size:0.75rem;color:var(--red);letter-spacing:2px;text-transform:uppercase}
+.incident-body{padding:2rem 1.5rem;text-align:center}
+.incident-body .incident-icon{font-size:3rem;color:var(--red);margin-bottom:1rem}
+.incident-body h3{font-family:'Orbitron';font-size:1.3rem;font-weight:700;color:var(--text-bright);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.75rem}
+.incident-body p{font-size:0.95rem;color:var(--text-dim);max-width:500px;margin:0 auto 0.5rem;line-height:1.7}
+.incident-body .hotline{font-family:'Orbitron';font-size:1.5rem;font-weight:700;color:var(--red);margin:1.5rem 0;letter-spacing:2px}
+.incident-body .hotline a{color:var(--red);text-decoration:none}
+.incident-body .hotline-note{font-family:'JetBrains Mono';font-size:0.7rem;color:var(--text-dim);margin-bottom:1.5rem}
+.incident-footer{border-top:1px solid rgba(255,51,85,0.2);padding:0.75rem 1.5rem;font-family:'JetBrains Mono';font-size:0.6rem;color:var(--red);text-align:center;letter-spacing:1px;opacity:0.7}
 
-/* OFFICE LOCATIONS */
 .offices-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
-.office-card{background:var(--bg2);border:1px solid var(--border);padding:2rem;transition:all 0.3s;position:relative;overflow:hidden}
-.office-card:hover{border-color:var(--green)}
-.office-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:2px;background:var(--green);transform:scaleX(0);transition:transform 0.4s;transform-origin:left}
-.office-card:hover::before{transform:scaleX(1)}
-.office-card .office-type{font-family:'JetBrains Mono';font-size:0.6rem;color:var(--green);letter-spacing:2px;text-transform:uppercase;margin-bottom:0.75rem}
-.office-card h4{font-family:'Orbitron';font-size:0.9rem;font-weight:600;color:var(--text-bright);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.75rem}
-.office-card p{font-size:0.85rem;color:var(--text-dim);line-height:1.7}
-.office-card .office-status{font-family:'JetBrains Mono';font-size:0.65rem;margin-top:1rem;display:flex;align-items:center;gap:0.5rem}
-.office-card .office-status .dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:blink 1.5s infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
+.office-card{background:var(--bg2);border:1px solid var(--border);padding:1.5rem;transition:all 0.3s}
+.office-card:hover{border-color:var(--green);box-shadow:var(--glow)}
+.office-card h4{font-family:'Orbitron';font-size:0.8rem;font-weight:600;color:var(--green);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.75rem;display:flex;align-items:center;gap:0.5rem}
+.office-card .office-detail{font-family:'JetBrains Mono';font-size:0.75rem;color:var(--text-dim);line-height:1.8;padding:0.2rem 0}
+.office-card .office-detail::before{content:'> ';color:var(--green-dim)}
 
-/* FOOTER */
 footer{border-top:1px solid var(--border);padding:2rem;position:relative;z-index:1}
 .footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
 .footer-copy{font-family:'JetBrains Mono';font-size:0.75rem;color:var(--text-dim)}
@@ -131,7 +129,6 @@ footer{border-top:1px solid var(--border);padding:2rem;position:relative;z-index
 @media(max-width:900px){
   .page-hero h1{font-size:2rem}
   .contact-grid{grid-template-columns:1fr}
-  .incident-grid{grid-template-columns:1fr}
   .offices-grid{grid-template-columns:1fr}
   .nav-links{display:none}.mobile-toggle{display:block}
 }
@@ -141,6 +138,8 @@ footer{border-top:1px solid var(--border);padding:2rem;position:relative;z-index
 </style>
 </head>
 <body>
+
+<canvas id="matrixCanvas"></canvas>
 <div class="cyber-grid"></div>
 
 <nav>
@@ -165,213 +164,75 @@ footer{border-top:1px solid var(--border);padding:2rem;position:relative;z-index
 <section class="page-hero">
   <div class="container">
     <div class="hero-top-label">Communications // Secure Channel</div>
-    <h1>Initiate<br><span class="green">Contact</span></h1>
-    <p>Open a secure communication channel with our security team. Whether you need a consultation, audit, or emergency response, we are standing by.</p>
+    <h1 class="glitch-hover" data-text="ESTABLISH SECURE CONTACT">Establish Secure<br><span class="green">Contact</span></h1>
+    <p>Reach our cybersecurity team for security audits, deployment inquiries, or to report an active incident. All communications are encrypted end-to-end.</p>
   </div>
 </section>
 
-<!-- CONTACT FORM + INFO -->
 <section class="section-pad">
   <div class="container">
-    <div class="section-label">General Inquiry</div>
-    <h2 class="section-title">Secure Transmission</h2>
-    <div class="contact-grid fade-up">
-      <div class="terminal-form">
-        <div class="terminal-form-header">
-          <div class="dots"><span></span><span></span><span></span></div>
-          secure_contact@shieldguard.sys
-        </div>
-        <div class="terminal-form-body">
-          <form id="contactForm" onsubmit="event.preventDefault();document.getElementById('formOutput').innerHTML='<span style=color:var(--green)>[SUCCESS]</span> Message encrypted and transmitted. Awaiting acknowledgment...<span class=cursor></span>';document.getElementById('formOutput').style.display='block'">
-            <div class="form-group">
-              <label>Full Name</label>
-              <input type="text" placeholder="Enter your name..." required>
-            </div>
-            <div class="form-group">
-              <label>Email Address</label>
-              <input type="email" placeholder="your@email.com" required>
-            </div>
-            <div class="form-group">
-              <label>Organization</label>
-              <input type="text" placeholder="Company name...">
-            </div>
-            <div class="form-group">
-              <label>Inquiry Type</label>
-              <select required>
-                <option value="">Select type...</option>
-                <option>Security Audit Request</option>
-                <option>Service Inquiry</option>
-                <option>Partnership</option>
-                <option>Pricing Question</option>
-                <option>General Question</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>Message</label>
-              <textarea placeholder="Describe your security needs..." required></textarea>
-            </div>
-            <button type="submit" class="btn-cyber" style="width:100%;justify-content:center"><i class="fa-solid fa-paper-plane"></i> Transmit Message</button>
-          </form>
-          <div class="form-output" id="formOutput" style="display:none">
-            <span style="color:var(--green)">[READY]</span> Awaiting transmission...<span class="cursor"></span>
+    <div class="contact-grid">
+      <div class="contact-form fade-up">
+        <div class="form-header"><i class="fa-solid fa-terminal"></i><span>SECURE_TRANSMISSION.SYS</span></div>
+        <div class="form-body">
+          <div class="form-group"><label>Full Name</label><input type="text" placeholder="Enter your full name"></div>
+          <div class="form-group"><label>Email Address</label><input type="email" placeholder="your.email@company.com"></div>
+          <div class="form-group"><label>Organization</label><input type="text" placeholder="Company / Organization name"></div>
+          <div class="form-group"><label>Inquiry Type</label>
+            <select><option value="">-- Select inquiry type --</option><option value="audit">Security Audit Request</option><option value="quote">Pricing / Quote</option><option value="demo">Product Demo</option><option value="partnership">Partnership</option><option value="support">Technical Support</option><option value="other">Other</option></select>
           </div>
+          <div class="form-group"><label>Message</label><textarea placeholder="Describe your security needs or inquiry..."></textarea></div>
+          <button class="form-submit"><i class="fa-solid fa-paper-plane"></i> Transmit Secure Message</button>
         </div>
+        <div class="form-footer">// ALL TRANSMISSIONS ENCRYPTED WITH AES-256 // TLS 1.3 //</div>
       </div>
-      <div class="contact-info">
-        <div class="info-card">
-          <h4><i class="fa-solid fa-envelope"></i> Email</h4>
-          <p><a href="mailto:security@shieldguard.com">security@shieldguard.com</a><br>
-          <a href="mailto:sales@shieldguard.com">sales@shieldguard.com</a></p>
-        </div>
-        <div class="info-card">
-          <h4><i class="fa-solid fa-phone"></i> Phone</h4>
-          <p>General: +1 (888) 742-4353<br>
-          Sales: +1 (888) 742-4354<br>
-          <span style="font-family:'JetBrains Mono';font-size:0.7rem;color:var(--green)">Mon-Fri 8AM-8PM EST</span></p>
-        </div>
-        <div class="info-card">
-          <h4><i class="fa-solid fa-clock"></i> Response Time</h4>
-          <p>General inquiries: Within 24 hours<br>
-          Audit requests: Within 4 hours<br>
-          Emergency: Within 15 minutes</p>
-        </div>
-        <div class="info-card">
-          <h4><i class="fa-solid fa-lock"></i> Secure Channels</h4>
-          <p>PGP Key available on request<br>
-          Signal: @ShieldGuardSec<br>
-          <span style="font-family:'JetBrains Mono';font-size:0.7rem;color:var(--green)">End-to-end encrypted</span></p>
-        </div>
-        <div class="info-card">
-          <h4><i class="fa-brands fa-linkedin"></i> Connect</h4>
-          <p>LinkedIn: /shieldguard<br>
-          Twitter/X: @ShieldGuardSec<br>
-          GitHub: /shieldguard-security</p>
-        </div>
+
+      <div class="contact-info fade-up">
+        <div class="info-card"><h4><i class="fa-solid fa-headset"></i> General Inquiries</h4><p>Email: <a href="mailto:info@shieldguard.io">info@shieldguard.io</a><br>Phone: <a href="tel:+18005743270">+1 (800) 574-3270</a><br>Hours: Monday - Friday, 8AM - 6PM EST</p></div>
+        <div class="info-card"><h4><i class="fa-solid fa-handshake"></i> Sales & Partnerships</h4><p>Email: <a href="mailto:sales@shieldguard.io">sales@shieldguard.io</a><br>Phone: <a href="tel:+18005743271">+1 (800) 574-3271</a><br>Response Time: Within 2 business hours</p></div>
+        <div class="info-card"><h4><i class="fa-solid fa-life-ring"></i> Technical Support</h4><p>Email: <a href="mailto:support@shieldguard.io">support@shieldguard.io</a><br>Portal: <a href="#">support.shieldguard.io</a><br>24/7 for Professional & Enterprise clients</p></div>
+        <div class="info-card"><h4><i class="fa-solid fa-shield-halved"></i> Security Operations</h4><p>SOC Email: <a href="mailto:soc@shieldguard.io">soc@shieldguard.io</a><br>Status: <a href="#">status.shieldguard.io</a><br>PGP Key: Available on request</p></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- INCIDENT REPORT -->
 <section class="section-pad incident-section">
   <div class="container">
-    <div class="fade-up">
+    <div class="text-center fade-up">
       <div class="section-label" style="color:var(--red)">Emergency Response</div>
-      <h2 class="section-title" style="color:var(--red)">Report an Incident</h2>
-      <p class="section-sub">If you are experiencing an active security breach, data exfiltration, or ransomware attack, use our emergency channel immediately.</p>
+      <h2 class="section-title glitch-hover" data-text="REPORT AN INCIDENT" style="color:var(--red)">Report an Incident</h2>
+      <p class="section-sub">Active breach or security incident? Our emergency response team is standing by 24/7/365.</p>
     </div>
     <div class="incident-box fade-up">
-      <div class="incident-header">
-        <div class="alert-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
-        <h3>Emergency Incident Report</h3>
-        <div class="priority">PRIORITY: CRITICAL</div>
-      </div>
+      <div class="incident-header"><i class="fa-solid fa-triangle-exclamation"></i><span>[ ALERT ] Emergency Incident Response</span></div>
       <div class="incident-body">
-        <p>For active security incidents requiring immediate response, fill out this form or call our 24/7 emergency hotline. Our incident response team will be deployed within 15 minutes.</p>
-        <div class="incident-grid">
-          <form class="incident-form" onsubmit="event.preventDefault();alert('INCIDENT REPORT TRANSMITTED. Our IR team has been notified. Expect contact within 15 minutes.')">
-            <div class="form-group">
-              <label>Organization Name</label>
-              <input type="text" placeholder="Your organization..." required>
-            </div>
-            <div class="form-group">
-              <label>Contact Name</label>
-              <input type="text" placeholder="Primary contact..." required>
-            </div>
-            <div class="form-group">
-              <label>Emergency Phone</label>
-              <input type="tel" placeholder="Direct phone number..." required>
-            </div>
-            <div class="form-group">
-              <label>Incident Type</label>
-              <select required style="border-color:rgba(255,51,85,0.2)">
-                <option value="">Select incident type...</option>
-                <option>Ransomware Attack</option>
-                <option>Data Breach / Exfiltration</option>
-                <option>DDoS Attack</option>
-                <option>Unauthorized Access</option>
-                <option>Malware / Virus Outbreak</option>
-                <option>Insider Threat</option>
-                <option>Phishing Campaign</option>
-                <option>Other / Unknown</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>Incident Description</label>
-              <textarea placeholder="Describe the incident, timeline, and affected systems..." required style="border-color:rgba(255,51,85,0.2)"></textarea>
-            </div>
-            <button type="submit" class="btn-red"><i class="fa-solid fa-triangle-exclamation"></i> Submit Incident Report</button>
-          </form>
-          <div>
-            <div class="incident-info">
-              <h4>24/7 Emergency Hotline</h4>
-              <div class="hotline">1-800-SHIELD-1</div>
-              <p>Our incident response team is available 24/7/365. All calls are encrypted and logged for chain of custody.</p>
-              <div class="response-time"><i class="fa-solid fa-clock" style="margin-right:0.5rem"></i> GUARANTEED RESPONSE: &lt; 15 MINUTES</div>
-            </div>
-            <div class="incident-info" style="margin-top:1.5rem">
-              <h4>What to Do During an Incident</h4>
-              <p style="font-family:'JetBrains Mono';font-size:0.75rem;line-height:2">
-                <span style="color:var(--red)">01.</span> Do NOT shut down affected systems<br>
-                <span style="color:var(--red)">02.</span> Isolate compromised networks if possible<br>
-                <span style="color:var(--red)">03.</span> Document everything you observe<br>
-                <span style="color:var(--red)">04.</span> Preserve all logs and evidence<br>
-                <span style="color:var(--red)">05.</span> Call our hotline immediately<br>
-                <span style="color:var(--red)">06.</span> Do NOT communicate over compromised channels
-              </p>
-            </div>
-          </div>
-        </div>
+        <div class="incident-icon"><i class="fa-solid fa-shield-virus"></i></div>
+        <h3>Active Security Incident?</h3>
+        <p>If you are experiencing an active breach, ransomware attack, or security incident, contact our emergency response hotline immediately.</p>
+        <div class="hotline"><a href="tel:+18005743299"><i class="fa-solid fa-phone"></i> +1 (800) 574-3299</a></div>
+        <div class="hotline-note">// 24/7/365 EMERGENCY RESPONSE // AVERAGE RESPONSE: 8 MINUTES //</div>
+        <a href="#" class="btn-cyber btn-red"><i class="fa-solid fa-triangle-exclamation"></i> File Incident Report</a>
       </div>
+      <div class="incident-footer">// PRIORITY CHANNEL // DO NOT USE FOR NON-EMERGENCY INQUIRIES //</div>
     </div>
   </div>
 </section>
 
-<!-- OFFICE LOCATIONS -->
 <section class="section-pad">
   <div class="container">
     <div class="text-center fade-up">
       <div class="section-label">Global Presence</div>
-      <h2 class="section-title">SOC Locations</h2>
-      <p class="section-sub">Our Security Operations Centers span the globe, providing follow-the-sun coverage across all time zones.</p>
+      <h2 class="section-title glitch-hover" data-text="SOC LOCATIONS">SOC Locations</h2>
+      <p class="section-sub">Seven Security Operations Centers across three continents providing global 24/7 coverage.</p>
     </div>
     <div class="offices-grid fade-up">
-      <div class="office-card">
-        <div class="office-type">// HQ & SOC-01</div>
-        <h4>San Francisco, CA</h4>
-        <p>123 Cyber Drive, Suite 400<br>San Francisco, CA 94105<br>United States</p>
-        <div class="office-status"><span class="dot"></span> <span style="color:var(--green);font-family:'JetBrains Mono'">OPERATIONAL</span></div>
-      </div>
-      <div class="office-card">
-        <div class="office-type">// SOC-02</div>
-        <h4>Ashburn, VA</h4>
-        <p>456 Defense Ave<br>Ashburn, VA 20147<br>United States</p>
-        <div class="office-status"><span class="dot"></span> <span style="color:var(--green);font-family:'JetBrains Mono'">OPERATIONAL</span></div>
-      </div>
-      <div class="office-card">
-        <div class="office-type">// SOC-03 / EU HQ</div>
-        <h4>London, UK</h4>
-        <p>78 Canary Wharf Tower<br>London E14 5AB<br>United Kingdom</p>
-        <div class="office-status"><span class="dot"></span> <span style="color:var(--green);font-family:'JetBrains Mono'">OPERATIONAL</span></div>
-      </div>
-      <div class="office-card">
-        <div class="office-type">// SOC-04</div>
-        <h4>Frankfurt, DE</h4>
-        <p>Mainzer Landstrasse 42<br>60325 Frankfurt<br>Germany</p>
-        <div class="office-status"><span class="dot"></span> <span style="color:var(--green);font-family:'JetBrains Mono'">OPERATIONAL</span></div>
-      </div>
-      <div class="office-card">
-        <div class="office-type">// SOC-05 / APAC HQ</div>
-        <h4>Singapore</h4>
-        <p>8 Marina View, #32-01<br>Asia Square Tower 1<br>Singapore 018960</p>
-        <div class="office-status"><span class="dot"></span> <span style="color:var(--green);font-family:'JetBrains Mono'">OPERATIONAL</span></div>
-      </div>
-      <div class="office-card">
-        <div class="office-type">// SOC-06 & SOC-07</div>
-        <h4>Sydney & Tokyo</h4>
-        <p>Sydney: 200 George St, NSW<br>Tokyo: 1-6-1 Roppongi<br>Minato-ku, Tokyo</p>
-        <div class="office-status"><span class="dot"></span> <span style="color:var(--green);font-family:'JetBrains Mono'">OPERATIONAL</span></div>
-      </div>
+      <div class="office-card"><h4><i class="fa-solid fa-location-dot"></i> HQ - San Francisco</h4><div class="office-detail">101 Market Street, Suite 4200</div><div class="office-detail">San Francisco, CA 94105</div><div class="office-detail">+1 (415) 555-0100</div></div>
+      <div class="office-card"><h4><i class="fa-solid fa-location-dot"></i> SOC East - Virginia</h4><div class="office-detail">1750 Tysons Blvd, Suite 800</div><div class="office-detail">McLean, VA 22102</div><div class="office-detail">+1 (703) 555-0200</div></div>
+      <div class="office-card"><h4><i class="fa-solid fa-location-dot"></i> SOC Europe - London</h4><div class="office-detail">25 Old Broad Street, Level 12</div><div class="office-detail">London, EC2N 1HQ, UK</div><div class="office-detail">+44 20 7946 0300</div></div>
+      <div class="office-card"><h4><i class="fa-solid fa-location-dot"></i> SOC APAC - Singapore</h4><div class="office-detail">1 Raffles Place, Tower 2</div><div class="office-detail">Singapore 048616</div><div class="office-detail">+65 6808 0400</div></div>
+      <div class="office-card"><h4><i class="fa-solid fa-location-dot"></i> SOC LATAM - Sao Paulo</h4><div class="office-detail">Av. Paulista 1374, 12th Floor</div><div class="office-detail">Sao Paulo, SP 01310-100</div><div class="office-detail">+55 11 3055 0500</div></div>
+      <div class="office-card"><h4><i class="fa-solid fa-location-dot"></i> SOC Middle East - Dubai</h4><div class="office-detail">DIFC Gate Village, Building 5</div><div class="office-detail">Dubai, UAE</div><div class="office-detail">+971 4 375 0600</div></div>
     </div>
   </div>
 </section>
@@ -379,13 +240,31 @@ footer{border-top:1px solid var(--border);padding:2rem;position:relative;z-index
 <footer>
   <div class="footer-inner">
     <div class="footer-copy">// 2026 ShieldGuard Security. All systems protected.</div>
-    <div class="footer-links">
-      <a href="about.html">About</a><a href="services.html">Services</a><a href="contact.html">Contact</a><a href="blog.html">Blog</a>
-    </div>
+    <div class="footer-links"><a href="about.html">About</a><a href="services.html">Services</a><a href="contact.html">Contact</a><a href="blog.html">Blog</a></div>
   </div>
 </footer>
 
 <script>
+(function(){
+  const c=document.getElementById('matrixCanvas');const ctx=c.getContext('2d');
+  function resize(){c.width=window.innerWidth;c.height=window.innerHeight}
+  resize();window.addEventListener('resize',resize);
+  const chars='01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+  const fontSize=14;let columns;let drops;
+  function init(){columns=Math.floor(c.width/fontSize);drops=[];for(let i=0;i<columns;i++)drops[i]=Math.random()*-100}
+  init();window.addEventListener('resize',init);
+  function draw(){
+    ctx.fillStyle='rgba(5,10,14,0.05)';ctx.fillRect(0,0,c.width,c.height);
+    ctx.fillStyle='rgba(0,255,136,0.08)';ctx.font=fontSize+'px monospace';
+    for(let i=0;i<drops.length;i++){
+      const t=chars[Math.floor(Math.random()*chars.length)];
+      ctx.fillText(t,i*fontSize,drops[i]*fontSize);
+      if(drops[i]*fontSize>c.height&&Math.random()>0.975)drops[i]=0;
+      drops[i]++
+    }
+  }
+  setInterval(draw,40);
+})();
 const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:0.1});
 document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
 </script>

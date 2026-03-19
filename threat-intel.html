@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Threat Intelligence — ShieldGuard Enterprise Cybersecurity</title>
-<meta name="description" content="ShieldGuard live threat intelligence dashboard: real-time global threat monitoring, attack analytics, and security feeds.">
+<meta name="description" content="ShieldGuard live threat intelligence dashboard: real-time threat monitoring, global attack maps, and security advisories.">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
@@ -13,8 +13,10 @@
 html{scroll-behavior:smooth;font-size:16px}
 body{font-family:'Rajdhani',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.6}
 body::after{content:'';position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px)}
+#matrixCanvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}
 .cyber-grid{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(0,255,136,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,136,0.02) 1px,transparent 1px);background-size:40px 40px}
-nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:1rem 2rem;background:rgba(5,10,14,0.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:1rem 2rem;transition:all 0.4s;background:rgba(5,10,14,0.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
 .nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
 .nav-logo{display:flex;align-items:center;gap:0.75rem;text-decoration:none}
 .nav-logo img{max-height:40px;width:auto}
@@ -27,15 +29,34 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:1rem 2rem;backgroun
 .mobile-menu{display:none;position:fixed;top:60px;left:0;right:0;background:rgba(5,10,14,0.98);border-bottom:1px solid var(--border);padding:2rem;z-index:999}
 .mobile-menu.active{display:block}
 .mobile-menu a{display:block;color:var(--text-dim);text-decoration:none;font-size:1rem;padding:0.75rem 0;border-bottom:1px solid var(--border2);text-transform:uppercase;letter-spacing:1px}
+
 section{position:relative;z-index:1}
 .section-pad{padding:6rem 2rem}
 .container{max-width:1200px;margin:0 auto}
 .section-label{font-family:'JetBrains Mono';font-size:0.7rem;color:var(--green);letter-spacing:3px;text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:0.75rem}
 .section-label::before{content:'//';color:var(--green-dim)}
 .section-title{font-family:'Orbitron';font-size:2.2rem;font-weight:700;color:var(--text-bright);text-transform:uppercase;letter-spacing:1px;margin-bottom:1rem}
-.text-center{text-align:center}.text-center .section-label{justify-content:center}
+.section-sub{font-size:1rem;color:var(--text-dim);max-width:600px;line-height:1.8}
+.text-center{text-align:center}
+.text-center .section-sub{margin:0 auto}
+.text-center .section-label{justify-content:center}
+.btn-cyber{padding:0.9rem 2.5rem;border:1px solid var(--green);background:transparent;color:var(--green);font-family:'Rajdhani';font-weight:700;font-size:1rem;letter-spacing:2px;text-transform:uppercase;cursor:pointer;position:relative;transition:all 0.3s;text-decoration:none;display:inline-flex;align-items:center;gap:0.75rem}
+.btn-cyber::before{content:'';position:absolute;top:-1px;left:-1px;right:-1px;bottom:-1px;background:var(--green);opacity:0;transition:opacity 0.3s;z-index:-1}
+.btn-cyber:hover{color:var(--bg);box-shadow:var(--glow)}.btn-cyber:hover::before{opacity:1}
+
+.glitch-hover{position:relative;display:inline-block}
+.glitch-hover:hover{animation:glitch 0.3s linear}
+@keyframes glitch{0%{transform:translate(0)}20%{transform:translate(-2px,2px)}40%{transform:translate(2px,-2px)}60%{transform:translate(-1px,-1px)}80%{transform:translate(1px,1px)}100%{transform:translate(0)}}
+.glitch-hover:hover::before,.glitch-hover:hover::after{content:attr(data-text);position:absolute;top:0;left:0;width:100%;height:100%}
+.glitch-hover:hover::before{color:var(--cyan);z-index:-1;animation:glitchClip 0.3s linear;clip-path:polygon(0 0,100% 0,100% 35%,0 35%)}
+.glitch-hover:hover::after{color:var(--red);z-index:-1;animation:glitchClip2 0.3s linear;clip-path:polygon(0 65%,100% 65%,100% 100%,0 100%)}
+@keyframes glitchClip{0%{transform:translate(0)}25%{transform:translate(3px,-1px)}50%{transform:translate(-2px,1px)}75%{transform:translate(1px,2px)}100%{transform:translate(0)}}
+@keyframes glitchClip2{0%{transform:translate(0)}25%{transform:translate(-3px,1px)}50%{transform:translate(2px,-1px)}75%{transform:translate(-1px,-2px)}100%{transform:translate(0)}}
+
 .fade-up{opacity:0;transform:translateY(30px);transition:all 0.7s cubic-bezier(0.16,1,0.3,1)}
 .fade-up.visible{opacity:1;transform:translateY(0)}
+.blink{animation:blink 1.5s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
 
 .page-hero{padding:8rem 2rem 4rem;position:relative;z-index:1;border-bottom:1px solid var(--border)}
 .page-hero .container{max-width:1200px;margin:0 auto}
@@ -44,82 +65,81 @@ section{position:relative;z-index:1}
 .page-hero h1{font-family:'Orbitron';font-size:3rem;font-weight:800;color:var(--text-bright);text-transform:uppercase;letter-spacing:-1px;margin-bottom:1rem}
 .page-hero h1 .green{color:var(--green);text-shadow:0 0 30px rgba(0,255,136,0.3)}
 .page-hero p{font-size:1.1rem;color:var(--text-dim);max-width:600px;line-height:1.8}
-.page-hero .live-badge{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(255,51,85,0.1);border:1px solid rgba(255,51,85,0.3);padding:0.4rem 1rem;font-family:'JetBrains Mono';font-size:0.7rem;color:var(--red);letter-spacing:2px;margin-top:1rem}
-.page-hero .live-badge .blink{width:8px;height:8px;background:var(--red);border-radius:50%;animation:blink 1s infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
 
-/* DASHBOARD STATS */
-.dash-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:3rem}
-.dash-stat{background:var(--bg2);border:1px solid var(--border);padding:2rem;text-align:center;position:relative;overflow:hidden;transition:all 0.3s}
-.dash-stat:hover{border-color:var(--green)}
-.dash-stat::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
-.dash-stat:nth-child(1)::before{background:var(--green)}
-.dash-stat:nth-child(2)::before{background:var(--cyan)}
-.dash-stat:nth-child(3)::before{background:var(--amber)}
-.dash-stat:nth-child(4)::before{background:var(--red)}
-.dash-stat .stat-label{font-family:'JetBrains Mono';font-size:0.65rem;color:var(--text-dim);letter-spacing:2px;text-transform:uppercase;margin-bottom:0.5rem}
-.dash-stat .stat-value{font-family:'Orbitron';font-size:2.5rem;font-weight:800;color:var(--text-bright)}
-.dash-stat .stat-change{font-family:'JetBrains Mono';font-size:0.7rem;margin-top:0.5rem}
-.dash-stat .stat-change.up{color:var(--red)}
-.dash-stat .stat-change.down{color:var(--green)}
+/* STATS */
+.stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;margin-top:3rem;background:var(--border)}
+.stat-card{background:var(--bg);padding:2rem;text-align:center;transition:all 0.3s}
+.stat-card:hover{background:var(--bg2)}
+.stat-card .stat-value{font-family:'Orbitron';font-size:2.2rem;font-weight:800;color:var(--green);margin-bottom:0.25rem}
+.stat-card .stat-value.red{color:var(--red)}.stat-card .stat-value.amber{color:var(--amber)}.stat-card .stat-value.cyan{color:var(--cyan)}
+.stat-card .stat-label{font-family:'JetBrains Mono';font-size:0.65rem;color:var(--text-dim);letter-spacing:2px;text-transform:uppercase}
+.stat-card .stat-change{font-family:'JetBrains Mono';font-size:0.6rem;margin-top:0.5rem}
+.stat-card .stat-change.up{color:var(--red)}.stat-card .stat-change.down{color:var(--green)}
 
 /* WORLD MAP */
-.world-map-container{background:var(--bg2);border:1px solid var(--border);margin-top:3rem;position:relative;overflow:hidden}
-.world-map-header{display:flex;justify-content:space-between;align-items:center;padding:1rem 1.5rem;border-bottom:1px solid var(--border);background:rgba(0,255,136,0.02)}
-.world-map-header h3{font-family:'JetBrains Mono';font-size:0.75rem;color:var(--green);letter-spacing:2px}
-.world-map-header .map-legend{display:flex;gap:1.5rem;font-family:'JetBrains Mono';font-size:0.65rem}
-.map-legend-item{display:flex;align-items:center;gap:0.5rem;color:var(--text-dim)}
-.map-legend-dot{width:8px;height:8px;border-radius:50%}
-.world-map-body{padding:2rem;position:relative;min-height:400px;display:flex;align-items:center;justify-content:center}
-.map-grid{display:grid;grid-template-columns:repeat(40,1fr);gap:3px;width:100%;max-width:900px}
-.map-cell{width:100%;aspect-ratio:1;background:rgba(0,255,136,0.03);border-radius:1px;transition:all 0.3s}
-.map-cell.land{background:rgba(0,255,136,0.08)}
-.map-cell.active{background:var(--green);animation:cellPulse 2s infinite;box-shadow:0 0 6px rgba(0,255,136,0.4)}
-.map-cell.threat{background:var(--red);animation:cellPulse 1s infinite;box-shadow:0 0 6px rgba(255,51,85,0.4)}
-.map-cell.warn{background:var(--amber);animation:cellPulse 1.5s infinite;box-shadow:0 0 6px rgba(255,170,0,0.4)}
-@keyframes cellPulse{0%,100%{opacity:1}50%{opacity:0.4}}
-.map-overlay-stats{position:absolute;bottom:1rem;right:1rem;background:rgba(5,10,14,0.9);border:1px solid var(--border);padding:1rem;font-family:'JetBrains Mono';font-size:0.7rem}
-.map-overlay-stats .mos-row{display:flex;justify-content:space-between;gap:2rem;padding:0.25rem 0;border-bottom:1px solid var(--border2)}
-.map-overlay-stats .mos-row:last-child{border:none}
-.map-overlay-stats .mos-label{color:var(--text-dim)}
-.map-overlay-stats .mos-val{color:var(--green);font-weight:600}
+.map-section{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.world-map{background:var(--bg);border:1px solid var(--border);position:relative;overflow:hidden;margin-top:3rem;aspect-ratio:2/1;min-height:300px}
+.world-map::before{content:'GLOBAL THREAT MONITOR // LIVE';position:absolute;top:1rem;left:1rem;font-family:'JetBrains Mono';font-size:0.6rem;color:var(--green);letter-spacing:2px;z-index:5}
+.world-map::after{content:'';position:absolute;top:1rem;right:1rem;width:8px;height:8px;background:var(--green);border-radius:50%;animation:blink 1s infinite;z-index:5}
+.map-grid{position:absolute;inset:0;display:grid;grid-template-columns:repeat(40,1fr);grid-template-rows:repeat(20,1fr);gap:2px;padding:2.5rem 1rem 1rem}
+.map-cell{width:100%;height:100%;border-radius:50%;background:transparent}
+.map-cell.land{background:rgba(0,255,136,0.12)}
+.map-cell.active{background:var(--green);animation:mapPulse 2s infinite}
+.map-cell.threat{background:var(--red);animation:mapPulse 1s infinite}
+.map-cell.amber-dot{background:var(--amber);animation:mapPulse 1.5s infinite}
+@keyframes mapPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.8);opacity:0.4}}
+.map-legend{position:absolute;bottom:1rem;right:1rem;display:flex;gap:1rem;z-index:5}
+.legend-item{display:flex;align-items:center;gap:0.35rem;font-family:'JetBrains Mono';font-size:0.55rem;color:var(--text-dim);letter-spacing:1px}
+.legend-dot{width:6px;height:6px;border-radius:50%}
+.legend-dot.g{background:var(--green)}.legend-dot.r{background:var(--red)}.legend-dot.a{background:var(--amber)}
 
-/* THREAT FEED */
-.feed-container{background:var(--bg2);border:1px solid var(--border);margin-top:3rem;overflow:hidden}
-.feed-header{padding:1rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:rgba(0,255,136,0.02)}
-.feed-header h3{font-family:'JetBrains Mono';font-size:0.75rem;color:var(--green);letter-spacing:2px}
-.feed-header .feed-status{font-family:'JetBrains Mono';font-size:0.65rem;color:var(--green);display:flex;align-items:center;gap:0.5rem}
-.feed-header .feed-status .blink{width:6px;height:6px;background:var(--green);border-radius:50%;animation:blink 1s infinite}
-.feed-body{max-height:500px;overflow-y:auto}
-.feed-item{display:grid;grid-template-columns:auto 1fr auto auto;gap:1.5rem;align-items:center;padding:1rem 1.5rem;border-bottom:1px solid var(--border2);transition:background 0.3s;font-size:0.85rem}
+/* FEED */
+.feed-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-top:3rem}
+.threat-feed{background:var(--bg2);border:1px solid var(--border);overflow:hidden}
+.feed-header{background:rgba(0,255,136,0.03);border-bottom:1px solid var(--border);padding:1rem 1.5rem;display:flex;align-items:center;justify-content:space-between}
+.feed-header span{font-family:'JetBrains Mono';font-size:0.7rem;color:var(--green);letter-spacing:2px}
+.feed-header .live-dot{width:6px;height:6px;background:var(--green);border-radius:50%;animation:blink 1s infinite}
+.feed-body{max-height:480px;overflow-y:auto}
+.feed-body::-webkit-scrollbar{width:4px}
+.feed-body::-webkit-scrollbar-track{background:var(--bg)}
+.feed-body::-webkit-scrollbar-thumb{background:var(--green-dim)}
+.feed-item{padding:1rem 1.5rem;border-bottom:1px solid var(--border2);transition:background 0.2s}
 .feed-item:hover{background:rgba(0,255,136,0.02)}
-.feed-time{font-family:'JetBrains Mono';font-size:0.7rem;color:var(--text-dim);white-space:nowrap}
-.feed-desc{color:var(--text)}
-.feed-desc .feed-highlight{color:var(--text-bright);font-weight:600}
-.feed-source{font-family:'JetBrains Mono';font-size:0.65rem;color:var(--text-dim);white-space:nowrap}
-.severity-badge{font-family:'JetBrains Mono';font-size:0.6rem;padding:0.2rem 0.6rem;letter-spacing:1px;text-transform:uppercase;font-weight:600;white-space:nowrap}
-.severity-critical{background:rgba(255,51,85,0.15);color:var(--red);border:1px solid rgba(255,51,85,0.3)}
-.severity-high{background:rgba(255,170,0,0.1);color:var(--amber);border:1px solid rgba(255,170,0,0.2)}
-.severity-medium{background:rgba(0,229,255,0.1);color:var(--cyan);border:1px solid rgba(0,229,255,0.2)}
-.severity-low{background:rgba(0,255,136,0.1);color:var(--green);border:1px solid rgba(0,255,136,0.2)}
+.feed-item-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:0.5rem}
+.severity{font-family:'JetBrains Mono';font-size:0.6rem;font-weight:700;letter-spacing:1px;padding:0.15rem 0.5rem;border:1px solid}
+.severity.critical{color:var(--red);border-color:var(--red);background:rgba(255,51,85,0.05)}
+.severity.high{color:var(--amber);border-color:var(--amber);background:rgba(255,170,0,0.05)}
+.severity.medium{color:var(--cyan);border-color:var(--cyan);background:rgba(0,229,255,0.05)}
+.severity.low{color:var(--green);border-color:var(--green);background:rgba(0,255,136,0.05)}
+.feed-time{font-family:'JetBrains Mono';font-size:0.6rem;color:var(--text-dim)}
+.feed-item h4{font-family:'Orbitron';font-size:0.75rem;font-weight:600;color:var(--text-bright);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:0.25rem}
+.feed-item p{font-family:'JetBrains Mono';font-size:0.7rem;color:var(--text-dim);line-height:1.6}
 
-/* ATTACK TYPES GRID */
-.attack-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
-.attack-card{background:var(--bg2);border:1px solid var(--border);padding:2rem;transition:all 0.4s;position:relative;overflow:hidden}
-.attack-card:hover{border-color:rgba(0,255,136,0.3)}
-.attack-card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem}
-.attack-card h4{font-family:'Orbitron';font-size:0.85rem;font-weight:600;color:var(--text-bright);text-transform:uppercase;letter-spacing:1px}
-.attack-card .attack-pct{font-family:'Orbitron';font-size:1.5rem;font-weight:700;color:var(--green)}
-.attack-bar-bg{width:100%;height:4px;background:var(--bg);margin-bottom:1rem;overflow:hidden}
-.attack-bar{height:100%;background:var(--green);transition:width 1.5s ease-out}
-.attack-bar.amber{background:var(--amber)}
-.attack-bar.red{background:var(--red)}
-.attack-bar.cyan{background:var(--cyan)}
-.attack-card p{font-size:0.85rem;color:var(--text-dim);line-height:1.6}
-.attack-card .attack-count{font-family:'JetBrains Mono';font-size:0.7rem;color:var(--text-dim);margin-top:0.75rem}
-.attack-card .attack-count span{color:var(--green);font-weight:600}
+/* VECTORS */
+.vectors-panel{background:var(--bg2);border:1px solid var(--border);overflow:hidden}
+.vectors-header{background:rgba(0,255,136,0.03);border-bottom:1px solid var(--border);padding:1rem 1.5rem}
+.vectors-header span{font-family:'JetBrains Mono';font-size:0.7rem;color:var(--green);letter-spacing:2px}
+.vectors-body{padding:1.5rem}
+.vector-item{margin-bottom:1.25rem}
+.vector-item-header{display:flex;justify-content:space-between;margin-bottom:0.4rem}
+.vector-name{font-family:'JetBrains Mono';font-size:0.75rem;color:var(--text-bright)}
+.vector-pct{font-family:'Orbitron';font-size:0.75rem;font-weight:700;color:var(--green)}
+.vector-bar{height:6px;background:var(--bg);border:1px solid var(--border);overflow:hidden}
+.vector-bar-fill{height:100%;background:var(--green);transition:width 1.5s cubic-bezier(0.16,1,0.3,1)}
+.vector-bar-fill.amber{background:var(--amber)}.vector-bar-fill.red{background:var(--red)}.vector-bar-fill.cyan{background:var(--cyan)}
 
-/* FOOTER */
+/* ADVISORIES */
+.advisory-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-top:3rem}
+.advisory-card{background:var(--bg2);border:1px solid var(--border);padding:1.5rem;transition:all 0.3s;position:relative;overflow:hidden}
+.advisory-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--green)}
+.advisory-card.crit::before{background:var(--red)}.advisory-card.high::before{background:var(--amber)}
+.advisory-card:hover{border-color:rgba(0,255,136,0.3)}
+.adv-meta{display:flex;align-items:center;gap:0.75rem;margin-bottom:0.75rem;flex-wrap:wrap}
+.adv-id{font-family:'JetBrains Mono';font-size:0.65rem;color:var(--green);letter-spacing:1px}
+.adv-date{font-family:'JetBrains Mono';font-size:0.6rem;color:var(--text-dim)}
+.advisory-card h4{font-family:'Orbitron';font-size:0.8rem;font-weight:600;color:var(--text-bright);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:0.5rem}
+.advisory-card p{font-size:0.85rem;color:var(--text-dim);line-height:1.7}
+
 footer{border-top:1px solid var(--border);padding:2rem;position:relative;z-index:1}
 .footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
 .footer-copy{font-family:'JetBrains Mono';font-size:0.75rem;color:var(--text-dim)}
@@ -129,19 +149,20 @@ footer{border-top:1px solid var(--border);padding:2rem;position:relative;z-index
 
 @media(max-width:900px){
   .page-hero h1{font-size:2rem}
-  .dash-stats{grid-template-columns:repeat(2,1fr)}
-  .attack-grid{grid-template-columns:1fr}
-  .feed-item{grid-template-columns:1fr;gap:0.5rem}
+  .stats-bar{grid-template-columns:repeat(2,1fr)}
+  .feed-grid{grid-template-columns:1fr}
+  .advisory-grid{grid-template-columns:1fr}
   .nav-links{display:none}.mobile-toggle{display:block}
 }
 @media(max-width:600px){
-  .dash-stats{grid-template-columns:1fr}
+  .stats-bar{grid-template-columns:1fr}
   .footer-inner{flex-direction:column;text-align:center}
-  .world-map-header{flex-direction:column;gap:0.5rem}
 }
 </style>
 </head>
 <body>
+
+<canvas id="matrixCanvas"></canvas>
 <div class="cyber-grid"></div>
 
 <nav>
@@ -165,196 +186,193 @@ footer{border-top:1px solid var(--border);padding:2rem;position:relative;z-index
 
 <section class="page-hero">
   <div class="container">
-    <div class="hero-top-label">Threat Intelligence // Live Dashboard</div>
-    <h1>Global Threat<br><span class="green">Intelligence</span></h1>
-    <p>Real-time visibility into the global cyber threat landscape. Monitor attacks, track adversaries, and stay ahead of emerging threats.</p>
-    <div class="live-badge"><span class="blink"></span> LIVE DATA FEED - UPDATED EVERY 30 SECONDS</div>
+    <div class="hero-top-label">Intelligence Center // Live Feed <span style="display:inline-flex;align-items:center;gap:0.4rem;margin-left:0.5rem;color:var(--green)"><span class="blink" style="width:6px;height:6px;background:var(--green);border-radius:50%;display:inline-block"></span> LIVE</span></div>
+    <h1 class="glitch-hover" data-text="THREAT INTELLIGENCE DASHBOARD">Threat Intelligence<br><span class="green">Dashboard</span></h1>
+    <p>Real-time global threat monitoring and intelligence feeds. Data aggregated from 142 countries, updated every 30 seconds.</p>
   </div>
 </section>
 
-<!-- DASHBOARD STATS -->
-<section class="section-pad">
+<section style="position:relative;z-index:1">
   <div class="container">
-    <div class="section-label">Real-Time Metrics</div>
-    <h2 class="section-title">Threat Overview</h2>
-    <div class="dash-stats fade-up">
-      <div class="dash-stat">
-        <div class="stat-label">Threats Blocked (24h)</div>
-        <div class="stat-value" id="cntThreats">0</div>
-        <div class="stat-change up"><i class="fa-solid fa-arrow-up"></i> +12.4% from yesterday</div>
-      </div>
-      <div class="dash-stat">
-        <div class="stat-label">Active Attacks</div>
-        <div class="stat-value" id="cntAttacks">0</div>
-        <div class="stat-change up"><i class="fa-solid fa-arrow-up"></i> +3 in last hour</div>
-      </div>
-      <div class="dash-stat">
-        <div class="stat-label">Malware Samples</div>
-        <div class="stat-value" id="cntMalware">0</div>
-        <div class="stat-change down"><i class="fa-solid fa-arrow-down"></i> -8.2% from last week</div>
-      </div>
-      <div class="dash-stat">
-        <div class="stat-label">Zero-Days Detected</div>
-        <div class="stat-value" id="cntZeroDay">0</div>
-        <div class="stat-change up"><i class="fa-solid fa-arrow-up"></i> 3 new this week</div>
-      </div>
+    <div class="stats-bar fade-up">
+      <div class="stat-card"><div class="stat-value" id="cntThreats">0</div><div class="stat-label">Threats Blocked (24h)</div><div class="stat-change up"><i class="fa-solid fa-arrow-up"></i> +12.4% vs yesterday</div></div>
+      <div class="stat-card"><div class="stat-value red" id="cntActive">0</div><div class="stat-label">Active Threats</div><div class="stat-change up"><i class="fa-solid fa-arrow-up"></i> +3 new threats</div></div>
+      <div class="stat-card"><div class="stat-value cyan">0.3<span style="font-size:1rem">ms</span></div><div class="stat-label">Detection Time</div><div class="stat-change down"><i class="fa-solid fa-arrow-down"></i> -0.1ms improvement</div></div>
+      <div class="stat-card"><div class="stat-value amber" id="cntZeroDay">0</div><div class="stat-label">Zero-Days Caught</div><div class="stat-change up"><i class="fa-solid fa-arrow-up"></i> +2 this week</div></div>
     </div>
   </div>
 </section>
 
-<!-- WORLD MAP -->
-<section class="section-pad" style="background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+<section class="section-pad map-section">
   <div class="container">
     <div class="fade-up">
       <div class="section-label">Global Monitoring</div>
-      <h2 class="section-title">Attack Origin Map</h2>
+      <h2 class="section-title glitch-hover" data-text="LIVE THREAT MAP">Live Threat Map</h2>
+      <p class="section-sub">Real-time visualization of global cyber attacks and threat activity across our monitoring network.</p>
     </div>
-    <div class="world-map-container fade-up">
-      <div class="world-map-header">
-        <h3>GLOBAL THREAT MAP // REAL-TIME</h3>
-        <div class="map-legend">
-          <div class="map-legend-item"><div class="map-legend-dot" style="background:var(--green)"></div> SOC Node</div>
-          <div class="map-legend-item"><div class="map-legend-dot" style="background:var(--amber)"></div> Warning</div>
-          <div class="map-legend-item"><div class="map-legend-dot" style="background:var(--red)"></div> Active Threat</div>
-        </div>
-      </div>
-      <div class="world-map-body">
-        <div class="map-grid" id="worldMap"></div>
-        <div class="map-overlay-stats">
-          <div class="mos-row"><span class="mos-label">Active Nodes</span><span class="mos-val">12,408</span></div>
-          <div class="mos-row"><span class="mos-label">Threat Sources</span><span class="mos-val" style="color:var(--red)">847</span></div>
-          <div class="mos-row"><span class="mos-label">Countries</span><span class="mos-val">142</span></div>
-          <div class="mos-row"><span class="mos-label">Latency</span><span class="mos-val">0.3ms</span></div>
-        </div>
+    <div class="world-map fade-up">
+      <div class="map-grid" id="worldMap"></div>
+      <div class="map-legend">
+        <div class="legend-item"><div class="legend-dot g"></div> MONITORED</div>
+        <div class="legend-item"><div class="legend-dot a"></div> ELEVATED</div>
+        <div class="legend-item"><div class="legend-dot r"></div> ATTACK</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- THREAT FEED -->
 <section class="section-pad">
   <div class="container">
     <div class="fade-up">
-      <div class="section-label">Live Feed</div>
-      <h2 class="section-title">Recent Threat Activity</h2>
+      <div class="section-label">Live Intelligence</div>
+      <h2 class="section-title glitch-hover" data-text="THREAT FEED & ANALYSIS">Threat Feed & Analysis</h2>
     </div>
-    <div class="feed-container fade-up">
-      <div class="feed-header">
-        <h3>THREAT_FEED.LOG</h3>
-        <div class="feed-status"><span class="blink"></span> STREAMING</div>
+    <div class="feed-grid">
+      <div class="threat-feed fade-up">
+        <div class="feed-header"><span>RECENT THREAT FEED</span><div class="live-dot"></div></div>
+        <div class="feed-body">
+          <div class="feed-item"><div class="feed-item-header"><span class="severity critical">CRITICAL</span><span class="feed-time">2 min ago</span></div><h4>RansomX 4.0 Variant Detected</h4><p>New ransomware variant targeting healthcare infrastructure. Exploits CVE-2026-0142. Automated containment initiated.</p></div>
+          <div class="feed-item"><div class="feed-item-header"><span class="severity critical">CRITICAL</span><span class="feed-time">18 min ago</span></div><h4>Zero-Day in Enterprise VPN</h4><p>Unpatched vulnerability in FortiGate VPN allows remote code execution. Patch advisory issued. Active exploitation in the wild.</p></div>
+          <div class="feed-item"><div class="feed-item-header"><span class="severity high">HIGH</span><span class="feed-time">47 min ago</span></div><h4>APT-38 Phishing Campaign</h4><p>Nation-state spear phishing campaign targeting financial services. 2,400 emails intercepted across 12 client networks.</p></div>
+          <div class="feed-item"><div class="feed-item-header"><span class="severity high">HIGH</span><span class="feed-time">1h 12min ago</span></div><h4>DDoS Amplification Attack</h4><p>Distributed denial-of-service attack against cloud infrastructure providers. Peak 3.2 Tbps. Mitigation active.</p></div>
+          <div class="feed-item"><div class="feed-item-header"><span class="severity medium">MEDIUM</span><span class="feed-time">2h 5min ago</span></div><h4>Supply Chain Package Compromise</h4><p>Malicious NPM package detected in dependency chain. 450+ repositories potentially affected. Advisory published.</p></div>
+          <div class="feed-item"><div class="feed-item-header"><span class="severity medium">MEDIUM</span><span class="feed-time">3h 22min ago</span></div><h4>Credential Stuffing Surge</h4><p>240% increase in credential stuffing attacks against e-commerce platforms. Bot detection rules updated.</p></div>
+          <div class="feed-item"><div class="feed-item-header"><span class="severity low">LOW</span><span class="feed-time">4h 45min ago</span></div><h4>SSL Certificate Expiry Warnings</h4><p>17 client certificates approaching expiration within 30 days. Automated renewal notifications dispatched.</p></div>
+          <div class="feed-item"><div class="feed-item-header"><span class="severity low">LOW</span><span class="feed-time">6h 10min ago</span></div><h4>DNS Configuration Drift</h4><p>Minor DNS record inconsistencies detected across 3 client domains. Auto-remediation completed.</p></div>
+        </div>
       </div>
-      <div class="feed-body">
-        <div class="feed-item"><div class="feed-time">00:02:14</div><div class="feed-desc"><span class="feed-highlight">Ransomware variant</span> detected targeting healthcare sector - BlackCat v4.2 signature match</div><div class="severity-badge severity-critical">Critical</div><div class="feed-source">SOC-01</div></div>
-        <div class="feed-item"><div class="feed-time">00:05:38</div><div class="feed-desc">Brute force attack blocked on <span class="feed-highlight">SSH endpoint</span> - 12,847 attempts from 45.33.xx.xx</div><div class="severity-badge severity-high">High</div><div class="feed-source">SOC-02</div></div>
-        <div class="feed-item"><div class="feed-time">00:08:12</div><div class="feed-desc"><span class="feed-highlight">Phishing campaign</span> identified - spoofing major financial institution - 2,400 emails blocked</div><div class="severity-badge severity-high">High</div><div class="feed-source">SOC-03</div></div>
-        <div class="feed-item"><div class="feed-time">00:11:47</div><div class="feed-desc">Suspicious <span class="feed-highlight">DNS tunneling</span> activity detected from internal network segment 10.0.4.x</div><div class="severity-badge severity-medium">Medium</div><div class="feed-source">SOC-01</div></div>
-        <div class="feed-item"><div class="feed-time">00:14:22</div><div class="feed-desc"><span class="feed-highlight">Zero-day exploit</span> attempt on Apache Struts - CVE-2026-XXXX - patched and contained</div><div class="severity-badge severity-critical">Critical</div><div class="feed-source">SOC-05</div></div>
-        <div class="feed-item"><div class="feed-time">00:17:55</div><div class="feed-desc"><span class="feed-highlight">DDoS attack</span> mitigated - 847 Gbps volumetric attack on client infrastructure</div><div class="severity-badge severity-high">High</div><div class="feed-source">SOC-04</div></div>
-        <div class="feed-item"><div class="feed-time">00:21:08</div><div class="feed-desc">Anomalous <span class="feed-highlight">lateral movement</span> detected - contained to isolated network segment</div><div class="severity-badge severity-medium">Medium</div><div class="feed-source">SOC-02</div></div>
-        <div class="feed-item"><div class="feed-time">00:24:33</div><div class="feed-desc"><span class="feed-highlight">Cryptominer</span> script injection attempt on client web application - blocked at WAF</div><div class="severity-badge severity-low">Low</div><div class="feed-source">SOC-01</div></div>
-        <div class="feed-item"><div class="feed-time">00:28:17</div><div class="feed-desc">New <span class="feed-highlight">APT group</span> activity linked to state-sponsored actors - tracking initiated</div><div class="severity-badge severity-critical">Critical</div><div class="feed-source">SOC-06</div></div>
-        <div class="feed-item"><div class="feed-time">00:31:42</div><div class="feed-desc"><span class="feed-highlight">SQL injection</span> attempts on e-commerce platform - 347 requests blocked</div><div class="severity-badge severity-medium">Medium</div><div class="feed-source">SOC-03</div></div>
-        <div class="feed-item"><div class="feed-time">00:35:19</div><div class="feed-desc">Credential stuffing attack on <span class="feed-highlight">OAuth endpoint</span> - 89,000 attempts from botnet</div><div class="severity-badge severity-high">High</div><div class="feed-source">SOC-05</div></div>
-        <div class="feed-item"><div class="feed-time">00:38:54</div><div class="feed-desc"><span class="feed-highlight">Supply chain</span> compromise attempt detected in npm package - dependency blocked</div><div class="severity-badge severity-critical">Critical</div><div class="feed-source">SOC-07</div></div>
+
+      <div class="vectors-panel fade-up">
+        <div class="vectors-header"><span>ATTACK VECTOR BREAKDOWN</span></div>
+        <div class="vectors-body">
+          <div class="vector-item"><div class="vector-item-header"><span class="vector-name"><i class="fa-solid fa-envelope"></i> Phishing / Social Engineering</span><span class="vector-pct">34%</span></div><div class="vector-bar"><div class="vector-bar-fill" style="width:0%" data-width="34"></div></div></div>
+          <div class="vector-item"><div class="vector-item-header"><span class="vector-name"><i class="fa-solid fa-bug"></i> Malware / Ransomware</span><span class="vector-pct">27%</span></div><div class="vector-bar"><div class="vector-bar-fill red" style="width:0%" data-width="27"></div></div></div>
+          <div class="vector-item"><div class="vector-item-header"><span class="vector-name"><i class="fa-solid fa-network-wired"></i> Network Intrusion</span><span class="vector-pct">16%</span></div><div class="vector-bar"><div class="vector-bar-fill amber" style="width:0%" data-width="16"></div></div></div>
+          <div class="vector-item"><div class="vector-item-header"><span class="vector-name"><i class="fa-solid fa-key"></i> Credential Theft</span><span class="vector-pct">11%</span></div><div class="vector-bar"><div class="vector-bar-fill cyan" style="width:0%" data-width="11"></div></div></div>
+          <div class="vector-item"><div class="vector-item-header"><span class="vector-name"><i class="fa-solid fa-cloud"></i> Cloud Exploitation</span><span class="vector-pct">7%</span></div><div class="vector-bar"><div class="vector-bar-fill" style="width:0%" data-width="7"></div></div></div>
+          <div class="vector-item"><div class="vector-item-header"><span class="vector-name"><i class="fa-solid fa-box-open"></i> Supply Chain Attacks</span><span class="vector-pct">3%</span></div><div class="vector-bar"><div class="vector-bar-fill amber" style="width:0%" data-width="3"></div></div></div>
+          <div class="vector-item"><div class="vector-item-header"><span class="vector-name"><i class="fa-solid fa-user-secret"></i> Insider Threats</span><span class="vector-pct">2%</span></div><div class="vector-bar"><div class="vector-bar-fill red" style="width:0%" data-width="2"></div></div></div>
+        </div>
+        <div style="border-top:1px solid var(--border);padding:1rem 1.5rem">
+          <div style="font-family:'JetBrains Mono';font-size:0.6rem;color:var(--text-dim);letter-spacing:1px;margin-bottom:1rem">// TOP TARGETED INDUSTRIES</div>
+          <div style="display:flex;flex-wrap:wrap;gap:0.5rem">
+            <span style="font-family:'JetBrains Mono';font-size:0.6rem;color:var(--text-dim);border:1px solid var(--border);padding:0.25rem 0.5rem">Financial Services</span>
+            <span style="font-family:'JetBrains Mono';font-size:0.6rem;color:var(--text-dim);border:1px solid var(--border);padding:0.25rem 0.5rem">Healthcare</span>
+            <span style="font-family:'JetBrains Mono';font-size:0.6rem;color:var(--text-dim);border:1px solid var(--border);padding:0.25rem 0.5rem">Government</span>
+            <span style="font-family:'JetBrains Mono';font-size:0.6rem;color:var(--text-dim);border:1px solid var(--border);padding:0.25rem 0.5rem">Technology</span>
+            <span style="font-family:'JetBrains Mono';font-size:0.6rem;color:var(--text-dim);border:1px solid var(--border);padding:0.25rem 0.5rem">Energy</span>
+            <span style="font-family:'JetBrains Mono';font-size:0.6rem;color:var(--text-dim);border:1px solid var(--border);padding:0.25rem 0.5rem">Manufacturing</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ATTACK TYPES -->
 <section class="section-pad" style="background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
   <div class="container">
     <div class="text-center fade-up">
-      <div class="section-label">Attack Analytics</div>
-      <h2 class="section-title">Top Attack Vectors</h2>
+      <div class="section-label">Security Advisories</div>
+      <h2 class="section-title glitch-hover" data-text="LATEST ADVISORIES">Latest Advisories</h2>
     </div>
-    <div class="attack-grid fade-up">
-      <div class="attack-card">
-        <div class="attack-card-header"><h4>Ransomware</h4><div class="attack-pct">34%</div></div>
-        <div class="attack-bar-bg"><div class="attack-bar red" style="width:0" data-width="34"></div></div>
-        <p>File-encrypting malware targeting enterprise data. BlackCat, LockBit, and Cl0p variants dominate.</p>
-        <div class="attack-count">Last 24h: <span>287,823</span> attempts blocked</div>
-      </div>
-      <div class="attack-card">
-        <div class="attack-card-header"><h4>Phishing</h4><div class="attack-pct">28%</div></div>
-        <div class="attack-bar-bg"><div class="attack-bar amber" style="width:0" data-width="28"></div></div>
-        <p>Social engineering attacks via email, SMS, and voice. Increasingly AI-generated content.</p>
-        <div class="attack-count">Last 24h: <span>236,844</span> emails blocked</div>
-      </div>
-      <div class="attack-card">
-        <div class="attack-card-header"><h4>DDoS</h4><div class="attack-pct">18%</div></div>
-        <div class="attack-bar-bg"><div class="attack-bar cyan" style="width:0" data-width="18"></div></div>
-        <p>Volumetric and application-layer distributed denial of service attacks on infrastructure.</p>
-        <div class="attack-count">Last 24h: <span>152,433</span> attacks mitigated</div>
-      </div>
-      <div class="attack-card">
-        <div class="attack-card-header"><h4>Zero-Day Exploits</h4><div class="attack-pct">8%</div></div>
-        <div class="attack-bar-bg"><div class="attack-bar red" style="width:0" data-width="8"></div></div>
-        <p>Previously unknown vulnerabilities exploited before patches are available.</p>
-        <div class="attack-count">Last 24h: <span>67,693</span> exploit attempts</div>
-      </div>
-      <div class="attack-card">
-        <div class="attack-card-header"><h4>Supply Chain</h4><div class="attack-pct">7%</div></div>
-        <div class="attack-bar-bg"><div class="attack-bar amber" style="width:0" data-width="7"></div></div>
-        <p>Attacks targeting software supply chains through compromised dependencies and updates.</p>
-        <div class="attack-count">Last 24h: <span>59,233</span> packages scanned</div>
-      </div>
-      <div class="attack-card">
-        <div class="attack-card-header"><h4>Insider Threats</h4><div class="attack-pct">5%</div></div>
-        <div class="attack-bar-bg"><div class="attack-bar" style="width:0" data-width="5"></div></div>
-        <p>Unauthorized access and data exfiltration by internal actors or compromised credentials.</p>
-        <div class="attack-count">Last 24h: <span>42,267</span> anomalies flagged</div>
-      </div>
+    <div class="advisory-grid fade-up">
+      <div class="advisory-card crit"><div class="adv-meta"><span class="severity critical">CRITICAL</span><span class="adv-id">SG-2026-0142</span><span class="adv-date">Mar 18, 2026</span></div><h4>RansomX 4.0 Campaign Active</h4><p>Active ransomware campaign targeting healthcare and government sectors. Immediate patching recommended for all affected systems.</p></div>
+      <div class="advisory-card crit"><div class="adv-meta"><span class="severity critical">CRITICAL</span><span class="adv-id">SG-2026-0139</span><span class="adv-date">Mar 16, 2026</span></div><h4>Enterprise VPN Zero-Day</h4><p>Remote code execution vulnerability in FortiGate VPN appliances. Patch available. Active exploitation confirmed in the wild.</p></div>
+      <div class="advisory-card high"><div class="adv-meta"><span class="severity high">HIGH</span><span class="adv-id">SG-2026-0137</span><span class="adv-date">Mar 14, 2026</span></div><h4>APT-38 Phishing Surge</h4><p>Nation-state phishing campaign targeting C-suite executives in financial services. Enhanced email filtering recommended.</p></div>
+      <div class="advisory-card"><div class="adv-meta"><span class="severity medium">MEDIUM</span><span class="adv-id">SG-2026-0134</span><span class="adv-date">Mar 12, 2026</span></div><h4>NPM Supply Chain Alert</h4><p>Malicious package discovered in popular NPM dependency chain. Review your package-lock.json for affected versions.</p></div>
     </div>
+  </div>
+</section>
+
+<section style="padding:6rem 2rem;text-align:center;position:relative;z-index:1">
+  <div style="max-width:800px;margin:0 auto;border:1px solid var(--border);padding:4rem 3rem;position:relative" class="fade-up">
+    <div style="position:absolute;top:-1px;left:20%;right:20%;height:1px;background:var(--green)"></div>
+    <h2 style="font-family:'Orbitron';font-size:2rem;font-weight:700;color:var(--text-bright);text-transform:uppercase;letter-spacing:1px;margin-bottom:1rem" class="glitch-hover" data-text="GET THE FULL THREAT REPORT">Get the Full Threat Report</h2>
+    <p style="font-size:1rem;color:var(--text-dim);margin-bottom:2rem;max-width:500px;margin-left:auto;margin-right:auto">Subscribe to ShieldGuard Threat Intelligence for daily advisories, IOC feeds, and executive briefings.</p>
+    <a href="contact.html" class="btn-cyber"><i class="fa-solid fa-file-shield"></i> Subscribe to Intel Feed</a>
   </div>
 </section>
 
 <footer>
   <div class="footer-inner">
     <div class="footer-copy">// 2026 ShieldGuard Security. All systems protected.</div>
-    <div class="footer-links">
-      <a href="about.html">About</a><a href="services.html">Services</a><a href="contact.html">Contact</a><a href="blog.html">Blog</a>
-    </div>
+    <div class="footer-links"><a href="about.html">About</a><a href="services.html">Services</a><a href="contact.html">Contact</a><a href="blog.html">Blog</a></div>
   </div>
 </footer>
 
 <script>
-// Animated counters
-function animCount(el,target,dur){let s=0;const step=target/((dur/1000)*60);function u(){s+=step;if(s>=target){el.textContent=target.toLocaleString();return}el.textContent=Math.floor(s).toLocaleString();requestAnimationFrame(u)}u()}
-animCount(document.getElementById('cntThreats'),847293,2000);
-animCount(document.getElementById('cntAttacks'),1247,1500);
-animCount(document.getElementById('cntMalware'),34892,1800);
-animCount(document.getElementById('cntZeroDay'),7,800);
-
-// World map
-const mapEl=document.getElementById('worldMap');
-const landPattern=[0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,1,1,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,0,0,0,0,0,1,1,1,0,1,1,1,1,1,1,1,0,0,1,1,0,0,0,0,0,0,1,1,0,0,1,1,1,1,1,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
-for(let i=0;i<240;i++){
-  const d=document.createElement('div');
-  d.className='map-cell';
-  if(i<landPattern.length&&landPattern[i])d.classList.add('land');
-  if(Math.random()<0.02)d.classList.add('active');
-  if(Math.random()<0.015)d.classList.add('threat');
-  if(Math.random()<0.01)d.classList.add('warn');
-  mapEl.appendChild(d)
-}
-// Animate random threat activity on map
-setInterval(()=>{
-  const cells=mapEl.querySelectorAll('.map-cell.land');
-  if(cells.length){
-    const r=cells[Math.floor(Math.random()*cells.length)];
-    r.classList.add('threat');
-    setTimeout(()=>r.classList.remove('threat'),2000)
+(function(){
+  const c=document.getElementById('matrixCanvas');const ctx=c.getContext('2d');
+  function resize(){c.width=window.innerWidth;c.height=window.innerHeight}
+  resize();window.addEventListener('resize',resize);
+  const chars='01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+  const fontSize=14;let columns;let drops;
+  function init(){columns=Math.floor(c.width/fontSize);drops=[];for(let i=0;i<columns;i++)drops[i]=Math.random()*-100}
+  init();window.addEventListener('resize',init);
+  function draw(){
+    ctx.fillStyle='rgba(5,10,14,0.05)';ctx.fillRect(0,0,c.width,c.height);
+    ctx.fillStyle='rgba(0,255,136,0.08)';ctx.font=fontSize+'px monospace';
+    for(let i=0;i<drops.length;i++){
+      const t=chars[Math.floor(Math.random()*chars.length)];
+      ctx.fillText(t,i*fontSize,drops[i]*fontSize);
+      if(drops[i]*fontSize>c.height&&Math.random()>0.975)drops[i]=0;
+      drops[i]++
+    }
   }
-},3000);
+  setInterval(draw,40);
+})();
 
-// Animate attack bars
-const barObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){
-  e.target.querySelectorAll('.attack-bar').forEach(b=>{b.style.width=b.dataset.width+'%'});
-  barObs.unobserve(e.target)}})},{threshold:0.1});
-document.querySelectorAll('.attack-grid').forEach(el=>barObs.observe(el));
+function animateCounter(el,target,duration){
+  let start=0;const step=target/((duration/1000)*60);
+  function update(){start+=step;if(start>=target){el.textContent=target.toLocaleString();return}
+    el.textContent=Math.floor(start).toLocaleString();requestAnimationFrame(update)}
+  update()
+}
+animateCounter(document.getElementById('cntThreats'),847293,2500);
+animateCounter(document.getElementById('cntActive'),142,1500);
+animateCounter(document.getElementById('cntZeroDay'),7,1000);
 
-// Fade up
+(function(){
+  const map=document.getElementById('worldMap');
+  const land=[
+    '0000000001111110000000001111100000000000',
+    '0000000011111111000000011111110000000000',
+    '0000001111111111100001111111111000000000',
+    '0000011111111111110011111111111100000000',
+    '0000111111111111111111111111111110000000',
+    '0001111111111111111111111111111111000000',
+    '0001111111111111111111111111111111100000',
+    '0000111111111111111111111111111111110000',
+    '0000011111111111111111111111111111100000',
+    '0000001111111111111110111111111111000000',
+    '0000000111111111111100011111111110000000',
+    '0000000011111111100000001111111100001100',
+    '0000000011111111000000000111110000011100',
+    '0000000001111110000000000011100000111100',
+    '0000000000111100000000000001000001111000',
+    '0000000000011000000000000000000011110000',
+    '0000000000001000000000000000000011100000',
+    '0000000000000000000000000000000001000000',
+    '0000000000000000000000000000000000000000',
+    '0000000000000000000000000000000000000000',
+  ];
+  for(let r=0;r<20;r++){for(let c=0;c<40;c++){
+    const cell=document.createElement('div');cell.className='map-cell';
+    if(land[r]&&land[r][c]==='1'){cell.classList.add('land');
+      if(Math.random()<0.04)cell.classList.add('active');
+      if(Math.random()<0.015)cell.classList.add('threat');
+      if(Math.random()<0.02)cell.classList.add('amber-dot');
+    }
+    map.appendChild(cell);
+  }}
+})();
+
+const vecObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){
+  document.querySelectorAll('.vector-bar-fill').forEach(bar=>{bar.style.width=bar.dataset.width+'%'});
+  vecObs.unobserve(e.target);
+}})},{threshold:0.2});
+document.querySelectorAll('.vectors-panel').forEach(el=>vecObs.observe(el));
+
 const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:0.1});
 document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
 </script>
