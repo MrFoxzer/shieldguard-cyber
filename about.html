@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — ShieldGuard Enterprise Cybersecurity</title>
+<meta name="description" content="Learn about ShieldGuard's mission, leadership team, and history of protecting enterprises from cyber threats.">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#050a0e;--bg2:#0a1118;--bg3:#0f1a24;--green:#00ff88;--green-dim:#00cc6a;--green-dark:#003322;--cyan:#00e5ff;--red:#ff3355;--amber:#ffaa00;--text:#c8d6e5;--text-dim:#5a7a8a;--text-bright:#e8f0f8;--border:rgba(0,255,136,0.1);--border2:rgba(0,255,136,0.05);--glow:0 0 20px rgba(0,255,136,0.15)}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Rajdhani',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.6}
+body::after{content:'';position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px)}
+.cyber-grid{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(0,255,136,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,136,0.02) 1px,transparent 1px);background-size:40px 40px}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:1rem 2rem;transition:all 0.4s;border-bottom:1px solid transparent;background:rgba(5,10,14,0.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+.nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{display:flex;align-items:center;gap:0.75rem;text-decoration:none}
+.nav-logo img{max-height:40px;width:auto}
+.nav-links{display:flex;align-items:center;gap:2rem;list-style:none}
+.nav-links a{color:var(--text-dim);text-decoration:none;font-size:0.85rem;font-weight:500;letter-spacing:1px;text-transform:uppercase;transition:color 0.3s}
+.nav-links a:hover,.nav-links a.active{color:var(--green)}
+.nav-cta{padding:0.6rem 1.5rem;border:1px solid var(--green);background:transparent;color:var(--green);font-family:'Rajdhani';font-weight:600;font-size:0.85rem;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all 0.3s;text-decoration:none}
+.nav-cta:hover{background:var(--green);color:var(--bg);box-shadow:var(--glow)}
+.mobile-toggle{display:none;background:none;border:none;color:var(--green);font-size:1.5rem;cursor:pointer}
+.mobile-menu{display:none;position:fixed;top:60px;left:0;right:0;background:rgba(5,10,14,0.98);border-bottom:1px solid var(--border);padding:2rem;z-index:999}
+.mobile-menu.active{display:block}
+.mobile-menu a{display:block;color:var(--text-dim);text-decoration:none;font-size:1rem;padding:0.75rem 0;border-bottom:1px solid var(--border2);text-transform:uppercase;letter-spacing:1px}
+
+/* SHARED */
+section{position:relative;z-index:1}
+.section-pad{padding:6rem 2rem}
+.container{max-width:1200px;margin:0 auto}
+.section-label{font-family:'JetBrains Mono';font-size:0.7rem;color:var(--green);letter-spacing:3px;text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:0.75rem}
+.section-label::before{content:'//';color:var(--green-dim)}
+.section-title{font-family:'Orbitron';font-size:2.2rem;font-weight:700;color:var(--text-bright);text-transform:uppercase;letter-spacing:1px;margin-bottom:1rem}
+.section-sub{font-size:1rem;color:var(--text-dim);max-width:600px;line-height:1.8}
+.text-center{text-align:center}
+.text-center .section-sub{margin:0 auto}
+.text-center .section-label{justify-content:center}
+.btn-cyber{padding:0.9rem 2.5rem;border:1px solid var(--green);background:transparent;color:var(--green);font-family:'Rajdhani';font-weight:700;font-size:1rem;letter-spacing:2px;text-transform:uppercase;cursor:pointer;position:relative;transition:all 0.3s;text-decoration:none;display:inline-flex;align-items:center;gap:0.75rem}
+.btn-cyber::before{content:'';position:absolute;top:-1px;left:-1px;right:-1px;bottom:-1px;background:var(--green);opacity:0;transition:opacity 0.3s;z-index:-1}
+.btn-cyber:hover{color:var(--bg);box-shadow:var(--glow)}.btn-cyber:hover::before{opacity:1}
+.fade-up{opacity:0;transform:translateY(30px);transition:all 0.7s cubic-bezier(0.16,1,0.3,1)}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+
+/* PAGE HERO */
+.page-hero{padding:8rem 2rem 4rem;position:relative;z-index:1;border-bottom:1px solid var(--border)}
+.page-hero .container{max-width:1200px;margin:0 auto}
+.page-hero .hero-top-label{font-family:'JetBrains Mono';font-size:0.75rem;color:var(--green);letter-spacing:2px;text-transform:uppercase;margin-bottom:1.5rem;display:flex;align-items:center;gap:0.75rem}
+.page-hero .hero-top-label::before{content:'';width:30px;height:1px;background:var(--green)}
+.page-hero h1{font-family:'Orbitron';font-size:3rem;font-weight:800;color:var(--text-bright);text-transform:uppercase;letter-spacing:-1px;margin-bottom:1rem}
+.page-hero h1 .green{color:var(--green);text-shadow:0 0 30px rgba(0,255,136,0.3)}
+.page-hero p{font-size:1.1rem;color:var(--text-dim);max-width:600px;line-height:1.8}
+
+/* MISSION */
+.mission-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;margin-top:3rem}
+.mission-text h3{font-family:'Orbitron';font-size:1.2rem;color:var(--text-bright);text-transform:uppercase;letter-spacing:1px;margin-bottom:1rem}
+.mission-text p{color:var(--text-dim);line-height:1.8;margin-bottom:1.5rem}
+.mission-terminal{background:var(--bg2);border:1px solid var(--border);padding:1.5rem;font-family:'JetBrains Mono';font-size:0.8rem;position:relative}
+.mission-terminal::before{content:'COMPANY_METRICS.SYS';position:absolute;top:-10px;left:1rem;background:var(--bg);padding:0 0.5rem;font-size:0.65rem;color:var(--green);letter-spacing:2px}
+.terminal-row{display:flex;justify-content:space-between;padding:0.5rem 0;border-bottom:1px solid var(--border2)}
+.terminal-row:last-child{border:none}
+.terminal-label{color:var(--text-dim)}
+.terminal-val{color:var(--green);font-weight:600}
+.terminal-val.cyan{color:var(--cyan)}
+
+/* LEADERSHIP TEAM */
+.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
+.team-card{background:var(--bg2);border:1px solid var(--border);padding:0;overflow:hidden;transition:all 0.4s}
+.team-card:hover{border-color:var(--green);box-shadow:var(--glow)}
+.team-card-header{background:rgba(0,255,136,0.03);border-bottom:1px solid var(--border);padding:1rem 1.5rem;display:flex;align-items:center;gap:1rem}
+.team-avatar{width:50px;height:50px;border:2px solid var(--green);border-radius:4px;display:flex;align-items:center;justify-content:center;color:var(--green);font-size:1.2rem}
+.team-meta .team-name{font-family:'Orbitron';font-size:0.85rem;font-weight:600;color:var(--text-bright);text-transform:uppercase;letter-spacing:1px}
+.team-meta .team-role{font-family:'JetBrains Mono';font-size:0.65rem;color:var(--green);letter-spacing:1px}
+.team-bio{padding:1.5rem;font-family:'JetBrains Mono';font-size:0.75rem;color:var(--text-dim);line-height:1.8}
+.team-bio .bio-line{padding:0.2rem 0}
+.team-bio .bio-line::before{content:'> ';color:var(--green)}
+.team-stats{border-top:1px solid var(--border);padding:1rem 1.5rem;display:flex;gap:1.5rem}
+.team-stat-item{font-family:'JetBrains Mono';font-size:0.65rem}
+.team-stat-item .stat-val{color:var(--green);font-weight:600}
+.team-stat-item .stat-label{color:var(--text-dim)}
+
+/* TIMELINE */
+.timeline{position:relative;margin-top:3rem;padding-left:3rem}
+.timeline::before{content:'';position:absolute;top:0;left:15px;bottom:0;width:2px;background:var(--green);opacity:0.3}
+.timeline-item{position:relative;padding:0 0 3rem 2rem;opacity:0;transform:translateX(-20px);transition:all 0.6s}
+.timeline-item.visible{opacity:1;transform:translateX(0)}
+.timeline-dot{position:absolute;left:-2.35rem;top:0.5rem;width:12px;height:12px;background:var(--bg);border:2px solid var(--green);border-radius:2px;z-index:2}
+.timeline-dot::after{content:'';position:absolute;inset:2px;background:var(--green);border-radius:1px;animation:dotPulse 2s infinite}
+@keyframes dotPulse{0%,100%{opacity:1}50%{opacity:0.3}}
+.timeline-year{font-family:'Orbitron';font-size:0.8rem;font-weight:700;color:var(--green);letter-spacing:2px;margin-bottom:0.5rem}
+.timeline-title{font-family:'Orbitron';font-size:1rem;font-weight:600;color:var(--text-bright);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.5rem}
+.timeline-desc{font-size:0.9rem;color:var(--text-dim);line-height:1.7;max-width:600px}
+
+/* CERTS */
+.certs-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:3rem}
+.cert-card{background:var(--bg2);border:1px solid var(--border);padding:2rem;text-align:center;transition:all 0.3s}
+.cert-card:hover{border-color:var(--green);box-shadow:var(--glow)}
+.cert-card i{font-size:2rem;color:var(--green);margin-bottom:1rem}
+.cert-card h4{font-family:'Orbitron';font-size:0.75rem;font-weight:600;color:var(--text-bright);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.5rem}
+.cert-card p{font-size:0.8rem;color:var(--text-dim);line-height:1.6}
+
+/* VALUES */
+.values-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-top:3rem}
+.value-card{background:var(--bg2);border:1px solid var(--border);padding:2rem;position:relative;overflow:hidden;transition:all 0.4s}
+.value-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:0;background:var(--green);transition:height 0.4s}
+.value-card:hover::before{height:100%}
+.value-card:hover{background:var(--bg3)}
+.value-card h4{font-family:'Orbitron';font-size:0.9rem;font-weight:600;color:var(--text-bright);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.75rem;display:flex;align-items:center;gap:0.75rem}
+.value-card h4 i{color:var(--green)}
+.value-card p{font-size:0.9rem;color:var(--text-dim);line-height:1.7}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:2rem;position:relative;z-index:1}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.footer-copy{font-family:'JetBrains Mono';font-size:0.75rem;color:var(--text-dim)}
+.footer-links{display:flex;gap:1.5rem}
+.footer-links a{color:var(--text-dim);text-decoration:none;font-size:0.8rem;transition:color 0.3s;font-family:'JetBrains Mono'}
+.footer-links a:hover{color:var(--green)}
+
+@media(max-width:900px){
+  .page-hero h1{font-size:2rem}
+  .team-grid{grid-template-columns:1fr}
+  .mission-grid{grid-template-columns:1fr}
+  .certs-grid{grid-template-columns:repeat(2,1fr)}
+  .values-grid{grid-template-columns:1fr}
+  .nav-links{display:none}.mobile-toggle{display:block}
+}
+@media(max-width:600px){
+  .certs-grid{grid-template-columns:1fr}
+  .footer-inner{flex-direction:column;text-align:center}
+}
+</style>
+</head>
+<body>
+<div class="cyber-grid"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><img src="logo.png" alt="ShieldGuard"></a>
+    <ul class="nav-links">
+      <li><a href="about.html" class="active">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="threat-intel.html">Threat Intel</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="contact.html" class="nav-cta">Request Audit</a></li>
+    </ul>
+    <button class="mobile-toggle" onclick="document.querySelector('.mobile-menu').classList.toggle('active')"><i class="fa-solid fa-bars"></i></button>
+  </div>
+</nav>
+<div class="mobile-menu">
+  <a href="about.html">About</a><a href="services.html">Services</a><a href="pricing.html">Pricing</a><a href="threat-intel.html">Threat Intel</a><a href="blog.html">Blog</a><a href="contact.html">Contact</a>
+</div>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="container">
+    <div class="hero-top-label">Company Profile // About ShieldGuard</div>
+    <h1>The Team Behind<br>Your <span class="green">Shield</span></h1>
+    <p>Founded in 2018, ShieldGuard has grown from a specialized threat research lab into a global cybersecurity powerhouse protecting Fortune 500 companies and critical infrastructure.</p>
+  </div>
+</section>
+
+<!-- MISSION -->
+<section class="section-pad">
+  <div class="container">
+    <div class="section-label">Our Mission</div>
+    <h2 class="section-title">Defending the Digital Frontier</h2>
+    <div class="mission-grid fade-up">
+      <div class="mission-text">
+        <h3>Zero Compromise Security</h3>
+        <p>At ShieldGuard, we believe cybersecurity is not just a service - it is a responsibility. Every line of code we write, every system we deploy, and every threat we neutralize is driven by a singular mission: to make the digital world safer for everyone.</p>
+        <p>Our approach combines cutting-edge artificial intelligence with deep human expertise. We do not just react to threats - we anticipate them, hunting adversaries across the global threat landscape before they can strike.</p>
+        <p>With operations spanning 142 countries and a team of over 500 elite security professionals, ShieldGuard stands as a bulwark against the ever-evolving cyber threat landscape.</p>
+      </div>
+      <div class="mission-terminal">
+        <div class="terminal-row"><span class="terminal-label">> Founded</span><span class="terminal-val">2018</span></div>
+        <div class="terminal-row"><span class="terminal-label">> Employees</span><span class="terminal-val">500+</span></div>
+        <div class="terminal-row"><span class="terminal-label">> Countries</span><span class="terminal-val">142</span></div>
+        <div class="terminal-row"><span class="terminal-label">> Threats Blocked</span><span class="terminal-val">2.4B+</span></div>
+        <div class="terminal-row"><span class="terminal-label">> Uptime</span><span class="terminal-val cyan">99.999%</span></div>
+        <div class="terminal-row"><span class="terminal-label">> SOC Locations</span><span class="terminal-val">7</span></div>
+        <div class="terminal-row"><span class="terminal-label">> Clients Protected</span><span class="terminal-val">3,200+</span></div>
+        <div class="terminal-row"><span class="terminal-label">> System Status</span><span class="terminal-val" style="color:var(--green)">OPERATIONAL</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CORE VALUES -->
+<section class="section-pad" style="background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <div class="container">
+    <div class="text-center fade-up">
+      <div class="section-label">Core Values</div>
+      <h2 class="section-title">What Drives Us</h2>
+    </div>
+    <div class="values-grid fade-up">
+      <div class="value-card">
+        <h4><i class="fa-solid fa-eye"></i> Vigilance</h4>
+        <p>Threats never sleep, and neither do we. Our 24/7/365 monitoring ensures constant protection. We watch the dark web, monitor emerging attack vectors, and stay two steps ahead of adversaries.</p>
+      </div>
+      <div class="value-card">
+        <h4><i class="fa-solid fa-lock"></i> Integrity</h4>
+        <p>Trust is the foundation of security. We maintain complete transparency with our clients, provide honest assessments, and never oversell or underdeliver on our security promises.</p>
+      </div>
+      <div class="value-card">
+        <h4><i class="fa-solid fa-bolt"></i> Innovation</h4>
+        <p>The threat landscape evolves daily. Our R&D team continuously develops new detection algorithms, AI models, and defense mechanisms to stay ahead of sophisticated threat actors.</p>
+      </div>
+      <div class="value-card">
+        <h4><i class="fa-solid fa-users"></i> Collaboration</h4>
+        <p>Security is a team effort. We work closely with clients, share threat intelligence with the security community, and partner with law enforcement to dismantle criminal networks.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEADERSHIP TEAM -->
+<section class="section-pad">
+  <div class="container">
+    <div class="text-center fade-up">
+      <div class="section-label">Leadership</div>
+      <h2 class="section-title">Command Structure</h2>
+      <p class="section-sub">Our leadership team brings decades of experience from NSA, GCHQ, Fortune 500 security operations, and elite military cyber units.</p>
+    </div>
+    <div class="team-grid fade-up">
+      <div class="team-card">
+        <div class="team-card-header">
+          <div class="team-avatar"><i class="fa-solid fa-user"></i></div>
+          <div class="team-meta">
+            <div class="team-name">Marcus Chen</div>
+            <div class="team-role">CEO & Founder</div>
+          </div>
+        </div>
+        <div class="team-bio">
+          <div class="bio-line">Former NSA Cyber Division Lead</div>
+          <div class="bio-line">MIT PhD in Computer Science</div>
+          <div class="bio-line">15+ years threat intelligence</div>
+          <div class="bio-line">Author: "Zero Trust Warfare"</div>
+        </div>
+        <div class="team-stats">
+          <div class="team-stat-item"><span class="stat-val">15yr</span> <span class="stat-label">Experience</span></div>
+          <div class="team-stat-item"><span class="stat-val">23</span> <span class="stat-label">Patents</span></div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-card-header">
+          <div class="team-avatar"><i class="fa-solid fa-user"></i></div>
+          <div class="team-meta">
+            <div class="team-name">Dr. Sarah Volkov</div>
+            <div class="team-role">CTO</div>
+          </div>
+        </div>
+        <div class="team-bio">
+          <div class="bio-line">Ex-Google Security Engineering</div>
+          <div class="bio-line">Stanford AI Research Fellow</div>
+          <div class="bio-line">Pioneer in ML threat detection</div>
+          <div class="bio-line">Led 200+ incident responses</div>
+        </div>
+        <div class="team-stats">
+          <div class="team-stat-item"><span class="stat-val">12yr</span> <span class="stat-label">Experience</span></div>
+          <div class="team-stat-item"><span class="stat-val">47</span> <span class="stat-label">Publications</span></div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-card-header">
+          <div class="team-avatar"><i class="fa-solid fa-user"></i></div>
+          <div class="team-meta">
+            <div class="team-name">James Blackwell</div>
+            <div class="team-role">CISO</div>
+          </div>
+        </div>
+        <div class="team-bio">
+          <div class="bio-line">Former GCHQ Cyber Operations</div>
+          <div class="bio-line">CISSP, CISM, CEH Certified</div>
+          <div class="bio-line">NATO Cybersecurity Advisor</div>
+          <div class="bio-line">Built 3 enterprise SOCs</div>
+        </div>
+        <div class="team-stats">
+          <div class="team-stat-item"><span class="stat-val">18yr</span> <span class="stat-label">Experience</span></div>
+          <div class="team-stat-item"><span class="stat-val">12</span> <span class="stat-label">SOC Deployments</span></div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-card-header">
+          <div class="team-avatar"><i class="fa-solid fa-user"></i></div>
+          <div class="team-meta">
+            <div class="team-name">Anika Patel</div>
+            <div class="team-role">VP of Threat Intelligence</div>
+          </div>
+        </div>
+        <div class="team-bio">
+          <div class="bio-line">Former FBI Cyber Division</div>
+          <div class="bio-line">Specialized in APT tracking</div>
+          <div class="bio-line">Dismantled 8 ransomware rings</div>
+          <div class="bio-line">Dark web intelligence expert</div>
+        </div>
+        <div class="team-stats">
+          <div class="team-stat-item"><span class="stat-val">14yr</span> <span class="stat-label">Experience</span></div>
+          <div class="team-stat-item"><span class="stat-val">8</span> <span class="stat-label">Takedowns</span></div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-card-header">
+          <div class="team-avatar"><i class="fa-solid fa-user"></i></div>
+          <div class="team-meta">
+            <div class="team-name">Erik Johansson</div>
+            <div class="team-role">VP of Engineering</div>
+          </div>
+        </div>
+        <div class="team-bio">
+          <div class="bio-line">Former Amazon AWS Security</div>
+          <div class="bio-line">Cloud-native architecture expert</div>
+          <div class="bio-line">Kubernetes security pioneer</div>
+          <div class="bio-line">Open source contributor</div>
+        </div>
+        <div class="team-stats">
+          <div class="team-stat-item"><span class="stat-val">11yr</span> <span class="stat-label">Experience</span></div>
+          <div class="team-stat-item"><span class="stat-val">15</span> <span class="stat-label">OSS Projects</span></div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-card-header">
+          <div class="team-avatar"><i class="fa-solid fa-user"></i></div>
+          <div class="team-meta">
+            <div class="team-name">Rachel Torres</div>
+            <div class="team-role">VP of Client Operations</div>
+          </div>
+        </div>
+        <div class="team-bio">
+          <div class="bio-line">Former Deloitte Cyber Risk</div>
+          <div class="bio-line">Compliance & regulatory expert</div>
+          <div class="bio-line">Managed 500+ enterprise clients</div>
+          <div class="bio-line">SOC 2 & ISO 27001 auditor</div>
+        </div>
+        <div class="team-stats">
+          <div class="team-stat-item"><span class="stat-val">13yr</span> <span class="stat-label">Experience</span></div>
+          <div class="team-stat-item"><span class="stat-val">500+</span> <span class="stat-label">Clients</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="section-pad" style="background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <div class="container">
+    <div class="fade-up">
+      <div class="section-label">Company History</div>
+      <h2 class="section-title">Operational Timeline</h2>
+    </div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">2018</div>
+        <div class="timeline-title">ShieldGuard Founded</div>
+        <div class="timeline-desc">Marcus Chen launches ShieldGuard from a small research lab in San Francisco. Initial focus on AI-driven threat detection algorithms for financial institutions.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">2019</div>
+        <div class="timeline-title">First SOC Deployed</div>
+        <div class="timeline-desc">Opened our first Security Operations Center in Virginia. Secured first 50 enterprise clients including 3 Fortune 500 companies. Team grows to 75 employees.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">2020</div>
+        <div class="timeline-title">Global Expansion</div>
+        <div class="timeline-desc">Opened European HQ in London and APAC hub in Singapore. Launched cloud security division. Protected clients through 340% increase in pandemic-related cyber attacks.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">2021</div>
+        <div class="timeline-title">Zero Trust Platform Launch</div>
+        <div class="timeline-desc">Released ShieldGuard Zero Trust Platform. Achieved SOC 2 Type II and ISO 27001 certifications. Blocked over 500 million threats for the first time.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">2022</div>
+        <div class="timeline-title">AI Threat Engine V3</div>
+        <div class="timeline-desc">Launched next-gen AI threat detection engine with 99.97% accuracy. Secured FedRAMP authorization. Grew to 350+ employees across 5 global SOCs.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">2023</div>
+        <div class="timeline-title">Critical Infrastructure Division</div>
+        <div class="timeline-desc">Formed dedicated critical infrastructure protection unit. Partnered with government agencies for national security initiatives. Surpassed 1 billion threats blocked.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">2024</div>
+        <div class="timeline-title">Industry Recognition</div>
+        <div class="timeline-desc">Named a Leader in Gartner Magic Quadrant for MDR. Reached 500+ employees, 3,200+ clients, and 7 global SOC locations. $100M ARR milestone.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">2025-26</div>
+        <div class="timeline-title">Quantum-Ready Security</div>
+        <div class="timeline-desc">Pioneering post-quantum cryptography solutions. Launched quantum-safe encryption toolkit. Preparing enterprise clients for the post-quantum threat era.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section class="section-pad">
+  <div class="container">
+    <div class="text-center fade-up">
+      <div class="section-label">Compliance & Certifications</div>
+      <h2 class="section-title">Verified & Accredited</h2>
+      <p class="section-sub">Our certifications demonstrate our commitment to the highest standards of security and operational excellence.</p>
+    </div>
+    <div class="certs-grid fade-up">
+      <div class="cert-card">
+        <i class="fa-solid fa-certificate"></i>
+        <h4>SOC 2 Type II</h4>
+        <p>Independently audited controls for security, availability, and confidentiality.</p>
+      </div>
+      <div class="cert-card">
+        <i class="fa-solid fa-shield-halved"></i>
+        <h4>ISO 27001</h4>
+        <p>International standard for information security management systems.</p>
+      </div>
+      <div class="cert-card">
+        <i class="fa-solid fa-globe"></i>
+        <h4>GDPR Compliant</h4>
+        <p>Full compliance with EU General Data Protection Regulation requirements.</p>
+      </div>
+      <div class="cert-card">
+        <i class="fa-solid fa-hospital"></i>
+        <h4>HIPAA</h4>
+        <p>Certified for protecting healthcare data and patient information security.</p>
+      </div>
+      <div class="cert-card">
+        <i class="fa-solid fa-credit-card"></i>
+        <h4>PCI DSS Level 1</h4>
+        <p>Highest level of payment card industry data security certification.</p>
+      </div>
+      <div class="cert-card">
+        <i class="fa-solid fa-flag-usa"></i>
+        <h4>FedRAMP</h4>
+        <p>Authorized to provide cloud services to US federal government agencies.</p>
+      </div>
+      <div class="cert-card">
+        <i class="fa-solid fa-gavel"></i>
+        <h4>NIST CSF</h4>
+        <p>Aligned with NIST Cybersecurity Framework for risk management.</p>
+      </div>
+      <div class="cert-card">
+        <i class="fa-solid fa-lock"></i>
+        <h4>CMMC Level 3</h4>
+        <p>Cybersecurity Maturity Model Certification for defense contracts.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section style="padding:6rem 2rem;text-align:center;position:relative;z-index:1">
+  <div style="max-width:800px;margin:0 auto;border:1px solid var(--border);padding:4rem 3rem;position:relative" class="fade-up">
+    <div style="position:absolute;top:-1px;left:20%;right:20%;height:1px;background:var(--green)"></div>
+    <h2 style="font-family:'Orbitron';font-size:2rem;font-weight:700;color:var(--text-bright);text-transform:uppercase;letter-spacing:1px;margin-bottom:1rem">Join Our Mission</h2>
+    <p style="font-size:1rem;color:var(--text-dim);margin-bottom:2rem;max-width:500px;margin-left:auto;margin-right:auto">Partner with the industry leader in enterprise cybersecurity. Let us protect what matters most.</p>
+    <a href="contact.html" class="btn-cyber"><i class="fa-solid fa-shield-halved"></i> Get Started</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-copy">// 2026 ShieldGuard Security. All systems protected.</div>
+    <div class="footer-links">
+      <a href="about.html">About</a><a href="services.html">Services</a><a href="contact.html">Contact</a><a href="blog.html">Blog</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:0.1});
+document.querySelectorAll('.fade-up,.timeline-item').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

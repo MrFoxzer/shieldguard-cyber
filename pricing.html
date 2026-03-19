@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pricing — ShieldGuard Enterprise Cybersecurity</title>
+<meta name="description" content="ShieldGuard cybersecurity pricing tiers: Sentinel, Guardian, and Fortress. Enterprise-grade protection for every organization.">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#050a0e;--bg2:#0a1118;--bg3:#0f1a24;--green:#00ff88;--green-dim:#00cc6a;--green-dark:#003322;--cyan:#00e5ff;--red:#ff3355;--amber:#ffaa00;--text:#c8d6e5;--text-dim:#5a7a8a;--text-bright:#e8f0f8;--border:rgba(0,255,136,0.1);--border2:rgba(0,255,136,0.05);--glow:0 0 20px rgba(0,255,136,0.15)}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Rajdhani',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.6}
+body::after{content:'';position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px)}
+.cyber-grid{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(0,255,136,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,136,0.02) 1px,transparent 1px);background-size:40px 40px}
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:1rem 2rem;background:rgba(5,10,14,0.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+.nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{display:flex;align-items:center;gap:0.75rem;text-decoration:none}
+.nav-logo img{max-height:40px;width:auto}
+.nav-links{display:flex;align-items:center;gap:2rem;list-style:none}
+.nav-links a{color:var(--text-dim);text-decoration:none;font-size:0.85rem;font-weight:500;letter-spacing:1px;text-transform:uppercase;transition:color 0.3s}
+.nav-links a:hover,.nav-links a.active{color:var(--green)}
+.nav-cta{padding:0.6rem 1.5rem;border:1px solid var(--green);background:transparent;color:var(--green);font-family:'Rajdhani';font-weight:600;font-size:0.85rem;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all 0.3s;text-decoration:none}
+.nav-cta:hover{background:var(--green);color:var(--bg);box-shadow:var(--glow)}
+.mobile-toggle{display:none;background:none;border:none;color:var(--green);font-size:1.5rem;cursor:pointer}
+.mobile-menu{display:none;position:fixed;top:60px;left:0;right:0;background:rgba(5,10,14,0.98);border-bottom:1px solid var(--border);padding:2rem;z-index:999}
+.mobile-menu.active{display:block}
+.mobile-menu a{display:block;color:var(--text-dim);text-decoration:none;font-size:1rem;padding:0.75rem 0;border-bottom:1px solid var(--border2);text-transform:uppercase;letter-spacing:1px}
+section{position:relative;z-index:1}
+.section-pad{padding:6rem 2rem}
+.container{max-width:1200px;margin:0 auto}
+.section-label{font-family:'JetBrains Mono';font-size:0.7rem;color:var(--green);letter-spacing:3px;text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:0.75rem}
+.section-label::before{content:'//';color:var(--green-dim)}
+.section-title{font-family:'Orbitron';font-size:2.2rem;font-weight:700;color:var(--text-bright);text-transform:uppercase;letter-spacing:1px;margin-bottom:1rem}
+.section-sub{font-size:1rem;color:var(--text-dim);max-width:600px;line-height:1.8}
+.text-center{text-align:center}.text-center .section-sub{margin:0 auto}.text-center .section-label{justify-content:center}
+.btn-cyber{padding:0.9rem 2.5rem;border:1px solid var(--green);background:transparent;color:var(--green);font-family:'Rajdhani';font-weight:700;font-size:1rem;letter-spacing:2px;text-transform:uppercase;cursor:pointer;position:relative;transition:all 0.3s;text-decoration:none;display:inline-flex;align-items:center;gap:0.75rem}
+.btn-cyber::before{content:'';position:absolute;top:-1px;left:-1px;right:-1px;bottom:-1px;background:var(--green);opacity:0;transition:opacity 0.3s;z-index:-1}
+.btn-cyber:hover{color:var(--bg);box-shadow:var(--glow)}.btn-cyber:hover::before{opacity:1}
+.fade-up{opacity:0;transform:translateY(30px);transition:all 0.7s cubic-bezier(0.16,1,0.3,1)}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+
+.page-hero{padding:8rem 2rem 4rem;position:relative;z-index:1;border-bottom:1px solid var(--border)}
+.page-hero .container{max-width:1200px;margin:0 auto}
+.page-hero .hero-top-label{font-family:'JetBrains Mono';font-size:0.75rem;color:var(--green);letter-spacing:2px;text-transform:uppercase;margin-bottom:1.5rem;display:flex;align-items:center;gap:0.75rem}
+.page-hero .hero-top-label::before{content:'';width:30px;height:1px;background:var(--green)}
+.page-hero h1{font-family:'Orbitron';font-size:3rem;font-weight:800;color:var(--text-bright);text-transform:uppercase;letter-spacing:-1px;margin-bottom:1rem}
+.page-hero h1 .green{color:var(--green);text-shadow:0 0 30px rgba(0,255,136,0.3)}
+.page-hero p{font-size:1.1rem;color:var(--text-dim);max-width:600px;line-height:1.8}
+
+/* PRICING CARDS */
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
+.pricing-card{background:var(--bg2);border:1px solid var(--border);position:relative;transition:all 0.4s;overflow:hidden}
+.pricing-card.featured{border-color:var(--green);box-shadow:0 0 30px rgba(0,255,136,0.1)}
+.pricing-card.featured::after{content:'RECOMMENDED';position:absolute;top:0;left:0;right:0;background:var(--green);color:var(--bg);font-family:'JetBrains Mono';font-size:0.65rem;text-align:center;padding:0.3rem;letter-spacing:2px;font-weight:600}
+.pricing-card:hover{border-color:rgba(0,255,136,0.3);transform:translateY(-4px)}
+.pricing-header{padding:2.5rem 2rem 1.5rem;border-bottom:1px solid var(--border);text-align:center}
+.pricing-card.featured .pricing-header{padding-top:3.5rem}
+.pricing-tier{font-family:'JetBrains Mono';font-size:0.65rem;color:var(--green);letter-spacing:3px;text-transform:uppercase;margin-bottom:0.5rem}
+.pricing-name{font-family:'Orbitron';font-size:1.3rem;font-weight:700;color:var(--text-bright);text-transform:uppercase;letter-spacing:1px;margin-bottom:1rem}
+.pricing-price{font-family:'Orbitron';font-size:2.5rem;font-weight:800;color:var(--text-bright)}
+.pricing-price span{font-size:0.9rem;font-weight:400;color:var(--text-dim)}
+.pricing-price-sub{font-size:0.8rem;color:var(--text-dim);margin-top:0.25rem}
+.pricing-body{padding:2rem}
+.pricing-features{list-style:none;margin-bottom:2rem}
+.pricing-features li{padding:0.5rem 0;font-size:0.9rem;color:var(--text);display:flex;align-items:center;gap:0.75rem;border-bottom:1px solid var(--border2)}
+.pricing-features li:last-child{border:none}
+.pricing-features li i{color:var(--green);font-size:0.7rem;width:16px;text-align:center}
+.pricing-features li i.red{color:var(--red)}
+.pricing-features li.disabled{color:var(--text-dim)}
+.pricing-body .btn-cyber{width:100%;justify-content:center;font-size:0.85rem;padding:0.75rem}
+.pricing-body .btn-ghost{width:100%;text-align:center;display:block;padding:0.75rem;border:1px solid var(--border);background:transparent;color:var(--text);font-family:'Rajdhani';font-weight:600;font-size:0.85rem;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all 0.3s;text-decoration:none}
+.pricing-body .btn-ghost:hover{border-color:var(--text);color:var(--text-bright)}
+
+/* FEATURE MATRIX */
+.matrix-table{width:100%;border-collapse:collapse;margin-top:3rem;font-size:0.85rem}
+.matrix-table th{font-family:'Orbitron';font-size:0.75rem;font-weight:600;color:var(--green);text-transform:uppercase;letter-spacing:1px;padding:1rem;text-align:center;border-bottom:2px solid var(--green);background:var(--bg2)}
+.matrix-table th:first-child{text-align:left}
+.matrix-table td{padding:0.75rem 1rem;border-bottom:1px solid var(--border2);color:var(--text-dim);text-align:center}
+.matrix-table td:first-child{text-align:left;color:var(--text);font-weight:500}
+.matrix-table tr:hover td{background:rgba(0,255,136,0.02)}
+.matrix-table .check{color:var(--green)}
+.matrix-table .cross{color:var(--text-dim);opacity:0.3}
+
+/* ENTERPRISE CONTACT */
+.enterprise-box{background:var(--bg2);border:1px solid var(--border);padding:3rem;margin-top:3rem;display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+.enterprise-text h3{font-family:'Orbitron';font-size:1.3rem;font-weight:700;color:var(--text-bright);text-transform:uppercase;letter-spacing:1px;margin-bottom:1rem}
+.enterprise-text p{color:var(--text-dim);line-height:1.8;margin-bottom:1.5rem}
+.enterprise-form{display:grid;gap:1rem}
+.form-group{position:relative}
+.form-group label{display:block;font-family:'JetBrains Mono';font-size:0.65rem;color:var(--green);letter-spacing:2px;text-transform:uppercase;margin-bottom:0.4rem}
+.form-group input,.form-group select,.form-group textarea{width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:'Rajdhani';font-size:0.95rem;padding:0.75rem 1rem;transition:border-color 0.3s;outline:none}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--green);box-shadow:0 0 10px rgba(0,255,136,0.1)}
+.form-group select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2300ff88' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center}
+.form-group select option{background:var(--bg2);color:var(--text)}
+.form-group textarea{resize:vertical;min-height:80px}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:2rem;position:relative;z-index:1}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.footer-copy{font-family:'JetBrains Mono';font-size:0.75rem;color:var(--text-dim)}
+.footer-links{display:flex;gap:1.5rem}
+.footer-links a{color:var(--text-dim);text-decoration:none;font-size:0.8rem;transition:color 0.3s;font-family:'JetBrains Mono'}
+.footer-links a:hover{color:var(--green)}
+
+@media(max-width:900px){
+  .page-hero h1{font-size:2rem}
+  .pricing-grid{grid-template-columns:1fr}
+  .enterprise-box{grid-template-columns:1fr}
+  .matrix-table{font-size:0.75rem}
+  .nav-links{display:none}.mobile-toggle{display:block}
+}
+@media(max-width:600px){
+  .footer-inner{flex-direction:column;text-align:center}
+  .matrix-table th,.matrix-table td{padding:0.5rem}
+}
+</style>
+</head>
+<body>
+<div class="cyber-grid"></div>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><img src="logo.png" alt="ShieldGuard"></a>
+    <ul class="nav-links">
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="pricing.html" class="active">Pricing</a></li>
+      <li><a href="threat-intel.html">Threat Intel</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="contact.html" class="nav-cta">Request Audit</a></li>
+    </ul>
+    <button class="mobile-toggle" onclick="document.querySelector('.mobile-menu').classList.toggle('active')"><i class="fa-solid fa-bars"></i></button>
+  </div>
+</nav>
+<div class="mobile-menu">
+  <a href="about.html">About</a><a href="services.html">Services</a><a href="pricing.html">Pricing</a><a href="threat-intel.html">Threat Intel</a><a href="blog.html">Blog</a><a href="contact.html">Contact</a>
+</div>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="hero-top-label">Security Tiers // Pricing Matrix</div>
+    <h1>Choose Your<br><span class="green">Security Level</span></h1>
+    <p>Scalable protection tiers designed for organizations of every size. From startup to enterprise, we have your security covered.</p>
+  </div>
+</section>
+
+<!-- PRICING CARDS -->
+<section class="section-pad">
+  <div class="container">
+    <div class="text-center fade-up">
+      <div class="section-label">Security Tiers</div>
+      <h2 class="section-title">Protection Plans</h2>
+    </div>
+    <div class="pricing-grid fade-up">
+
+      <!-- SENTINEL -->
+      <div class="pricing-card">
+        <div class="pricing-header">
+          <div class="pricing-tier">// Tier 01</div>
+          <div class="pricing-name">Sentinel</div>
+          <div class="pricing-price">$2,499<span>/mo</span></div>
+          <div class="pricing-price-sub">Billed annually. Per 100 endpoints.</div>
+        </div>
+        <div class="pricing-body">
+          <ul class="pricing-features">
+            <li><i class="fa-solid fa-check"></i> AI Threat Detection</li>
+            <li><i class="fa-solid fa-check"></i> 8x5 SOC Monitoring</li>
+            <li><i class="fa-solid fa-check"></i> Email Security Gateway</li>
+            <li><i class="fa-solid fa-check"></i> Vulnerability Scanning</li>
+            <li><i class="fa-solid fa-check"></i> Monthly Security Reports</li>
+            <li><i class="fa-solid fa-check"></i> Basic Incident Response</li>
+            <li class="disabled"><i class="fa-solid fa-xmark red"></i> Zero Trust Architecture</li>
+            <li class="disabled"><i class="fa-solid fa-xmark red"></i> Penetration Testing</li>
+            <li class="disabled"><i class="fa-solid fa-xmark red"></i> Dedicated CISO</li>
+          </ul>
+          <a href="contact.html" class="btn-ghost">Select Sentinel</a>
+        </div>
+      </div>
+
+      <!-- GUARDIAN -->
+      <div class="pricing-card featured">
+        <div class="pricing-header">
+          <div class="pricing-tier">// Tier 02</div>
+          <div class="pricing-name">Guardian</div>
+          <div class="pricing-price">$5,999<span>/mo</span></div>
+          <div class="pricing-price-sub">Billed annually. Per 250 endpoints.</div>
+        </div>
+        <div class="pricing-body">
+          <ul class="pricing-features">
+            <li><i class="fa-solid fa-check"></i> Advanced AI Threat Detection</li>
+            <li><i class="fa-solid fa-check"></i> 24/7 SOC Monitoring</li>
+            <li><i class="fa-solid fa-check"></i> Zero Trust Architecture</li>
+            <li><i class="fa-solid fa-check"></i> Cloud Security (CSPM)</li>
+            <li><i class="fa-solid fa-check"></i> Quarterly Pen Testing</li>
+            <li><i class="fa-solid fa-check"></i> Priority Incident Response</li>
+            <li><i class="fa-solid fa-check"></i> Compliance Reporting</li>
+            <li><i class="fa-solid fa-check"></i> Threat Intelligence Feed</li>
+            <li class="disabled"><i class="fa-solid fa-xmark red"></i> Dedicated CISO</li>
+          </ul>
+          <a href="contact.html" class="btn-cyber">Select Guardian</a>
+        </div>
+      </div>
+
+      <!-- FORTRESS -->
+      <div class="pricing-card">
+        <div class="pricing-header">
+          <div class="pricing-tier">// Tier 03</div>
+          <div class="pricing-name">Fortress</div>
+          <div class="pricing-price">Custom</div>
+          <div class="pricing-price-sub">Enterprise pricing. Unlimited endpoints.</div>
+        </div>
+        <div class="pricing-body">
+          <ul class="pricing-features">
+            <li><i class="fa-solid fa-check"></i> Full AI Threat Engine</li>
+            <li><i class="fa-solid fa-check"></i> 24/7 Dedicated SOC Team</li>
+            <li><i class="fa-solid fa-check"></i> Full Zero Trust Deployment</li>
+            <li><i class="fa-solid fa-check"></i> Multi-Cloud Security</li>
+            <li><i class="fa-solid fa-check"></i> Monthly Pen Testing</li>
+            <li><i class="fa-solid fa-check"></i> Dedicated Incident Response</li>
+            <li><i class="fa-solid fa-check"></i> Dedicated CISO</li>
+            <li><i class="fa-solid fa-check"></i> Custom Integrations</li>
+            <li><i class="fa-solid fa-check"></i> Board-Level Reporting</li>
+          </ul>
+          <a href="contact.html" class="btn-ghost">Contact Sales</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURE COMPARISON MATRIX -->
+<section class="section-pad" style="background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <div class="container">
+    <div class="text-center fade-up">
+      <div class="section-label">Feature Comparison</div>
+      <h2 class="section-title">Security Matrix</h2>
+    </div>
+    <div class="fade-up" style="overflow-x:auto">
+      <table class="matrix-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Sentinel</th>
+            <th>Guardian</th>
+            <th>Fortress</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>AI Threat Detection</td><td class="check"><i class="fa-solid fa-check"></i> Basic</td><td class="check"><i class="fa-solid fa-check"></i> Advanced</td><td class="check"><i class="fa-solid fa-check"></i> Full</td></tr>
+          <tr><td>SOC Monitoring</td><td>8x5</td><td class="check">24/7</td><td class="check">24/7 Dedicated</td></tr>
+          <tr><td>Zero Trust Architecture</td><td class="cross"><i class="fa-solid fa-xmark"></i></td><td class="check"><i class="fa-solid fa-check"></i></td><td class="check"><i class="fa-solid fa-check"></i> Full</td></tr>
+          <tr><td>Cloud Security</td><td class="cross"><i class="fa-solid fa-xmark"></i></td><td class="check"><i class="fa-solid fa-check"></i> CSPM</td><td class="check"><i class="fa-solid fa-check"></i> Full Stack</td></tr>
+          <tr><td>Penetration Testing</td><td class="cross"><i class="fa-solid fa-xmark"></i></td><td>Quarterly</td><td class="check">Monthly</td></tr>
+          <tr><td>Incident Response</td><td>Basic (24h SLA)</td><td>Priority (4h SLA)</td><td class="check">Dedicated (15min SLA)</td></tr>
+          <tr><td>Vulnerability Scanning</td><td class="check">Monthly</td><td class="check">Weekly</td><td class="check">Continuous</td></tr>
+          <tr><td>Compliance Reporting</td><td class="cross"><i class="fa-solid fa-xmark"></i></td><td class="check"><i class="fa-solid fa-check"></i></td><td class="check"><i class="fa-solid fa-check"></i> Custom</td></tr>
+          <tr><td>Threat Intelligence</td><td class="cross"><i class="fa-solid fa-xmark"></i></td><td class="check"><i class="fa-solid fa-check"></i></td><td class="check"><i class="fa-solid fa-check"></i> Premium</td></tr>
+          <tr><td>Dedicated CISO</td><td class="cross"><i class="fa-solid fa-xmark"></i></td><td class="cross"><i class="fa-solid fa-xmark"></i></td><td class="check"><i class="fa-solid fa-check"></i></td></tr>
+          <tr><td>Custom Integrations</td><td class="cross"><i class="fa-solid fa-xmark"></i></td><td class="cross"><i class="fa-solid fa-xmark"></i></td><td class="check"><i class="fa-solid fa-check"></i></td></tr>
+          <tr><td>Endpoint Coverage</td><td>Up to 100</td><td>Up to 250</td><td class="check">Unlimited</td></tr>
+          <tr><td>Support Level</td><td>Email</td><td>Email + Phone</td><td class="check">Dedicated Team</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ENTERPRISE CONTACT -->
+<section class="section-pad">
+  <div class="container">
+    <div class="fade-up">
+      <div class="section-label">Enterprise</div>
+      <h2 class="section-title">Custom Security Solutions</h2>
+    </div>
+    <div class="enterprise-box fade-up">
+      <div class="enterprise-text">
+        <h3>Need a Tailored Solution?</h3>
+        <p>Our Fortress tier is fully customizable to your organization's unique security requirements. Whether you need specialized compliance frameworks, custom integrations, or dedicated security teams, we build solutions that fit.</p>
+        <p>Contact our enterprise team for a personalized security assessment and custom pricing based on your infrastructure and threat profile.</p>
+        <div style="font-family:'JetBrains Mono';font-size:0.75rem;color:var(--text-dim);margin-top:1rem">
+          <div style="padding:0.3rem 0"><span style="color:var(--green)">> </span>Average deployment time: 2-4 weeks</div>
+          <div style="padding:0.3rem 0"><span style="color:var(--green)">> </span>99.999% uptime SLA guaranteed</div>
+          <div style="padding:0.3rem 0"><span style="color:var(--green)">> </span>No long-term contract required</div>
+        </div>
+      </div>
+      <form class="enterprise-form" onsubmit="event.preventDefault();this.innerHTML='<div style=text-align:center;padding:2rem;font-family:JetBrains+Mono;color:var(--green)><i class=fa-solid+fa-check style=font-size:2rem;margin-bottom:1rem></i><br>TRANSMISSION RECEIVED<br><span style=color:var(--text-dim);font-size:0.8rem>Our team will contact you within 24 hours.</span></div>'">
+        <div class="form-group">
+          <label>Organization Name</label>
+          <input type="text" placeholder="Enter organization name" required>
+        </div>
+        <div class="form-group">
+          <label>Contact Email</label>
+          <input type="email" placeholder="security@company.com" required>
+        </div>
+        <div class="form-group">
+          <label>Organization Size</label>
+          <select required>
+            <option value="">Select size</option>
+            <option>1-100 employees</option>
+            <option>100-500 employees</option>
+            <option>500-1,000 employees</option>
+            <option>1,000-5,000 employees</option>
+            <option>5,000+ employees</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Security Requirements</label>
+          <textarea placeholder="Describe your security needs..."></textarea>
+        </div>
+        <button type="submit" class="btn-cyber" style="width:100%;justify-content:center"><i class="fa-solid fa-paper-plane"></i> Request Enterprise Quote</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-copy">// 2026 ShieldGuard Security. All systems protected.</div>
+    <div class="footer-links">
+      <a href="about.html">About</a><a href="services.html">Services</a><a href="contact.html">Contact</a><a href="blog.html">Blog</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:0.1});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

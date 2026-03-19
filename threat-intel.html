@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Threat Intelligence — ShieldGuard Enterprise Cybersecurity</title>
+<meta name="description" content="ShieldGuard live threat intelligence dashboard: real-time global threat monitoring, attack analytics, and security feeds.">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#050a0e;--bg2:#0a1118;--bg3:#0f1a24;--green:#00ff88;--green-dim:#00cc6a;--green-dark:#003322;--cyan:#00e5ff;--red:#ff3355;--amber:#ffaa00;--text:#c8d6e5;--text-dim:#5a7a8a;--text-bright:#e8f0f8;--border:rgba(0,255,136,0.1);--border2:rgba(0,255,136,0.05);--glow:0 0 20px rgba(0,255,136,0.15)}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Rajdhani',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.6}
+body::after{content:'';position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px)}
+.cyber-grid{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(0,255,136,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,136,0.02) 1px,transparent 1px);background-size:40px 40px}
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:1rem 2rem;background:rgba(5,10,14,0.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+.nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{display:flex;align-items:center;gap:0.75rem;text-decoration:none}
+.nav-logo img{max-height:40px;width:auto}
+.nav-links{display:flex;align-items:center;gap:2rem;list-style:none}
+.nav-links a{color:var(--text-dim);text-decoration:none;font-size:0.85rem;font-weight:500;letter-spacing:1px;text-transform:uppercase;transition:color 0.3s}
+.nav-links a:hover,.nav-links a.active{color:var(--green)}
+.nav-cta{padding:0.6rem 1.5rem;border:1px solid var(--green);background:transparent;color:var(--green);font-family:'Rajdhani';font-weight:600;font-size:0.85rem;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all 0.3s;text-decoration:none}
+.nav-cta:hover{background:var(--green);color:var(--bg);box-shadow:var(--glow)}
+.mobile-toggle{display:none;background:none;border:none;color:var(--green);font-size:1.5rem;cursor:pointer}
+.mobile-menu{display:none;position:fixed;top:60px;left:0;right:0;background:rgba(5,10,14,0.98);border-bottom:1px solid var(--border);padding:2rem;z-index:999}
+.mobile-menu.active{display:block}
+.mobile-menu a{display:block;color:var(--text-dim);text-decoration:none;font-size:1rem;padding:0.75rem 0;border-bottom:1px solid var(--border2);text-transform:uppercase;letter-spacing:1px}
+section{position:relative;z-index:1}
+.section-pad{padding:6rem 2rem}
+.container{max-width:1200px;margin:0 auto}
+.section-label{font-family:'JetBrains Mono';font-size:0.7rem;color:var(--green);letter-spacing:3px;text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:0.75rem}
+.section-label::before{content:'//';color:var(--green-dim)}
+.section-title{font-family:'Orbitron';font-size:2.2rem;font-weight:700;color:var(--text-bright);text-transform:uppercase;letter-spacing:1px;margin-bottom:1rem}
+.text-center{text-align:center}.text-center .section-label{justify-content:center}
+.fade-up{opacity:0;transform:translateY(30px);transition:all 0.7s cubic-bezier(0.16,1,0.3,1)}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+
+.page-hero{padding:8rem 2rem 4rem;position:relative;z-index:1;border-bottom:1px solid var(--border)}
+.page-hero .container{max-width:1200px;margin:0 auto}
+.page-hero .hero-top-label{font-family:'JetBrains Mono';font-size:0.75rem;color:var(--green);letter-spacing:2px;text-transform:uppercase;margin-bottom:1.5rem;display:flex;align-items:center;gap:0.75rem}
+.page-hero .hero-top-label::before{content:'';width:30px;height:1px;background:var(--green)}
+.page-hero h1{font-family:'Orbitron';font-size:3rem;font-weight:800;color:var(--text-bright);text-transform:uppercase;letter-spacing:-1px;margin-bottom:1rem}
+.page-hero h1 .green{color:var(--green);text-shadow:0 0 30px rgba(0,255,136,0.3)}
+.page-hero p{font-size:1.1rem;color:var(--text-dim);max-width:600px;line-height:1.8}
+.page-hero .live-badge{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(255,51,85,0.1);border:1px solid rgba(255,51,85,0.3);padding:0.4rem 1rem;font-family:'JetBrains Mono';font-size:0.7rem;color:var(--red);letter-spacing:2px;margin-top:1rem}
+.page-hero .live-badge .blink{width:8px;height:8px;background:var(--red);border-radius:50%;animation:blink 1s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
+
+/* DASHBOARD STATS */
+.dash-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:3rem}
+.dash-stat{background:var(--bg2);border:1px solid var(--border);padding:2rem;text-align:center;position:relative;overflow:hidden;transition:all 0.3s}
+.dash-stat:hover{border-color:var(--green)}
+.dash-stat::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.dash-stat:nth-child(1)::before{background:var(--green)}
+.dash-stat:nth-child(2)::before{background:var(--cyan)}
+.dash-stat:nth-child(3)::before{background:var(--amber)}
+.dash-stat:nth-child(4)::before{background:var(--red)}
+.dash-stat .stat-label{font-family:'JetBrains Mono';font-size:0.65rem;color:var(--text-dim);letter-spacing:2px;text-transform:uppercase;margin-bottom:0.5rem}
+.dash-stat .stat-value{font-family:'Orbitron';font-size:2.5rem;font-weight:800;color:var(--text-bright)}
+.dash-stat .stat-change{font-family:'JetBrains Mono';font-size:0.7rem;margin-top:0.5rem}
+.dash-stat .stat-change.up{color:var(--red)}
+.dash-stat .stat-change.down{color:var(--green)}
+
+/* WORLD MAP */
+.world-map-container{background:var(--bg2);border:1px solid var(--border);margin-top:3rem;position:relative;overflow:hidden}
+.world-map-header{display:flex;justify-content:space-between;align-items:center;padding:1rem 1.5rem;border-bottom:1px solid var(--border);background:rgba(0,255,136,0.02)}
+.world-map-header h3{font-family:'JetBrains Mono';font-size:0.75rem;color:var(--green);letter-spacing:2px}
+.world-map-header .map-legend{display:flex;gap:1.5rem;font-family:'JetBrains Mono';font-size:0.65rem}
+.map-legend-item{display:flex;align-items:center;gap:0.5rem;color:var(--text-dim)}
+.map-legend-dot{width:8px;height:8px;border-radius:50%}
+.world-map-body{padding:2rem;position:relative;min-height:400px;display:flex;align-items:center;justify-content:center}
+.map-grid{display:grid;grid-template-columns:repeat(40,1fr);gap:3px;width:100%;max-width:900px}
+.map-cell{width:100%;aspect-ratio:1;background:rgba(0,255,136,0.03);border-radius:1px;transition:all 0.3s}
+.map-cell.land{background:rgba(0,255,136,0.08)}
+.map-cell.active{background:var(--green);animation:cellPulse 2s infinite;box-shadow:0 0 6px rgba(0,255,136,0.4)}
+.map-cell.threat{background:var(--red);animation:cellPulse 1s infinite;box-shadow:0 0 6px rgba(255,51,85,0.4)}
+.map-cell.warn{background:var(--amber);animation:cellPulse 1.5s infinite;box-shadow:0 0 6px rgba(255,170,0,0.4)}
+@keyframes cellPulse{0%,100%{opacity:1}50%{opacity:0.4}}
+.map-overlay-stats{position:absolute;bottom:1rem;right:1rem;background:rgba(5,10,14,0.9);border:1px solid var(--border);padding:1rem;font-family:'JetBrains Mono';font-size:0.7rem}
+.map-overlay-stats .mos-row{display:flex;justify-content:space-between;gap:2rem;padding:0.25rem 0;border-bottom:1px solid var(--border2)}
+.map-overlay-stats .mos-row:last-child{border:none}
+.map-overlay-stats .mos-label{color:var(--text-dim)}
+.map-overlay-stats .mos-val{color:var(--green);font-weight:600}
+
+/* THREAT FEED */
+.feed-container{background:var(--bg2);border:1px solid var(--border);margin-top:3rem;overflow:hidden}
+.feed-header{padding:1rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:rgba(0,255,136,0.02)}
+.feed-header h3{font-family:'JetBrains Mono';font-size:0.75rem;color:var(--green);letter-spacing:2px}
+.feed-header .feed-status{font-family:'JetBrains Mono';font-size:0.65rem;color:var(--green);display:flex;align-items:center;gap:0.5rem}
+.feed-header .feed-status .blink{width:6px;height:6px;background:var(--green);border-radius:50%;animation:blink 1s infinite}
+.feed-body{max-height:500px;overflow-y:auto}
+.feed-item{display:grid;grid-template-columns:auto 1fr auto auto;gap:1.5rem;align-items:center;padding:1rem 1.5rem;border-bottom:1px solid var(--border2);transition:background 0.3s;font-size:0.85rem}
+.feed-item:hover{background:rgba(0,255,136,0.02)}
+.feed-time{font-family:'JetBrains Mono';font-size:0.7rem;color:var(--text-dim);white-space:nowrap}
+.feed-desc{color:var(--text)}
+.feed-desc .feed-highlight{color:var(--text-bright);font-weight:600}
+.feed-source{font-family:'JetBrains Mono';font-size:0.65rem;color:var(--text-dim);white-space:nowrap}
+.severity-badge{font-family:'JetBrains Mono';font-size:0.6rem;padding:0.2rem 0.6rem;letter-spacing:1px;text-transform:uppercase;font-weight:600;white-space:nowrap}
+.severity-critical{background:rgba(255,51,85,0.15);color:var(--red);border:1px solid rgba(255,51,85,0.3)}
+.severity-high{background:rgba(255,170,0,0.1);color:var(--amber);border:1px solid rgba(255,170,0,0.2)}
+.severity-medium{background:rgba(0,229,255,0.1);color:var(--cyan);border:1px solid rgba(0,229,255,0.2)}
+.severity-low{background:rgba(0,255,136,0.1);color:var(--green);border:1px solid rgba(0,255,136,0.2)}
+
+/* ATTACK TYPES GRID */
+.attack-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
+.attack-card{background:var(--bg2);border:1px solid var(--border);padding:2rem;transition:all 0.4s;position:relative;overflow:hidden}
+.attack-card:hover{border-color:rgba(0,255,136,0.3)}
+.attack-card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem}
+.attack-card h4{font-family:'Orbitron';font-size:0.85rem;font-weight:600;color:var(--text-bright);text-transform:uppercase;letter-spacing:1px}
+.attack-card .attack-pct{font-family:'Orbitron';font-size:1.5rem;font-weight:700;color:var(--green)}
+.attack-bar-bg{width:100%;height:4px;background:var(--bg);margin-bottom:1rem;overflow:hidden}
+.attack-bar{height:100%;background:var(--green);transition:width 1.5s ease-out}
+.attack-bar.amber{background:var(--amber)}
+.attack-bar.red{background:var(--red)}
+.attack-bar.cyan{background:var(--cyan)}
+.attack-card p{font-size:0.85rem;color:var(--text-dim);line-height:1.6}
+.attack-card .attack-count{font-family:'JetBrains Mono';font-size:0.7rem;color:var(--text-dim);margin-top:0.75rem}
+.attack-card .attack-count span{color:var(--green);font-weight:600}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:2rem;position:relative;z-index:1}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.footer-copy{font-family:'JetBrains Mono';font-size:0.75rem;color:var(--text-dim)}
+.footer-links{display:flex;gap:1.5rem}
+.footer-links a{color:var(--text-dim);text-decoration:none;font-size:0.8rem;transition:color 0.3s;font-family:'JetBrains Mono'}
+.footer-links a:hover{color:var(--green)}
+
+@media(max-width:900px){
+  .page-hero h1{font-size:2rem}
+  .dash-stats{grid-template-columns:repeat(2,1fr)}
+  .attack-grid{grid-template-columns:1fr}
+  .feed-item{grid-template-columns:1fr;gap:0.5rem}
+  .nav-links{display:none}.mobile-toggle{display:block}
+}
+@media(max-width:600px){
+  .dash-stats{grid-template-columns:1fr}
+  .footer-inner{flex-direction:column;text-align:center}
+  .world-map-header{flex-direction:column;gap:0.5rem}
+}
+</style>
+</head>
+<body>
+<div class="cyber-grid"></div>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><img src="logo.png" alt="ShieldGuard"></a>
+    <ul class="nav-links">
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="threat-intel.html" class="active">Threat Intel</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="contact.html" class="nav-cta">Request Audit</a></li>
+    </ul>
+    <button class="mobile-toggle" onclick="document.querySelector('.mobile-menu').classList.toggle('active')"><i class="fa-solid fa-bars"></i></button>
+  </div>
+</nav>
+<div class="mobile-menu">
+  <a href="about.html">About</a><a href="services.html">Services</a><a href="pricing.html">Pricing</a><a href="threat-intel.html">Threat Intel</a><a href="blog.html">Blog</a><a href="contact.html">Contact</a>
+</div>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="hero-top-label">Threat Intelligence // Live Dashboard</div>
+    <h1>Global Threat<br><span class="green">Intelligence</span></h1>
+    <p>Real-time visibility into the global cyber threat landscape. Monitor attacks, track adversaries, and stay ahead of emerging threats.</p>
+    <div class="live-badge"><span class="blink"></span> LIVE DATA FEED - UPDATED EVERY 30 SECONDS</div>
+  </div>
+</section>
+
+<!-- DASHBOARD STATS -->
+<section class="section-pad">
+  <div class="container">
+    <div class="section-label">Real-Time Metrics</div>
+    <h2 class="section-title">Threat Overview</h2>
+    <div class="dash-stats fade-up">
+      <div class="dash-stat">
+        <div class="stat-label">Threats Blocked (24h)</div>
+        <div class="stat-value" id="cntThreats">0</div>
+        <div class="stat-change up"><i class="fa-solid fa-arrow-up"></i> +12.4% from yesterday</div>
+      </div>
+      <div class="dash-stat">
+        <div class="stat-label">Active Attacks</div>
+        <div class="stat-value" id="cntAttacks">0</div>
+        <div class="stat-change up"><i class="fa-solid fa-arrow-up"></i> +3 in last hour</div>
+      </div>
+      <div class="dash-stat">
+        <div class="stat-label">Malware Samples</div>
+        <div class="stat-value" id="cntMalware">0</div>
+        <div class="stat-change down"><i class="fa-solid fa-arrow-down"></i> -8.2% from last week</div>
+      </div>
+      <div class="dash-stat">
+        <div class="stat-label">Zero-Days Detected</div>
+        <div class="stat-value" id="cntZeroDay">0</div>
+        <div class="stat-change up"><i class="fa-solid fa-arrow-up"></i> 3 new this week</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORLD MAP -->
+<section class="section-pad" style="background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <div class="container">
+    <div class="fade-up">
+      <div class="section-label">Global Monitoring</div>
+      <h2 class="section-title">Attack Origin Map</h2>
+    </div>
+    <div class="world-map-container fade-up">
+      <div class="world-map-header">
+        <h3>GLOBAL THREAT MAP // REAL-TIME</h3>
+        <div class="map-legend">
+          <div class="map-legend-item"><div class="map-legend-dot" style="background:var(--green)"></div> SOC Node</div>
+          <div class="map-legend-item"><div class="map-legend-dot" style="background:var(--amber)"></div> Warning</div>
+          <div class="map-legend-item"><div class="map-legend-dot" style="background:var(--red)"></div> Active Threat</div>
+        </div>
+      </div>
+      <div class="world-map-body">
+        <div class="map-grid" id="worldMap"></div>
+        <div class="map-overlay-stats">
+          <div class="mos-row"><span class="mos-label">Active Nodes</span><span class="mos-val">12,408</span></div>
+          <div class="mos-row"><span class="mos-label">Threat Sources</span><span class="mos-val" style="color:var(--red)">847</span></div>
+          <div class="mos-row"><span class="mos-label">Countries</span><span class="mos-val">142</span></div>
+          <div class="mos-row"><span class="mos-label">Latency</span><span class="mos-val">0.3ms</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THREAT FEED -->
+<section class="section-pad">
+  <div class="container">
+    <div class="fade-up">
+      <div class="section-label">Live Feed</div>
+      <h2 class="section-title">Recent Threat Activity</h2>
+    </div>
+    <div class="feed-container fade-up">
+      <div class="feed-header">
+        <h3>THREAT_FEED.LOG</h3>
+        <div class="feed-status"><span class="blink"></span> STREAMING</div>
+      </div>
+      <div class="feed-body">
+        <div class="feed-item"><div class="feed-time">00:02:14</div><div class="feed-desc"><span class="feed-highlight">Ransomware variant</span> detected targeting healthcare sector - BlackCat v4.2 signature match</div><div class="severity-badge severity-critical">Critical</div><div class="feed-source">SOC-01</div></div>
+        <div class="feed-item"><div class="feed-time">00:05:38</div><div class="feed-desc">Brute force attack blocked on <span class="feed-highlight">SSH endpoint</span> - 12,847 attempts from 45.33.xx.xx</div><div class="severity-badge severity-high">High</div><div class="feed-source">SOC-02</div></div>
+        <div class="feed-item"><div class="feed-time">00:08:12</div><div class="feed-desc"><span class="feed-highlight">Phishing campaign</span> identified - spoofing major financial institution - 2,400 emails blocked</div><div class="severity-badge severity-high">High</div><div class="feed-source">SOC-03</div></div>
+        <div class="feed-item"><div class="feed-time">00:11:47</div><div class="feed-desc">Suspicious <span class="feed-highlight">DNS tunneling</span> activity detected from internal network segment 10.0.4.x</div><div class="severity-badge severity-medium">Medium</div><div class="feed-source">SOC-01</div></div>
+        <div class="feed-item"><div class="feed-time">00:14:22</div><div class="feed-desc"><span class="feed-highlight">Zero-day exploit</span> attempt on Apache Struts - CVE-2026-XXXX - patched and contained</div><div class="severity-badge severity-critical">Critical</div><div class="feed-source">SOC-05</div></div>
+        <div class="feed-item"><div class="feed-time">00:17:55</div><div class="feed-desc"><span class="feed-highlight">DDoS attack</span> mitigated - 847 Gbps volumetric attack on client infrastructure</div><div class="severity-badge severity-high">High</div><div class="feed-source">SOC-04</div></div>
+        <div class="feed-item"><div class="feed-time">00:21:08</div><div class="feed-desc">Anomalous <span class="feed-highlight">lateral movement</span> detected - contained to isolated network segment</div><div class="severity-badge severity-medium">Medium</div><div class="feed-source">SOC-02</div></div>
+        <div class="feed-item"><div class="feed-time">00:24:33</div><div class="feed-desc"><span class="feed-highlight">Cryptominer</span> script injection attempt on client web application - blocked at WAF</div><div class="severity-badge severity-low">Low</div><div class="feed-source">SOC-01</div></div>
+        <div class="feed-item"><div class="feed-time">00:28:17</div><div class="feed-desc">New <span class="feed-highlight">APT group</span> activity linked to state-sponsored actors - tracking initiated</div><div class="severity-badge severity-critical">Critical</div><div class="feed-source">SOC-06</div></div>
+        <div class="feed-item"><div class="feed-time">00:31:42</div><div class="feed-desc"><span class="feed-highlight">SQL injection</span> attempts on e-commerce platform - 347 requests blocked</div><div class="severity-badge severity-medium">Medium</div><div class="feed-source">SOC-03</div></div>
+        <div class="feed-item"><div class="feed-time">00:35:19</div><div class="feed-desc">Credential stuffing attack on <span class="feed-highlight">OAuth endpoint</span> - 89,000 attempts from botnet</div><div class="severity-badge severity-high">High</div><div class="feed-source">SOC-05</div></div>
+        <div class="feed-item"><div class="feed-time">00:38:54</div><div class="feed-desc"><span class="feed-highlight">Supply chain</span> compromise attempt detected in npm package - dependency blocked</div><div class="severity-badge severity-critical">Critical</div><div class="feed-source">SOC-07</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ATTACK TYPES -->
+<section class="section-pad" style="background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <div class="container">
+    <div class="text-center fade-up">
+      <div class="section-label">Attack Analytics</div>
+      <h2 class="section-title">Top Attack Vectors</h2>
+    </div>
+    <div class="attack-grid fade-up">
+      <div class="attack-card">
+        <div class="attack-card-header"><h4>Ransomware</h4><div class="attack-pct">34%</div></div>
+        <div class="attack-bar-bg"><div class="attack-bar red" style="width:0" data-width="34"></div></div>
+        <p>File-encrypting malware targeting enterprise data. BlackCat, LockBit, and Cl0p variants dominate.</p>
+        <div class="attack-count">Last 24h: <span>287,823</span> attempts blocked</div>
+      </div>
+      <div class="attack-card">
+        <div class="attack-card-header"><h4>Phishing</h4><div class="attack-pct">28%</div></div>
+        <div class="attack-bar-bg"><div class="attack-bar amber" style="width:0" data-width="28"></div></div>
+        <p>Social engineering attacks via email, SMS, and voice. Increasingly AI-generated content.</p>
+        <div class="attack-count">Last 24h: <span>236,844</span> emails blocked</div>
+      </div>
+      <div class="attack-card">
+        <div class="attack-card-header"><h4>DDoS</h4><div class="attack-pct">18%</div></div>
+        <div class="attack-bar-bg"><div class="attack-bar cyan" style="width:0" data-width="18"></div></div>
+        <p>Volumetric and application-layer distributed denial of service attacks on infrastructure.</p>
+        <div class="attack-count">Last 24h: <span>152,433</span> attacks mitigated</div>
+      </div>
+      <div class="attack-card">
+        <div class="attack-card-header"><h4>Zero-Day Exploits</h4><div class="attack-pct">8%</div></div>
+        <div class="attack-bar-bg"><div class="attack-bar red" style="width:0" data-width="8"></div></div>
+        <p>Previously unknown vulnerabilities exploited before patches are available.</p>
+        <div class="attack-count">Last 24h: <span>67,693</span> exploit attempts</div>
+      </div>
+      <div class="attack-card">
+        <div class="attack-card-header"><h4>Supply Chain</h4><div class="attack-pct">7%</div></div>
+        <div class="attack-bar-bg"><div class="attack-bar amber" style="width:0" data-width="7"></div></div>
+        <p>Attacks targeting software supply chains through compromised dependencies and updates.</p>
+        <div class="attack-count">Last 24h: <span>59,233</span> packages scanned</div>
+      </div>
+      <div class="attack-card">
+        <div class="attack-card-header"><h4>Insider Threats</h4><div class="attack-pct">5%</div></div>
+        <div class="attack-bar-bg"><div class="attack-bar" style="width:0" data-width="5"></div></div>
+        <p>Unauthorized access and data exfiltration by internal actors or compromised credentials.</p>
+        <div class="attack-count">Last 24h: <span>42,267</span> anomalies flagged</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-copy">// 2026 ShieldGuard Security. All systems protected.</div>
+    <div class="footer-links">
+      <a href="about.html">About</a><a href="services.html">Services</a><a href="contact.html">Contact</a><a href="blog.html">Blog</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Animated counters
+function animCount(el,target,dur){let s=0;const step=target/((dur/1000)*60);function u(){s+=step;if(s>=target){el.textContent=target.toLocaleString();return}el.textContent=Math.floor(s).toLocaleString();requestAnimationFrame(u)}u()}
+animCount(document.getElementById('cntThreats'),847293,2000);
+animCount(document.getElementById('cntAttacks'),1247,1500);
+animCount(document.getElementById('cntMalware'),34892,1800);
+animCount(document.getElementById('cntZeroDay'),7,800);
+
+// World map
+const mapEl=document.getElementById('worldMap');
+const landPattern=[0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,1,1,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,0,0,0,0,0,1,1,1,0,1,1,1,1,1,1,1,0,0,1,1,0,0,0,0,0,0,1,1,0,0,1,1,1,1,1,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+for(let i=0;i<240;i++){
+  const d=document.createElement('div');
+  d.className='map-cell';
+  if(i<landPattern.length&&landPattern[i])d.classList.add('land');
+  if(Math.random()<0.02)d.classList.add('active');
+  if(Math.random()<0.015)d.classList.add('threat');
+  if(Math.random()<0.01)d.classList.add('warn');
+  mapEl.appendChild(d)
+}
+// Animate random threat activity on map
+setInterval(()=>{
+  const cells=mapEl.querySelectorAll('.map-cell.land');
+  if(cells.length){
+    const r=cells[Math.floor(Math.random()*cells.length)];
+    r.classList.add('threat');
+    setTimeout(()=>r.classList.remove('threat'),2000)
+  }
+},3000);
+
+// Animate attack bars
+const barObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){
+  e.target.querySelectorAll('.attack-bar').forEach(b=>{b.style.width=b.dataset.width+'%'});
+  barObs.unobserve(e.target)}})},{threshold:0.1});
+document.querySelectorAll('.attack-grid').forEach(el=>barObs.observe(el));
+
+// Fade up
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:0.1});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

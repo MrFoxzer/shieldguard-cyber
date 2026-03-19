@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — ShieldGuard Enterprise Cybersecurity</title>
+<meta name="description" content="Contact ShieldGuard for enterprise cybersecurity solutions, report security incidents, or request a free security audit.">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#050a0e;--bg2:#0a1118;--bg3:#0f1a24;--green:#00ff88;--green-dim:#00cc6a;--green-dark:#003322;--cyan:#00e5ff;--red:#ff3355;--amber:#ffaa00;--text:#c8d6e5;--text-dim:#5a7a8a;--text-bright:#e8f0f8;--border:rgba(0,255,136,0.1);--border2:rgba(0,255,136,0.05);--glow:0 0 20px rgba(0,255,136,0.15)}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Rajdhani',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.6}
+body::after{content:'';position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px)}
+.cyber-grid{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(0,255,136,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,136,0.02) 1px,transparent 1px);background-size:40px 40px}
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:1rem 2rem;background:rgba(5,10,14,0.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+.nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{display:flex;align-items:center;gap:0.75rem;text-decoration:none}
+.nav-logo img{max-height:40px;width:auto}
+.nav-links{display:flex;align-items:center;gap:2rem;list-style:none}
+.nav-links a{color:var(--text-dim);text-decoration:none;font-size:0.85rem;font-weight:500;letter-spacing:1px;text-transform:uppercase;transition:color 0.3s}
+.nav-links a:hover,.nav-links a.active{color:var(--green)}
+.nav-cta{padding:0.6rem 1.5rem;border:1px solid var(--green);background:transparent;color:var(--green);font-family:'Rajdhani';font-weight:600;font-size:0.85rem;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all 0.3s;text-decoration:none}
+.nav-cta:hover{background:var(--green);color:var(--bg);box-shadow:var(--glow)}
+.mobile-toggle{display:none;background:none;border:none;color:var(--green);font-size:1.5rem;cursor:pointer}
+.mobile-menu{display:none;position:fixed;top:60px;left:0;right:0;background:rgba(5,10,14,0.98);border-bottom:1px solid var(--border);padding:2rem;z-index:999}
+.mobile-menu.active{display:block}
+.mobile-menu a{display:block;color:var(--text-dim);text-decoration:none;font-size:1rem;padding:0.75rem 0;border-bottom:1px solid var(--border2);text-transform:uppercase;letter-spacing:1px}
+section{position:relative;z-index:1}
+.section-pad{padding:6rem 2rem}
+.container{max-width:1200px;margin:0 auto}
+.section-label{font-family:'JetBrains Mono';font-size:0.7rem;color:var(--green);letter-spacing:3px;text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:0.75rem}
+.section-label::before{content:'//';color:var(--green-dim)}
+.section-title{font-family:'Orbitron';font-size:2.2rem;font-weight:700;color:var(--text-bright);text-transform:uppercase;letter-spacing:1px;margin-bottom:1rem}
+.section-sub{font-size:1rem;color:var(--text-dim);max-width:600px;line-height:1.8}
+.text-center{text-align:center}.text-center .section-sub{margin:0 auto}.text-center .section-label{justify-content:center}
+.btn-cyber{padding:0.9rem 2.5rem;border:1px solid var(--green);background:transparent;color:var(--green);font-family:'Rajdhani';font-weight:700;font-size:1rem;letter-spacing:2px;text-transform:uppercase;cursor:pointer;position:relative;transition:all 0.3s;text-decoration:none;display:inline-flex;align-items:center;gap:0.75rem}
+.btn-cyber::before{content:'';position:absolute;top:-1px;left:-1px;right:-1px;bottom:-1px;background:var(--green);opacity:0;transition:opacity 0.3s;z-index:-1}
+.btn-cyber:hover{color:var(--bg);box-shadow:var(--glow)}.btn-cyber:hover::before{opacity:1}
+.fade-up{opacity:0;transform:translateY(30px);transition:all 0.7s cubic-bezier(0.16,1,0.3,1)}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+
+.page-hero{padding:8rem 2rem 4rem;position:relative;z-index:1;border-bottom:1px solid var(--border)}
+.page-hero .container{max-width:1200px;margin:0 auto}
+.page-hero .hero-top-label{font-family:'JetBrains Mono';font-size:0.75rem;color:var(--green);letter-spacing:2px;text-transform:uppercase;margin-bottom:1.5rem;display:flex;align-items:center;gap:0.75rem}
+.page-hero .hero-top-label::before{content:'';width:30px;height:1px;background:var(--green)}
+.page-hero h1{font-family:'Orbitron';font-size:3rem;font-weight:800;color:var(--text-bright);text-transform:uppercase;letter-spacing:-1px;margin-bottom:1rem}
+.page-hero h1 .green{color:var(--green);text-shadow:0 0 30px rgba(0,255,136,0.3)}
+.page-hero p{font-size:1.1rem;color:var(--text-dim);max-width:600px;line-height:1.8}
+
+/* CONTACT GRID */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-top:3rem}
+
+/* TERMINAL FORM */
+.terminal-form{background:var(--bg2);border:1px solid var(--border);overflow:hidden}
+.terminal-form-header{background:rgba(0,255,136,0.03);border-bottom:1px solid var(--border);padding:0.75rem 1.5rem;display:flex;align-items:center;gap:0.75rem;font-family:'JetBrains Mono';font-size:0.7rem;color:var(--green);letter-spacing:1px}
+.terminal-form-header .dots{display:flex;gap:6px}
+.terminal-form-header .dots span{width:8px;height:8px;border-radius:50%;border:1px solid var(--border)}
+.terminal-form-header .dots span:nth-child(1){background:var(--red);border-color:var(--red)}
+.terminal-form-header .dots span:nth-child(2){background:var(--amber);border-color:var(--amber)}
+.terminal-form-header .dots span:nth-child(3){background:var(--green);border-color:var(--green)}
+.terminal-form-body{padding:2rem}
+.form-group{margin-bottom:1.25rem}
+.form-group label{display:block;font-family:'JetBrains Mono';font-size:0.65rem;color:var(--green);letter-spacing:2px;text-transform:uppercase;margin-bottom:0.4rem}
+.form-group label::before{content:'> '}
+.form-group input,.form-group select,.form-group textarea{width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:'JetBrains Mono';font-size:0.85rem;padding:0.75rem 1rem;transition:border-color 0.3s;outline:none}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--green);box-shadow:0 0 10px rgba(0,255,136,0.1)}
+.form-group input::placeholder,.form-group textarea::placeholder{color:var(--text-dim);font-family:'JetBrains Mono'}
+.form-group select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2300ff88' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center}
+.form-group select option{background:var(--bg2);color:var(--text)}
+.form-group textarea{resize:vertical;min-height:120px;font-family:'JetBrains Mono'}
+.form-output{font-family:'JetBrains Mono';font-size:0.75rem;color:var(--text-dim);padding:1rem;background:var(--bg);border:1px solid var(--border);margin-top:1rem}
+.form-output .cursor{animation:cursorBlink 0.7s infinite;display:inline-block;width:8px;height:14px;background:var(--green);vertical-align:middle;margin-left:4px}
+@keyframes cursorBlink{0%,100%{opacity:1}50%{opacity:0}}
+
+/* CONTACT INFO SIDE */
+.contact-info{display:grid;gap:1.5rem}
+.info-card{background:var(--bg2);border:1px solid var(--border);padding:1.5rem;transition:all 0.3s}
+.info-card:hover{border-color:rgba(0,255,136,0.3)}
+.info-card h4{font-family:'Orbitron';font-size:0.8rem;font-weight:600;color:var(--text-bright);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.75rem;display:flex;align-items:center;gap:0.75rem}
+.info-card h4 i{color:var(--green)}
+.info-card p{font-size:0.9rem;color:var(--text-dim);line-height:1.7}
+.info-card a{color:var(--green);text-decoration:none}
+.info-card a:hover{text-decoration:underline}
+
+/* INCIDENT REPORT */
+.incident-section{background:rgba(255,51,85,0.03);border-top:2px solid var(--red);border-bottom:2px solid var(--red)}
+.incident-box{background:var(--bg2);border:1px solid rgba(255,51,85,0.3);padding:0;overflow:hidden;margin-top:2rem}
+.incident-header{background:rgba(255,51,85,0.08);border-bottom:1px solid rgba(255,51,85,0.2);padding:1rem 1.5rem;display:flex;align-items:center;gap:1rem}
+.incident-header .alert-icon{color:var(--red);font-size:1.5rem;animation:alertPulse 1s infinite}
+@keyframes alertPulse{0%,100%{opacity:1}50%{opacity:0.5}}
+.incident-header h3{font-family:'Orbitron';font-size:1rem;font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:1px}
+.incident-header .priority{font-family:'JetBrains Mono';font-size:0.65rem;color:var(--red);border:1px solid var(--red);padding:0.2rem 0.6rem;letter-spacing:1px;margin-left:auto}
+.incident-body{padding:2rem}
+.incident-body p{color:var(--text-dim);margin-bottom:1.5rem;line-height:1.7}
+.incident-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.incident-form .form-group label{color:var(--red)}
+.incident-form .form-group label::before{content:'! '}
+.incident-form .form-group input,.incident-form .form-group textarea{border-color:rgba(255,51,85,0.2)}
+.incident-form .form-group input:focus,.incident-form .form-group textarea:focus{border-color:var(--red);box-shadow:0 0 10px rgba(255,51,85,0.1)}
+.btn-red{padding:0.9rem 2.5rem;border:1px solid var(--red);background:transparent;color:var(--red);font-family:'Rajdhani';font-weight:700;font-size:1rem;letter-spacing:2px;text-transform:uppercase;cursor:pointer;position:relative;transition:all 0.3s;display:inline-flex;align-items:center;gap:0.75rem;width:100%;justify-content:center}
+.btn-red:hover{background:var(--red);color:white;box-shadow:0 0 20px rgba(255,51,85,0.3)}
+.incident-info{padding:1.5rem;background:rgba(255,51,85,0.03);border:1px solid rgba(255,51,85,0.15)}
+.incident-info h4{font-family:'Orbitron';font-size:0.8rem;color:var(--red);text-transform:uppercase;letter-spacing:1px;margin-bottom:1rem}
+.incident-info .hotline{font-family:'Orbitron';font-size:1.5rem;color:var(--text-bright);font-weight:700;margin-bottom:0.5rem}
+.incident-info p{font-size:0.85rem;color:var(--text-dim);line-height:1.7}
+.incident-info .response-time{font-family:'JetBrains Mono';font-size:0.75rem;color:var(--red);margin-top:1rem;padding:0.5rem;border:1px dashed rgba(255,51,85,0.3);text-align:center}
+
+/* OFFICE LOCATIONS */
+.offices-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
+.office-card{background:var(--bg2);border:1px solid var(--border);padding:2rem;transition:all 0.3s;position:relative;overflow:hidden}
+.office-card:hover{border-color:var(--green)}
+.office-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:2px;background:var(--green);transform:scaleX(0);transition:transform 0.4s;transform-origin:left}
+.office-card:hover::before{transform:scaleX(1)}
+.office-card .office-type{font-family:'JetBrains Mono';font-size:0.6rem;color:var(--green);letter-spacing:2px;text-transform:uppercase;margin-bottom:0.75rem}
+.office-card h4{font-family:'Orbitron';font-size:0.9rem;font-weight:600;color:var(--text-bright);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.75rem}
+.office-card p{font-size:0.85rem;color:var(--text-dim);line-height:1.7}
+.office-card .office-status{font-family:'JetBrains Mono';font-size:0.65rem;margin-top:1rem;display:flex;align-items:center;gap:0.5rem}
+.office-card .office-status .dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:blink 1.5s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:2rem;position:relative;z-index:1}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.footer-copy{font-family:'JetBrains Mono';font-size:0.75rem;color:var(--text-dim)}
+.footer-links{display:flex;gap:1.5rem}
+.footer-links a{color:var(--text-dim);text-decoration:none;font-size:0.8rem;transition:color 0.3s;font-family:'JetBrains Mono'}
+.footer-links a:hover{color:var(--green)}
+
+@media(max-width:900px){
+  .page-hero h1{font-size:2rem}
+  .contact-grid{grid-template-columns:1fr}
+  .incident-grid{grid-template-columns:1fr}
+  .offices-grid{grid-template-columns:1fr}
+  .nav-links{display:none}.mobile-toggle{display:block}
+}
+@media(max-width:600px){
+  .footer-inner{flex-direction:column;text-align:center}
+}
+</style>
+</head>
+<body>
+<div class="cyber-grid"></div>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><img src="logo.png" alt="ShieldGuard"></a>
+    <ul class="nav-links">
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="threat-intel.html">Threat Intel</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+      <li><a href="contact.html" class="nav-cta">Request Audit</a></li>
+    </ul>
+    <button class="mobile-toggle" onclick="document.querySelector('.mobile-menu').classList.toggle('active')"><i class="fa-solid fa-bars"></i></button>
+  </div>
+</nav>
+<div class="mobile-menu">
+  <a href="about.html">About</a><a href="services.html">Services</a><a href="pricing.html">Pricing</a><a href="threat-intel.html">Threat Intel</a><a href="blog.html">Blog</a><a href="contact.html">Contact</a>
+</div>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="hero-top-label">Communications // Secure Channel</div>
+    <h1>Initiate<br><span class="green">Contact</span></h1>
+    <p>Open a secure communication channel with our security team. Whether you need a consultation, audit, or emergency response, we are standing by.</p>
+  </div>
+</section>
+
+<!-- CONTACT FORM + INFO -->
+<section class="section-pad">
+  <div class="container">
+    <div class="section-label">General Inquiry</div>
+    <h2 class="section-title">Secure Transmission</h2>
+    <div class="contact-grid fade-up">
+      <div class="terminal-form">
+        <div class="terminal-form-header">
+          <div class="dots"><span></span><span></span><span></span></div>
+          secure_contact@shieldguard.sys
+        </div>
+        <div class="terminal-form-body">
+          <form id="contactForm" onsubmit="event.preventDefault();document.getElementById('formOutput').innerHTML='<span style=color:var(--green)>[SUCCESS]</span> Message encrypted and transmitted. Awaiting acknowledgment...<span class=cursor></span>';document.getElementById('formOutput').style.display='block'">
+            <div class="form-group">
+              <label>Full Name</label>
+              <input type="text" placeholder="Enter your name..." required>
+            </div>
+            <div class="form-group">
+              <label>Email Address</label>
+              <input type="email" placeholder="your@email.com" required>
+            </div>
+            <div class="form-group">
+              <label>Organization</label>
+              <input type="text" placeholder="Company name...">
+            </div>
+            <div class="form-group">
+              <label>Inquiry Type</label>
+              <select required>
+                <option value="">Select type...</option>
+                <option>Security Audit Request</option>
+                <option>Service Inquiry</option>
+                <option>Partnership</option>
+                <option>Pricing Question</option>
+                <option>General Question</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Message</label>
+              <textarea placeholder="Describe your security needs..." required></textarea>
+            </div>
+            <button type="submit" class="btn-cyber" style="width:100%;justify-content:center"><i class="fa-solid fa-paper-plane"></i> Transmit Message</button>
+          </form>
+          <div class="form-output" id="formOutput" style="display:none">
+            <span style="color:var(--green)">[READY]</span> Awaiting transmission...<span class="cursor"></span>
+          </div>
+        </div>
+      </div>
+      <div class="contact-info">
+        <div class="info-card">
+          <h4><i class="fa-solid fa-envelope"></i> Email</h4>
+          <p><a href="mailto:security@shieldguard.com">security@shieldguard.com</a><br>
+          <a href="mailto:sales@shieldguard.com">sales@shieldguard.com</a></p>
+        </div>
+        <div class="info-card">
+          <h4><i class="fa-solid fa-phone"></i> Phone</h4>
+          <p>General: +1 (888) 742-4353<br>
+          Sales: +1 (888) 742-4354<br>
+          <span style="font-family:'JetBrains Mono';font-size:0.7rem;color:var(--green)">Mon-Fri 8AM-8PM EST</span></p>
+        </div>
+        <div class="info-card">
+          <h4><i class="fa-solid fa-clock"></i> Response Time</h4>
+          <p>General inquiries: Within 24 hours<br>
+          Audit requests: Within 4 hours<br>
+          Emergency: Within 15 minutes</p>
+        </div>
+        <div class="info-card">
+          <h4><i class="fa-solid fa-lock"></i> Secure Channels</h4>
+          <p>PGP Key available on request<br>
+          Signal: @ShieldGuardSec<br>
+          <span style="font-family:'JetBrains Mono';font-size:0.7rem;color:var(--green)">End-to-end encrypted</span></p>
+        </div>
+        <div class="info-card">
+          <h4><i class="fa-brands fa-linkedin"></i> Connect</h4>
+          <p>LinkedIn: /shieldguard<br>
+          Twitter/X: @ShieldGuardSec<br>
+          GitHub: /shieldguard-security</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INCIDENT REPORT -->
+<section class="section-pad incident-section">
+  <div class="container">
+    <div class="fade-up">
+      <div class="section-label" style="color:var(--red)">Emergency Response</div>
+      <h2 class="section-title" style="color:var(--red)">Report an Incident</h2>
+      <p class="section-sub">If you are experiencing an active security breach, data exfiltration, or ransomware attack, use our emergency channel immediately.</p>
+    </div>
+    <div class="incident-box fade-up">
+      <div class="incident-header">
+        <div class="alert-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+        <h3>Emergency Incident Report</h3>
+        <div class="priority">PRIORITY: CRITICAL</div>
+      </div>
+      <div class="incident-body">
+        <p>For active security incidents requiring immediate response, fill out this form or call our 24/7 emergency hotline. Our incident response team will be deployed within 15 minutes.</p>
+        <div class="incident-grid">
+          <form class="incident-form" onsubmit="event.preventDefault();alert('INCIDENT REPORT TRANSMITTED. Our IR team has been notified. Expect contact within 15 minutes.')">
+            <div class="form-group">
+              <label>Organization Name</label>
+              <input type="text" placeholder="Your organization..." required>
+            </div>
+            <div class="form-group">
+              <label>Contact Name</label>
+              <input type="text" placeholder="Primary contact..." required>
+            </div>
+            <div class="form-group">
+              <label>Emergency Phone</label>
+              <input type="tel" placeholder="Direct phone number..." required>
+            </div>
+            <div class="form-group">
+              <label>Incident Type</label>
+              <select required style="border-color:rgba(255,51,85,0.2)">
+                <option value="">Select incident type...</option>
+                <option>Ransomware Attack</option>
+                <option>Data Breach / Exfiltration</option>
+                <option>DDoS Attack</option>
+                <option>Unauthorized Access</option>
+                <option>Malware / Virus Outbreak</option>
+                <option>Insider Threat</option>
+                <option>Phishing Campaign</option>
+                <option>Other / Unknown</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Incident Description</label>
+              <textarea placeholder="Describe the incident, timeline, and affected systems..." required style="border-color:rgba(255,51,85,0.2)"></textarea>
+            </div>
+            <button type="submit" class="btn-red"><i class="fa-solid fa-triangle-exclamation"></i> Submit Incident Report</button>
+          </form>
+          <div>
+            <div class="incident-info">
+              <h4>24/7 Emergency Hotline</h4>
+              <div class="hotline">1-800-SHIELD-1</div>
+              <p>Our incident response team is available 24/7/365. All calls are encrypted and logged for chain of custody.</p>
+              <div class="response-time"><i class="fa-solid fa-clock" style="margin-right:0.5rem"></i> GUARANTEED RESPONSE: &lt; 15 MINUTES</div>
+            </div>
+            <div class="incident-info" style="margin-top:1.5rem">
+              <h4>What to Do During an Incident</h4>
+              <p style="font-family:'JetBrains Mono';font-size:0.75rem;line-height:2">
+                <span style="color:var(--red)">01.</span> Do NOT shut down affected systems<br>
+                <span style="color:var(--red)">02.</span> Isolate compromised networks if possible<br>
+                <span style="color:var(--red)">03.</span> Document everything you observe<br>
+                <span style="color:var(--red)">04.</span> Preserve all logs and evidence<br>
+                <span style="color:var(--red)">05.</span> Call our hotline immediately<br>
+                <span style="color:var(--red)">06.</span> Do NOT communicate over compromised channels
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OFFICE LOCATIONS -->
+<section class="section-pad">
+  <div class="container">
+    <div class="text-center fade-up">
+      <div class="section-label">Global Presence</div>
+      <h2 class="section-title">SOC Locations</h2>
+      <p class="section-sub">Our Security Operations Centers span the globe, providing follow-the-sun coverage across all time zones.</p>
+    </div>
+    <div class="offices-grid fade-up">
+      <div class="office-card">
+        <div class="office-type">// HQ & SOC-01</div>
+        <h4>San Francisco, CA</h4>
+        <p>123 Cyber Drive, Suite 400<br>San Francisco, CA 94105<br>United States</p>
+        <div class="office-status"><span class="dot"></span> <span style="color:var(--green);font-family:'JetBrains Mono'">OPERATIONAL</span></div>
+      </div>
+      <div class="office-card">
+        <div class="office-type">// SOC-02</div>
+        <h4>Ashburn, VA</h4>
+        <p>456 Defense Ave<br>Ashburn, VA 20147<br>United States</p>
+        <div class="office-status"><span class="dot"></span> <span style="color:var(--green);font-family:'JetBrains Mono'">OPERATIONAL</span></div>
+      </div>
+      <div class="office-card">
+        <div class="office-type">// SOC-03 / EU HQ</div>
+        <h4>London, UK</h4>
+        <p>78 Canary Wharf Tower<br>London E14 5AB<br>United Kingdom</p>
+        <div class="office-status"><span class="dot"></span> <span style="color:var(--green);font-family:'JetBrains Mono'">OPERATIONAL</span></div>
+      </div>
+      <div class="office-card">
+        <div class="office-type">// SOC-04</div>
+        <h4>Frankfurt, DE</h4>
+        <p>Mainzer Landstrasse 42<br>60325 Frankfurt<br>Germany</p>
+        <div class="office-status"><span class="dot"></span> <span style="color:var(--green);font-family:'JetBrains Mono'">OPERATIONAL</span></div>
+      </div>
+      <div class="office-card">
+        <div class="office-type">// SOC-05 / APAC HQ</div>
+        <h4>Singapore</h4>
+        <p>8 Marina View, #32-01<br>Asia Square Tower 1<br>Singapore 018960</p>
+        <div class="office-status"><span class="dot"></span> <span style="color:var(--green);font-family:'JetBrains Mono'">OPERATIONAL</span></div>
+      </div>
+      <div class="office-card">
+        <div class="office-type">// SOC-06 & SOC-07</div>
+        <h4>Sydney & Tokyo</h4>
+        <p>Sydney: 200 George St, NSW<br>Tokyo: 1-6-1 Roppongi<br>Minato-ku, Tokyo</p>
+        <div class="office-status"><span class="dot"></span> <span style="color:var(--green);font-family:'JetBrains Mono'">OPERATIONAL</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-copy">// 2026 ShieldGuard Security. All systems protected.</div>
+    <div class="footer-links">
+      <a href="about.html">About</a><a href="services.html">Services</a><a href="contact.html">Contact</a><a href="blog.html">Blog</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:0.1});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
